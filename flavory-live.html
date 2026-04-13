@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flavory Live</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #ba2a2c;
+    --black: #000000;
+    --white: #ffffff;
+    --amber: #e98c27;
+    --mint: #a2dade;
+    --pink: #e5cfcc;
+    --brown: #85431e;
+    --bg: #f9f6f4;
+    --gray: #666;
+    --light: #f0ebe8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    color: var(--black);
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; min-height: 100vh; padding: 20px; }
+  .screen.active { display: flex; flex-direction: column; }
+
+  /* ── HEADER ── */
+  .app-header {
+    background: var(--black);
+    color: var(--white);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo-mark {
+    width: 32px; height: 32px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    color: white;
+    flex-shrink: 0;
+  }
+  .logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+  }
+  .logo-text span { color: var(--red); }
+  .badge {
+    margin-left: auto;
+    background: var(--red);
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: var(--black);
+  }
+  .card-title.red { color: var(--red); }
+
+  /* ── FORMS ── */
+  label {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray);
+    margin-bottom: 6px;
+  }
+  input[type="text"], input[type="number"], input[type="password"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0d8d4;
+    border-radius: 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    background: white;
+    margin-bottom: 14px;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  input:focus { border-color: var(--red); }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    letter-spacing: 0.3px;
+  }
+  .btn-primary {
+    background: var(--red);
+    color: white;
+  }
+  .btn-primary:hover { background: #9e2324; transform: translateY(-1px); }
+  .btn-secondary {
+    background: var(--black);
+    color: white;
+  }
+  .btn-ghost {
+    background: var(--light);
+    color: var(--black);
+  }
+  .btn-ghost:hover { background: #e0d8d4; }
+  .btn-amber {
+    background: var(--amber);
+    color: white;
+  }
+  .btn-sm {
+    width: auto;
+    padding: 8px 16px;
+    font-size: 13px;
+    display: inline-block;
+  }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .btn-row { display: flex; gap: 10px; }
+  .btn-row .btn { flex: 1; }
+
+  /* ── ROLE PICKER ── */
+  .role-picker {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .role-card {
+    background: white;
+    border: 2px solid #e0d8d4;
+    border-radius: 16px;
+    padding: 24px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .role-card:hover { border-color: var(--red); transform: translateY(-2px); }
+  .role-card .icon { font-size: 36px; margin-bottom: 10px; }
+  .role-card .role-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--black);
+    color: white;
+    border-radius: 20px;
+    padding: 32px 24px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '🍷';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 64px;
+    opacity: 0.15;
+  }
+  .hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .hero h1 span { color: var(--red); }
+  .hero p {
+    font-size: 14px;
+    opacity: 0.7;
+    line-height: 1.5;
+  }
+
+  /* ── LOBBY ── */
+  .player-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+  }
+  .player-chip {
+    background: var(--light);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  .player-chip .pname {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .player-chip .pnick {
+    font-size: 11px;
+    color: var(--red);
+    font-style: italic;
+  }
+  .player-count {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--red);
+    text-align: center;
+    line-height: 1;
+  }
+  .player-count-label {
+    text-align: center;
+    font-size: 12px;
+    color: var(--gray);
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  /* ── OPENING QUESTION ── */
+  .big-question {
+    background: var(--red);
+    color: white;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .big-question p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .big-question .answer-reveal {
+    margin-top: 16px;
+    font-size: 28px;
+    font-weight: 800;
+    background: white;
+    color: var(--red);
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  /* ── SCOREBORD ── */
+  .podium {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 8px;
+    margin: 20px 0;
+    height: 140px;
+  }
+  .podium-item {
+    flex: 1;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 12px 8px;
+    position: relative;
+  }
+  .podium-item.p1 { background: var(--amber); height: 140px; }
+  .podium-item.p2 { background: var(--pink); height: 100px; }
+  .podium-item.p3 { background: var(--mint); height: 80px; }
+  .podium-rank {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    color: white;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .podium-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    text-align: center;
+    color: rgba(0,0,0,0.7);
+    margin-top: 4px;
+  }
+  .podium-score {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--black);
+  }
+
+  .score-list { list-style: none; }
+  .score-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--light);
+  }
+  .score-item:last-child { border-bottom: none; }
+  .score-rank {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    width: 28px;
+    text-align: center;
+    color: var(--gray);
+  }
+  .score-name { flex: 1; font-size: 14px; }
+  .score-name .nick { color: var(--red); font-size: 12px; font-style: italic; }
+  .score-pts {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  /* ── QUIZ ── */
+  .question-box {
+    background: var(--black);
+    color: white;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .question-nr {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+  .question-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.4;
+  }
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .opt-btn {
+    background: white;
+    border: 2px solid #e0d8d4;
+    border-radius: 12px;
+    padding: 14px 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .opt-btn:hover:not(:disabled) { border-color: var(--red); background: #fdf5f5; }
+  .opt-btn.selected { background: var(--red); color: white; border-color: var(--red); }
+  .opt-btn.correct { background: #2a9d2a; color: white; border-color: #2a9d2a; }
+  .opt-btn.wrong { background: #e0d8d4; color: var(--gray); border-color: #e0d8d4; }
+  .opt-btn:disabled { cursor: default; }
+
+  /* ── WIJN OORDEEL ── */
+  .wine-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .wine-nr {
+    width: 44px; height: 44px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: white;
+    flex-shrink: 0;
+  }
+  .wine-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.2;
+  }
+  .wine-sub { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+  .rating-display {
+    text-align: center;
+    margin: 20px 0;
+  }
+  .rating-number {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 64px;
+    color: var(--red);
+    line-height: 1;
+  }
+  .rating-label { font-size: 12px; color: var(--gray); margin-top: 4px; }
+
+  input[type="range"] {
+    width: 100%;
+    height: 6px;
+    -webkit-appearance: none;
+    background: linear-gradient(to right, var(--red) 0%, var(--red) 50%, #e0d8d4 50%, #e0d8d4 100%);
+    border-radius: 3px;
+    outline: none;
+    margin: 10px 0 20px;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--red);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(186,42,44,0.4);
+  }
+
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .kw-btn {
+    padding: 8px 14px;
+    border: 2px solid #e0d8d4;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    background: white;
+    transition: all 0.15s;
+  }
+  .kw-btn.active {
+    background: var(--black);
+    color: white;
+    border-color: var(--black);
+  }
+
+  /* ── SAMENVATTING / PDF ── */
+  .summary-header {
+    background: var(--black);
+    color: white;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .summary-header h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+  .summary-header .nick { color: var(--red); font-style: italic; }
+  .final-score {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 48px;
+    color: var(--amber);
+    line-height: 1;
+    margin-top: 10px;
+  }
+  .final-label { font-size: 12px; opacity: 0.6; }
+
+  .wine-recap {
+    border-left: 4px solid var(--red);
+    padding-left: 16px;
+    margin-bottom: 16px;
+  }
+  .wine-recap-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .wine-recap-score {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    color: var(--red);
+    line-height: 1;
+  }
+  .wine-recap-kw {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 6px;
+  }
+  .kw-tag {
+    background: var(--light);
+    border-radius: 12px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+  }
+  .wine-fiche {
+    background: var(--light);
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.5;
+  }
+  .wine-fiche strong { color: var(--black); font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* ── NICKNAME GENERATOR ── */
+  .nick-result {
+    background: var(--pink);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin: 10px 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--black);
+    text-align: center;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── HOST CONTROLS ── */
+  .host-panel {
+    background: var(--black);
+    color: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .host-panel h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray);
+    margin: 20px 0 10px;
+  }
+
+  /* ── STATUS ── */
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--light);
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #2a9d2a; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:0.4 } }
+
+  /* ── TIMER ── */
+  .timer-ring {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: conic-gradient(var(--red) 0deg, #e0d8d4 0deg);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+    position: relative;
+  }
+  .timer-inner {
+    width: 64px; height: 64px;
+    background: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+  }
+
+  /* ── LOADING ── */
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px;
+    color: var(--gray);
+    font-size: 14px;
+  }
+  .spinner {
+    width: 20px; height: 20px;
+    border: 2px solid #e0d8d4;
+    border-top-color: var(--red);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── PRINT / PDF ── */
+  @media print {
+    .no-print { display: none !important; }
+    body { background: white; }
+    .screen { min-height: auto; }
+    .card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+    .btn { display: none; }
+  }
+
+  /* ── UTIL ── */
+  .mt16 { margin-top: 16px; }
+  .mt8 { margin-top: 8px; }
+  .mb8 { margin-bottom: 8px; }
+  .center { text-align: center; }
+  .red { color: var(--red); }
+  .gray { color: var(--gray); }
+  .small { font-size: 12px; }
+
+  /* ── ANSWER LIST (opening vraag host) ── */
+  .answer-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    background: var(--light);
+    font-size: 13px;
+  }
+  .answer-item.winner { background: var(--amber); font-weight: 700; }
+  .ans-name { font-family: 'Montserrat', sans-serif; font-weight: 600; min-width: 80px; }
+  .ans-val { flex: 1; }
+  .ans-diff { font-family: 'Montserrat', sans-serif; font-size: 11px; color: var(--gray); }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════ SCREENS ════════════════════════════════════ -->
+
+<!-- SCREEN: HOME -->
+<div id="screen-home" class="screen active">
+  <header class="app-header">
+    <div class="logo-mark">f</div>
+    <div class="logo-text">flavory <span>live</span></div>
+    <div class="badge">Live</div>
+  </header>
+  <div style="padding:20px; flex:1;">
+    <div class="hero">
+      <h1>Welkom bij<br><span>Flavory Live</span></h1>
+      <p>Een interactieve wijnavond.<br>Proef, beoordeel, win.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Hoe wil je deelnemen?</div>
+      <div class="role-picker">
+        <div class="role-card" onclick="goTo('screen-player-join')">
+          <div class="icon">🙋</div>
+          <div class="role-name">Deelnemer</div>
+        </div>
+        <div class="role-card" onclick="goTo('screen-host-login')">
+          <div class="icon">🎙️</div>
+          <div class="role-name">Host</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN: PLAYER JOIN -->
+<div id="screen-player-join" class="screen">
+  <header class="app-header">
+    <div class="logo-mark">f</div>
+    <div class="logo-text">flavory <span>live</span></div>
+  </header>
+  <div style="padding:20px; flex:1;">
+    <div class="card">
+      <div class="card-title">📝 Jouw naam & bijnaam</div>
+      <label>Voornaam</label>
+      <input type="text" id="p-name" placeholder="bijv. Sofie" maxlength="20">
+      <label>Kies een bijnaam</label>
+      <input type="text" id="p-nick" placeholder="bijv. De Pinot Grigio Queen" maxlength="30">
+      <button class="btn btn-ghost btn-sm" style="width:100%;margin-bottom:10px;" onclick="generateNickname()">🤖 Genereer AI-bijnaam</button>
+      <div class="nick-result" id="nick-result" style="display:none;"></div>
+      <label style="margin-top:8px;">Sessiecode (van de host)</label>
+      <input type="text" id="p-session" placeholder="bijv. VINO" maxlength="10" style="text-transform:uppercase;">
+      <button class="btn btn-primary" onclick="joinSession()">Deelnemen →</button>
+      <button class="btn btn-ghost mt8" onclick="goTo('screen-home')">← Terug</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN: PLAYER LOBBY -->
+<div id="screen-player-lobby" class="screen">
+  <header class="app-header">
+    <div class="logo-mark">f</div>
+    <div class="logo-text">flavory <span>live</span></div>
+    <div class="badge" id="player-badge-name"></div>
+  </header>
+  <div style="padding:20px; flex:1;">
+    <div class="card center">
+      <div style="font-size:48px;margin-bottom:8px;">🍷</div>
+      <div class="card-title">Je bent erbij!</div>
+      <p style="color:var(--gray);font-size:14px;line-height:1.5;">Wacht op de host om de avond te starten.<br>Houd je telefoon bij de hand.</p>
+      <div class="status-pill mt16">
+        <div class="dot"></div> Wachten op start...
+      </div>
+    </div>
+    <div class="card" id="player-waiting-box">
+      <div class="card-title">Anderen zijn er ook al:</div>
+      <div id="player-lobby-list" class="player-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN: HOST LOGIN -->
+<div id="screen-host-login" class="screen">
+  <header class="app-header">
+    <div class="logo-mark">f</div>
+    <div class="logo-text">flavory <span>live</span></div>
+    <div class="badge">Host</div>
+  </header>
+  <div style="padding:20px; flex:1;">
+    <div class="card">
+      <div class="card-title">🎙️ Host inloggen</div>
+      <label>PIN</label>
+      <input type="password" id="host-pin" placeholder="••••">
+      <label>Sessiecode (zichtbaar voor deelnemers)</label>
+      <input type="text" id="host-session" placeholder="bijv. VINO" maxlength="10" style="text-transform:uppercase;">
+      <button class="btn btn-primary" onclick="hostLogin()">Start sessie →</button>
+      <button class="btn btn-ghost mt8" onclick="goTo('screen-home')">← Terug</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN: HOST LOBBY -->
+<div id="screen-host-lobby" class="screen">
+  <header class="app-header">
+    <div class="logo-mark">f</div>
+    <div class="logo-text">flavory <span>live</span></div>
+    <div class="badge">Host</div>
+  </header>
+  <div style="padding:20px; flex:1;">
+    <div class="host-panel">
+      <h3>🎙️ Host Dashboard</h3>
+      <div class="player-count" id="lobby-count">0</div>
+      <div class="player-count-label">Deelnemers ingelogd</div>
+      <p style="font-size:13px;opacity:0.7;text-align:center;">Sessiecode: <strong style="color:var(--amber);font-size:18px;" id="lobby-session-display"></strong></p>
+    </div>
+    <div class="card">
+      <div class="card-title">Wie is er?</div>
+      <div id="lobby-player-grid" class="player-grid"></div>
+    </div>
+    <button class="btn btn-primary" onclick="startOpeningQuestion()" id="btn-start-opening">🏁 Start openingsvraag</button>
+  </div>
+</div>
+
+<!-- SCREEN: HOST OPENING VRAAG -->
+<div id="screen-host-opening" class="screen">
+  <header class="app-header">
+    <div class="logo-mark">f</div>
+    <div class="logo-text">flavory <span>live</span></div>
+    <div class="badge">Host</div>
+  </header>
+  <div style="padding:20px; flex:1;">
+    <div class="host-panel">
+      <h3>📢 Openingsvraag</h3>
+      <p style="font-size:13px;opacity:0.8;">Stel de vraag hardop. Dichtstbij het juiste antwoord wint en mag als eerste kiezen waar ze zitten.</p>
+    </div>
+    <div class="card">
+      <div class="big-question">
+        <p id="opening-q-text"></p>
+        <div class="answer-reveal" id="opening-answer-reveal" style="display:none;"></div>
+      </div>
+      <label>Correct antwoord (invoeren om rangschikking te tonen)</label>
+      <input type="number" id="host-correct-answer" placeholder="bijv. 3200">
+      <button class="btn btn-primary" onclick="revealOpeningRanking()">Toon rangschikking</button>
+    </div>
+    <div class="card" id="opening-ranking-card" style="display:none;">
+      <div class="card-title red">🏆 Startvolgorde</div>
+      <div id="opening-ranking-list"></div>
+      <button class="btn btn-secondary mt16" onclick="startQuiz()">▶ Start quiz</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN: PLAYER OPENING VRAAG -->
+<div id="screen-player-opening" class="screen">
+  <header class="app-header">
+    <div class="logo-mark">f</div>
+    <div class="logo-text">flavory <span>live</span></div>
+  </header>
+  <div style="padding:20px; flex:1;">
+    <div class="card">
+      <div class="card-title red">🎯 Openingsvraag</div>
+      <div class="big-question" id="player-opening-q"></div>
+      <label>Jouw antwoord</label>
+      <input type="number" id="player-opening-answer" placeholder="Typ je getal">
+      <button class="btn btn-primary" onclick="submitOpeningAnswer()">Verstuur →</button>
+    </div>
+    <div class="card" id="player-opening-wait" style="display:none;">
+      <div class="loading"><div class="spinner"></div> Wachten op de host...</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN: HOST QUIZ -->
+<div id="screen-host-quiz" class="screen">
+  <header class="app-header">
+    <div class="logo-mark">f</div>
+    <div class="logo-text">flavory <span>live</span></div>
+    <div class="badge">Host</div>
+  </header>
+  <div style="padding:20px; flex:1;">
+    <div class="host-panel">
+      <h3>🧠 Quiz - Vraag <span id="h-q-nr">1</span> / <span id="h-q-total">10</span></h3>
+      <div id="h-question-text" style="font-weight:700;font-size:18px;line-height:1.4;"></div>
+      <div style="margin-top:12px;font-size:13px;opacity:0.7;" id="h-answers-count">Antwoorden: 0 / 0</div>
+    </div>
+    <div class="card">
+      <div class="btn-row">
+        <button class="btn btn-amber" onclick="revealAnswer()">✅ Toon antwoord</button>
+        <button class="btn btn-primary" onclick="nextQuestion()">Volgende →</button>
+      </div>
+    </div>
+    <div class="card" id="h-answer-reveal-card" style="display:none;">
+      <div class="card-title">Correct antwoord:</div>
+      <div style="font-family:'Montserrat',sans-serif;font-size:24px;font-weight:800;color:var(--red);" id="h-correct-ans"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Live top 3:</div>
+      <div id="h-mini-leaderboard"></div>
+    </div>
+    <button class="btn btn-secondary mt16" onclick="showHostScoreboard()">🏆 Toon volledig scorebord</button>
+  </div>
+</div>
+
+<!-- SCREEN: PLAYER QUIZ -->
+<div id="screen-player-quiz" class="screen">
+  <header class="app-header">
+    <div class="logo-mark">f</div>
+    <div class="logo-text">flavory <span>live</span></div>
+    <div class="badge" id="player-score-badge">0 pts</div>
+  </header>
+  <div style="padding:20px; flex:1;">
+    <div id="p-question-box">
+      <div class="question-box">
+        <div class="question-nr">Vraag <span id="p-q-nr">1</span></div>
+        <div class="question-text" id="p-question-text"></div>
+      </div>
+      <div class="options-grid" id="p-options"></div>
+      <div class="card center mt16" id="p-answer-feedback" style="display:none;">
+        <div id="p-feedback-text" style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:16px;"></div>
+      </div>
+    </div>
+    <div class="card center" id="p-waiting-next" style="display:none;">
+      <div class="loading"><div class="spinner"></div> Wachten op volgende vraag...</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN: SCOREBORD (gedeeld) -->
+<div id="screen-scoreboard" class="screen">
+  <header class="app-header">
+    <div class="logo-mark">f</div>
+    <div class="logo-text">flavory <span>live</span></div>
+    <div class="badge">🏆</div>
+  </header>
+  <div style="padding:20px; flex:1;">
+    <div class="card">
+      <div class="card-title red center">🏆 Scorebord</div>
+      <div class="podium" id="podium"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Alle deelnemers</div>
+      <ul class="score-list" id="full-scorelist"></ul>
+    </div>
+    <div id="host-scoreboard-controls" style="display:none;">
+      <button class="btn btn-primary" onclick="nextAfterScoreboard()">Volgende →</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN: HOST WIJN OORDEEL STARTEN -->
+<div id="screen-host-wine-intro" class="screen">
+  <header class="app-header">
+    <div class="logo-mark">f</div>
+    <div class="logo-text">flavory <span>live</span></div>
+    <div class="badge">Host</div>
+  </header>
+  <div style="padding:20px; flex:1;">
+    <div class="host-panel">
+      <h3>🍷 Wijnbeoordeling</h3>
+      <p style="font-size:13px;opacity:0.8;">Vertel het verhaal van de wijn. Stuur dan het beoordelingsscherm naar de deelnemers.</p>
+    </div>
+    <div class="card" id="wine-intro-card">
+      <div class="wine-header">
+        <div class="wine-nr" id="h-wine-nr">1</div>
+        <div>
+          <div class="wine-title" id="h-wine-name"></div>
+          <div class="wine-sub" id="h-wine-sub"></div>
+        </div>
+      </div>
+      <div style="font-size:13px;color:var(--gray);line-height:1.5;" id="h-wine-story"></div>
+    </div>
+    <button class="btn btn-primary" onclick="openWineRating()">📱 Open beoordeling voor spelers</button>
+    <button class="btn btn-ghost mt8" onclick="showWineResults()">📊 Toon resultaten</button>
+  </div>
+</div>
+
+<!-- SCREEN: PLAYER WIJN OORDEEL -->
+<div id="screen-player-wine" class="screen">
+  <header class="app-header">
+    <div class="logo-mark">f</div>
+    <div class="logo-text">flavory <span>live</span></div>
+  </header>
+  <div style="padding:20px; flex:1;">
+    <div class="card">
+      <div class="wine-header">
+        <div class="wine-nr" id="p-wine-nr">1</div>
+        <div>
+          <div class="wine-title" id="p-wine-name"></div>
+          <div class="wine-sub" id="p-wine-sub"></div>
+        </div>
+      </div>
+      <div class="section-title">Jouw score</div>
+      <div class="rating-display">
+        <div class="rating-number" id="p-rating-display">5</div>
+        <div class="rating-label">/ 10</div>
+      </div>
+      <input type="range" id="p-rating-slider" min="1" max="10" value="5" oninput="updateRating(this.value)">
+      <div class="section-title">Trefwoorden (kies er max. 3)</div>
+      <div class="keywords" id="p-keywords"></div>
+      <button class="btn btn-primary mt16" onclick="submitWineRating()">Opslaan →</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN: WINE RESULTS (host) -->
+<div id="screen-wine-results" class="screen">
+  <header class="app-header">
+    <div class="logo-mark">f</div>
+    <div class="logo-text">flavory <span>live</span></div>
+    <div class="badge">Host</div>
+  </header>
+  <div style="padding:20px; flex:1;">
+    <div class="card">
+      <div class="card-title red" id="wine-results-title">Resultaten</div>
+      <div id="wine-results-content"></div>
+    </div>
+    <button class="btn btn-primary" onclick="nextWineOrEnd()" id="btn-next-wine">Volgende wijn →</button>
+    <button class="btn btn-secondary mt8" onclick="startWineRating(currentWineIdx)">↩ Opnieuw openen</button>
+  </div>
+</div>
+
+<!-- SCREEN: SAMENVATTING (player) -->
+<div id="screen-summary" class="screen">
+  <header class="app-header no-print">
+    <div class="logo-mark">f</div>
+    <div class="logo-text">flavory <span>live</span></div>
+    <div class="badge">Jouw fiche</div>
+  </header>
+  <div style="padding:20px; flex:1;" id="summary-content">
+    <div class="summary-header">
+      <div style="font-size:12px;opacity:0.6;margin-bottom:4px;">FLAVORY LIVE . PERSOONLIJKE SAMENVATTING</div>
+      <h2 id="sum-name"></h2>
+      <div class="nick" id="sum-nick"></div>
+      <div class="final-score" id="sum-score"></div>
+      <div class="final-label">punten</div>
+    </div>
+    <div id="sum-wines"></div>
+    <div class="card" id="sum-rank-card">
+      <div class="card-title">Jouw eindstand</div>
+      <div id="sum-rank"></div>
+    </div>
+    <button class="btn btn-primary no-print" onclick="downloadPDF()">⬇ Download als PDF</button>
+    <p class="center small gray mt8 no-print">Tip: kies "Sla op als PDF" in het afdrukvenster</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════ SCRIPTS ════════════════════════════════════ -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+  // Firebase compat wrappers zodat we gewone functienamen kunnen gebruiken
+  function initializeApp(cfg) { return firebase.initializeApp(cfg); }
+  function getDatabase(app) { return firebase.database(); }
+  function ref(db, path) { return db.ref(path); }
+  function set(r, val) { return r.set(val); }
+  function get(r) { return r.get(); }
+  function update(r, val) { return r.update(val); }
+  function push(r, val) { return r.push(val); }
+  function onValue(r, cb) { r.on('value', cb); }
+
+  // ── FIREBASE CONFIG ──
+  const firebaseConfig = {
+    apiKey: "AIzaSyPLACEHOLDER",           // ← jouw Firebase API key
+    authDomain: "flavory-live.firebaseapp.com",
+    databaseURL: "https://flavory-live-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "flavory-live",
+    storageBucket: "flavory-live.appspot.com",
+    messagingSenderId: "000000000000",      // ← jouw sender ID
+    appId: "1:000000000000:web:placeholder" // ← jouw app ID
+  }
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // ── WINES DATA ──
+  const WINES = [
+    {
+      nr: 0, label: "Bubbels",
+      name: "Cava Arte Latino",
+      sub: "Spanje · Penedès",
+      grapes: "Macabeo, Xarel-lo, Parellada",
+      story: "Método Tradicional. Tweede gisting in de fles, net als Champagne. Strak, fris en direct. De perfecte opener zonder omwegen.",
+      profile: "Groene appel, citrus. Dorstlessend.",
+      keywords: ["Fris","Sprankelend","Citrus","Droog","Licht","Appel","Elegant","Direct"]
+    },
+    {
+      nr: 1, label: "Wit 1",
+      name: "Laurenz V. 'Singing' Grüner Veltliner",
+      sub: "Oostenrijk · Kamptal",
+      grapes: "100% Grüner Veltliner",
+      story: "Zijn grootvader Lenz Moser III ontketende in de jaren '20 een wijnrevolutie door ranken hoog op te binden. Laurenz bouwde daarop voort met één credo: Strictly Grüner. 'Singing' verwijst naar de zuren die zingen op je tong.",
+      profile: "Groene appel, perzik, citrus en een snuf witte peper.",
+      keywords: ["Peper","Mineraal","Fris","Fruitig","Licht","Elegant","Zingend","Citrus"]
+    },
+    {
+      nr: 2, label: "Wit 2",
+      name: "Zevenwacht JAN White Blend",
+      sub: "Zuid-Afrika · Stellenbosch",
+      grapes: "Chenin Blanc, Chardonnay, Viognier, Sémillon, Roussanne",
+      story: "Begin 20e eeuw groeven gelukzoekers hier naar tin. Ze vonden niets. Maar ze creëerden wél de perfecte omgewoelde granietbodem voor deze wijn. Jan Hendrik van der Westhuizen, eerste Zuid-Afrikaan met een Michelinster, gebruikt dit als huiswijn in zijn restaurant in Nice.",
+      profile: "Nectarine, abrikoos, romig eikenhout en een ziltige afdronk.",
+      keywords: ["Romig","Hout","Tropisch","Rijp","Mineraal","Vol","Abrikoos","Ziltig"]
+    },
+    {
+      nr: 3, label: "Wit 3",
+      name: "Salcuta 'Epizod' Chardonnay",
+      sub: "Moldavië · Stefan Voda",
+      grapes: "100% Chardonnay",
+      story: "Moldavië was de wijnfabriek van de Sovjet-Unie. Na onafhankelijkheid en Russische boycots moest het land zichzelf uitvinden. Salcuta investeerde in westerse technologie. De Epizod is hun statement: Moldavië doet niet meer onder voor de grote wijnhuizen.",
+      profile: "Ananas, boter, geroosterd eikenhout.",
+      keywords: ["Boterig","Tropisch","Rijk","Hout","Vol","Ananas","Geroosterd","Warm"]
+    },
+    {
+      nr: 4, label: "Rood 1",
+      name: "Tornesi 'Le Benducce' Sangiovese",
+      sub: "Italië · Montalcino, Toscane",
+      grapes: "100% Sangiovese",
+      story: "De familie Tornesi boert hier al sinds 1865. Waar hun Brunello di Montalcino jaren rijpt op zwaar hout, is dit hun vloeibaar geheim: dezelfde druiven, jonger gebotteld. Een baby Brunello voor aan de familietafel.",
+      profile: "Rode kersen, aardbei, strakke zuren en elegante tannines.",
+      keywords: ["Kersen","Fruitig","Levendig","Tannineus","Droog","Elegant","Aardbei","Klassiek"]
+    },
+    {
+      nr: 5, label: "Rood 2",
+      name: "CARE Garnacha Nativa",
+      sub: "Spanje · Cariñena, Aragón",
+      grapes: "100% Garnacha (Grenache)",
+      story: "Zeer oude wijnstokken op grote hoogte in rotsachtige kwartsietbodems. CARE staat voor de Romeinse naam van de stad Cariñena. Het etiket is een kunstwerk van Enrique Torrijos. De Nativa is ongefilterd, rauw, mediterraan.",
+      profile: "Donker fruit, framboos, mokka. Fluweelzacht. 14,5%.",
+      keywords: ["Donker","Krachtig","Fluweelzacht","Mokka","Framboos","Warm","Oud","Vol"]
+    },
+    {
+      nr: 6, label: "Rood 3",
+      name: "Bedoba Saperavi",
+      sub: "Georgië · Kakheti",
+      grapes: "100% Saperavi",
+      story: "Georgië heeft 8000 jaar wijnbouw. Saperavi is zeldzaam: ook het vruchtvlees is bloedrood. Bedoba verwijst naar 2 januari, dag van het lot. Hoe je die dag doorbrengt bepaalt je jaar. Een huwelijk tussen Georgische oerkracht en Franse finesse.",
+      profile: "Inktzwart, massief, kruidig, zwarte bessen.",
+      keywords: ["Massief","Inktzwart","Kruidig","Robuust","Bessen","Krachtig","Tannineus","Mysterieus"]
+    }
+  ];
+
+  // ── QUIZ QUESTIONS ──
+  const QUESTIONS = [
+    { q: "Wat is de meest geplante witte druif van Oostenrijk?", opts: ["Riesling","Grüner Veltliner","Chardonnay","Pinot Gris"], correct: 1, pts: 200 },
+    { q: "In welk land ligt de wijnregio Kakheti, thuisbasis van de Saperavi?", opts: ["Armenië","Turkije","Georgië","Azerbeidzjan"], correct: 2, pts: 200 },
+    { q: "Welk aromatisch molecule geeft Grüner Veltliner zijn typische pepersmaak?", opts: ["Rotundone","Terpineol","Linalool","Geraniol"], correct: 0, pts: 200 },
+    { q: "Cava wordt gemaakt volgens de Método Tradicional. Wat betekent dat?", opts: ["Carbonatie achteraf","Tweede gisting in de fles","Eerste gisting in de fles","Geen gisting"], correct: 1, pts: 200 },
+    { q: "Jan Hendrik van der Westhuizen was de eerste Zuid-Afrikaan met een Michelinster. Waar heeft hij zijn restaurant?", opts: ["Kaapstad","Johannesburg","Nice","Parijs"], correct: 2, pts: 100 },
+    { q: "Welk land was ooit de 'wijnfabriek' van de Sovjet-Unie?", opts: ["Oekraïne","Moldavië","Georgië","Bulgarije"], correct: 1, pts: 200 },
+    { q: "Wat betekent 'Saperavi' in het Georgisch?", opts: ["Rood vuur","Verf/kleurstof","Steenrots","Oude wijnstok"], correct: 1, pts: 200 },
+    { q: "Hoeveel jaar heeft Georgië een onafgebroken wijntraditie?", opts: ["2000 jaar","4000 jaar","6000 jaar","8000 jaar"], correct: 3, pts: 100 },
+    { q: "Welke molecule is verantwoordelijk voor de 'witte peper'-toets in Grüner Veltliner?", opts: ["Rotundone","Capsaïcine","Piperine","Eugenol"], correct: 0, pts: 200 },
+    { q: "Uit welk jaar dateert het Oostenrijkse wijnschandaal met antivries?", opts: ["1979","1985","1991","1998"], correct: 1, pts: 100 }
+  ];
+
+  // ── OPENING VRAAG ──
+  const OPENING_Q = {
+    text: "Schatting: Hoeveel wijndomeinen telt de regio Bordeaux (afgerond op honderdtallen)?",
+    correct: 7000
+  }
+
+  // ── STATE ──
+  window.state = {
+    role: null, // 'host' | 'player'
+    sessionId: null,
+    playerName: null,
+    playerNick: null,
+    playerId: null,
+    currentQ: 0,
+    score: 0,
+    selectedAnswer: null,
+    answerSubmitted: false,
+    wineRatings: {}, // wineIdx -> { score, keywords }
+    currentWineIdx: null,
+    listeners: []
+  }
+
+  window.currentWineIdx = 0;
+
+  // ── NAVIGATION ──
+  function goTo(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+  }
+
+  // ── AI NICKNAME GENERATOR ──
+  async function generateNickname() {
+    const name = document.getElementById('p-name').value.trim() || 'deelnemer';
+    const box = document.getElementById('nick-result');
+    box.style.display = 'flex';
+    box.textContent = '🤖 Bezig...';
+    try {
+      const resp = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 60,
+          messages: [{
+            role: "user",
+            content: `Genereer één grappige, wijn-gerelateerde bijnaam voor iemand die heet "${name}". De bijnaam is in het Nederlands, max 5 woorden, speels en creatief. Antwoord ALLEEN met de bijnaam zelf, geen uitleg.`
+          }]
+        })
+      });
+      const data = await resp.json();
+      const nick = data.content?.[0]?.text?.trim() || 'De Wijnavonturier';
+      box.textContent = nick;
+      document.getElementById('p-nick').value = nick;
+    } catch(e) {
+      box.textContent = 'De Mysterieuze Proever';
+      document.getElementById('p-nick').value = 'De Mysterieuze Proever';
+    }
+  }
+
+  // ── PLAYER JOIN ──
+  async function joinSession() {
+    const name = document.getElementById('p-name').value.trim();
+    const nick = document.getElementById('p-nick').value.trim();
+    const session = document.getElementById('p-session').value.trim().toUpperCase();
+    if (!name || !nick || !session) { alert('Vul alle velden in.'); return; }
+
+    window.state.playerName = name;
+    window.state.playerNick = nick;
+    window.state.sessionId = session;
+    window.state.role = 'player';
+
+    const playerId = 'p_' + Date.now();
+    window.state.playerId = playerId;
+
+    await set(ref(db, `sessions/${session}/players/${playerId}`), {
+      name, nick, score: 0, joined: Date.now()
+    });
+
+    document.getElementById('player-badge-name').textContent = nick;
+    goTo('screen-player-lobby');
+
+    // Listen for state changes
+    const stateRef = ref(db, `sessions/${session}/gameState`);
+    onValue(stateRef, (snap) => {
+      const gs = snap.val();
+      if (!gs) return;
+      handlePlayerStateChange(gs);
+    });
+
+    // Listen for lobby updates
+    const playersRef = ref(db, `sessions/${session}/players`);
+    onValue(playersRef, (snap) => {
+      const players = snap.val() || {};
+      renderLobbyPlayers(Object.values(players), 'player-lobby-list');
+    });
+  }
+
+  function handlePlayerStateChange(gs) {
+    switch(gs.phase) {
+      case 'lobby':
+        goTo('screen-player-lobby'); break;
+      case 'opening':
+        showPlayerOpeningQ(gs); break;
+      case 'quiz':
+        showPlayerQuiz(gs); break;
+      case 'scoreboard':
+        showScoreboard(false, gs.scores); break;
+      case 'wine':
+        showPlayerWine(gs.wineIdx); break;
+      case 'summary':
+        showPlayerSummary(); break;
+    }
+  }
+
+  function showPlayerOpeningQ(gs) {
+    document.getElementById('player-opening-q').textContent = OPENING_Q.text;
+    goTo('screen-player-opening');
+  }
+
+  async function submitOpeningAnswer() {
+    const ans = parseFloat(document.getElementById('player-opening-answer').value);
+    if (isNaN(ans)) { alert('Vul een getal in.'); return; }
+    const { sessionId, playerId } = window.state;
+    await set(ref(db, `sessions/${sessionId}/openingAnswers/${playerId}`), {
+      name: window.state.playerName,
+      nick: window.state.playerNick,
+      answer: ans
+    });
+    document.getElementById('player-opening-answer').disabled = true;
+    document.querySelector('#screen-player-opening .btn-primary').disabled = true;
+    document.getElementById('player-opening-wait').style.display = 'block';
+  }
+
+  function showPlayerQuiz(gs) {
+    const qIdx = gs.questionIdx || 0;
+    window.state.currentQ = qIdx;
+    window.state.selectedAnswer = null;
+    window.state.answerSubmitted = false;
+
+    const q = QUESTIONS[qIdx];
+    document.getElementById('p-q-nr').textContent = qIdx + 1;
+    document.getElementById('p-question-text').textContent = q.q;
+
+    const optsEl = document.getElementById('p-options');
+    optsEl.innerHTML = '';
+    q.opts.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.textContent = opt;
+      btn.onclick = () => selectAnswer(i, btn, q);
+      optsEl.appendChild(btn);
+    });
+
+    document.getElementById('p-answer-feedback').style.display = 'none';
+    document.getElementById('p-waiting-next').style.display = 'none';
+    document.getElementById('p-question-box').style.display = 'block';
+    document.getElementById('player-score-badge').textContent = window.state.score + ' pts';
+    goTo('screen-player-quiz');
+  }
+
+  function selectAnswer(idx, btn, q) {
+    if (window.state.answerSubmitted) return;
+    window.state.answerSubmitted = true;
+    window.state.selectedAnswer = idx;
+
+    document.querySelectorAll('.opt-btn').forEach(b => {
+      b.disabled = true;
+      b.classList.remove('selected');
+    });
+    btn.classList.add('selected');
+
+    // Submit to Firebase
+    const { sessionId, playerId, currentQ } = window.state;
+    set(ref(db, `sessions/${sessionId}/quizAnswers/q${currentQ}/${playerId}`), {
+      answer: idx, time: Date.now()
+    });
+
+    // Show feedback after short delay
+    setTimeout(() => {
+      const isCorrect = idx === q.correct;
+      document.querySelectorAll('.opt-btn')[q.correct].classList.add('correct');
+      if (!isCorrect) btn.classList.remove('selected'), btn.classList.add('wrong');
+
+      if (isCorrect) {
+        window.state.score += q.pts;
+        // Update score in Firebase
+        update(ref(db, `sessions/${sessionId}/players/${playerId}`), { score: window.state.score });
+      }
+
+      const fb = document.getElementById('p-answer-feedback');
+      const ft = document.getElementById('p-feedback-text');
+      fb.style.display = 'block';
+      ft.textContent = isCorrect ? `✅ Goed! +${q.pts} punten` : `❌ Fout. Het juiste antwoord was: ${q.opts[q.correct]}`;
+      ft.style.color = isCorrect ? '#2a9d2a' : 'var(--red)';
+      document.getElementById('player-score-badge').textContent = window.state.score + ' pts';
+    }, 400);
+  }
+
+  function showPlayerWine(wineIdx) {
+    window.currentWineIdx = wineIdx;
+    const wine = WINES[wineIdx];
+    document.getElementById('p-wine-nr').textContent = wine.nr === 0 ? '🥂' : wine.nr;
+    document.getElementById('p-wine-name').textContent = wine.name;
+    document.getElementById('p-wine-sub').textContent = wine.sub;
+
+    const slider = document.getElementById('p-rating-slider');
+    slider.value = 5;
+    document.getElementById('p-rating-display').textContent = '5';
+
+    // Keywords
+    const kwEl = document.getElementById('p-keywords');
+    kwEl.innerHTML = '';
+    wine.keywords.forEach(kw => {
+      const btn = document.createElement('button');
+      btn.className = 'kw-btn';
+      btn.textContent = kw;
+      btn.onclick = () => {
+        const active = kwEl.querySelectorAll('.kw-btn.active');
+        if (btn.classList.contains('active')) {
+          btn.classList.remove('active');
+        } else if (active.length < 3) {
+          btn.classList.add('active');
+        }
+      };
+      kwEl.appendChild(btn);
+    });
+
+    goTo('screen-player-wine');
+  }
+
+  function updateRating(val) {
+    document.getElementById('p-rating-display').textContent = val;
+    // Update slider gradient
+    const slider = document.getElementById('p-rating-slider');
+    const pct = (val - 1) / 9 * 100;
+    slider.style.background = `linear-gradient(to right, var(--red) 0%, var(--red) ${pct}%, #e0d8d4 ${pct}%, #e0d8d4 100%)`;
+  }
+
+  async function submitWineRating() {
+    const score = parseInt(document.getElementById('p-rating-slider').value);
+    const keywords = [...document.querySelectorAll('#p-keywords .kw-btn.active')].map(b => b.textContent);
+    const { sessionId, playerId } = window.state;
+    const wineIdx = window.currentWineIdx;
+
+    window.state.wineRatings[wineIdx] = { score, keywords };
+
+    await set(ref(db, `sessions/${sessionId}/wineRatings/wine${wineIdx}/${playerId}`), {
+      name: window.state.playerName,
+      nick: window.state.playerNick,
+      score, keywords
+    });
+
+    goTo('screen-player-lobby'); // Back to waiting
+  }
+
+  function showPlayerSummary() {
+    document.getElementById('sum-name').textContent = window.state.playerName;
+    document.getElementById('sum-nick').textContent = '"' + window.state.playerNick + '"';
+    document.getElementById('sum-score').textContent = window.state.score;
+
+    const winesEl = document.getElementById('sum-wines');
+    winesEl.innerHTML = '';
+    WINES.forEach((wine, idx) => {
+      const rating = window.state.wineRatings[idx];
+      if (!rating) return;
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `
+        <div class="wine-recap">
+          <div class="wine-recap-title">${wine.label}: ${wine.name}</div>
+          <div style="font-size:11px;color:var(--gray);margin-bottom:6px;">${wine.sub}</div>
+          <div class="wine-recap-score">${rating.score}<span style="font-size:18px;font-weight:400;color:var(--gray)">/10</span></div>
+          <div class="wine-recap-kw">
+            ${rating.keywords.map(k => `<span class="kw-tag">${k}</span>`).join('')}
+          </div>
+        </div>
+        <div class="wine-fiche">
+          <strong>Druif:</strong> ${wine.grapes}<br>
+          <strong>Regio:</strong> ${wine.sub}<br>
+          <strong>Smaakprofiel:</strong> ${wine.profile}
+        </div>
+      `;
+      winesEl.appendChild(div);
+    });
+
+    // Fetch final ranking
+    const { sessionId } = window.state;
+    get(ref(db, `sessions/${sessionId}/players`)).then(snap => {
+      const players = snap.val() || {};
+      const sorted = Object.values(players).sort((a,b) => b.score - a.score);
+      const myRank = sorted.findIndex(p => p.name === window.state.playerName) + 1;
+      document.getElementById('sum-rank').innerHTML = `
+        <div style="font-family:'Montserrat',sans-serif;font-size:24px;font-weight:800;color:var(--amber);">#${myRank} van ${sorted.length}</div>
+        <div style="font-size:13px;color:var(--gray);margin-top:4px;">${myRank === 1 ? '🏆 Jij wint de avond!' : myRank <= 3 ? '🥉 Podium!' : 'Goed gespeeld!'}</div>
+      `;
+    });
+
+    goTo('screen-summary');
+  }
+
+  function downloadPDF() {
+    window.print();
+  }
+
+  // ── HOST ──
+  function hostLogin() {
+    const pin = document.getElementById('host-pin').value;
+    const session = document.getElementById('host-session').value.trim().toUpperCase();
+    if (pin !== '1234') { alert('Verkeerde PIN.'); return; }
+    if (!session) { alert('Voer een sessiecode in.'); return; }
+    window.state.role = 'host';
+    window.state.sessionId = session;
+    document.getElementById('lobby-session-display').textContent = session;
+
+    set(ref(db, `sessions/${session}/gameState`), { phase: 'lobby' });
+    goTo('screen-host-lobby');
+
+    // Live updates
+    onValue(ref(db, `sessions/${session}/players`), (snap) => {
+      const players = snap.val() || {};
+      const list = Object.values(players);
+      document.getElementById('lobby-count').textContent = list.length;
+      renderLobbyPlayers(list, 'lobby-player-grid');
+    });
+  }
+
+  function renderLobbyPlayers(players, targetId) {
+    const el = document.getElementById(targetId);
+    if (!el) return;
+    el.innerHTML = players.map(p => `
+      <div class="player-chip">
+        <div class="pname">${p.name}</div>
+        <div class="pnick">${p.nick}</div>
+      </div>
+    `).join('');
+  }
+
+  async function startOpeningQuestion() {
+    const { sessionId } = window.state;
+    document.getElementById('opening-q-text').textContent = OPENING_Q.text;
+    await set(ref(db, `sessions/${sessionId}/gameState`), { phase: 'opening' });
+    goTo('screen-host-opening');
+  }
+
+  async function revealOpeningRanking() {
+    const correct = parseFloat(document.getElementById('host-correct-answer').value);
+    if (isNaN(correct)) { alert('Vul het correcte antwoord in.'); return; }
+
+    document.getElementById('opening-answer-reveal').style.display = 'block';
+    document.getElementById('opening-answer-reveal').textContent = correct.toLocaleString('nl-BE');
+
+    const { sessionId } = window.state;
+    const snap = await get(ref(db, `sessions/${sessionId}/openingAnswers`));
+    const answers = snap.val() || {};
+
+    const ranked = Object.values(answers)
+      .map(a => ({ ...a, diff: Math.abs(a.answer - correct) }))
+      .sort((a,b) => a.diff - b.diff);
+
+    const listEl = document.getElementById('opening-ranking-list');
+    listEl.innerHTML = ranked.map((a, i) => `
+      <div class="answer-item ${i === 0 ? 'winner' : ''}">
+        <div class="score-rank">${i + 1}</div>
+        <div class="ans-name">${a.name}</div>
+        <div class="ans-val">${a.answer.toLocaleString('nl-BE')}</div>
+        <div class="ans-diff">±${a.diff.toLocaleString('nl-BE')}</div>
+      </div>
+    `).join('');
+
+    document.getElementById('opening-ranking-card').style.display = 'block';
+  }
+
+  async function startQuiz() {
+    window.state.currentQ = 0;
+    await hostNextQuestion(0);
+    goTo('screen-host-quiz');
+  }
+
+  async function hostNextQuestion(idx) {
+    const { sessionId } = window.state;
+    const q = QUESTIONS[idx];
+    document.getElementById('h-q-nr').textContent = idx + 1;
+    document.getElementById('h-q-total').textContent = QUESTIONS.length;
+    document.getElementById('h-question-text').textContent = q.q;
+    document.getElementById('h-answer-reveal-card').style.display = 'none';
+    document.getElementById('h-correct-ans').textContent = '';
+
+    await set(ref(db, `sessions/${sessionId}/gameState`), {
+      phase: 'quiz',
+      questionIdx: idx
+    });
+
+    // Track answer count
+    onValue(ref(db, `sessions/${sessionId}/quizAnswers/q${idx}`), (snap) => {
+      const ans = snap.val() || {};
+      get(ref(db, `sessions/${sessionId}/players`)).then(ps => {
+        const total = Object.keys(ps.val() || {}).length;
+        document.getElementById('h-answers-count').textContent = `Antwoorden: ${Object.keys(ans).length} / ${total}`;
+      });
+    });
+
+    refreshMiniLeaderboard();
+  }
+
+  function revealAnswer() {
+    const q = QUESTIONS[window.state.currentQ];
+    document.getElementById('h-answer-reveal-card').style.display = 'block';
+    document.getElementById('h-correct-ans').textContent = q.opts[q.correct];
+    refreshMiniLeaderboard();
+  }
+
+  function nextQuestion() {
+    const next = window.state.currentQ + 1;
+    if (next >= QUESTIONS.length) {
+      showHostScoreboard();
+      return;
+    }
+    window.state.currentQ = next;
+    hostNextQuestion(next);
+  }
+
+  function refreshMiniLeaderboard() {
+    const { sessionId } = window.state;
+    get(ref(db, `sessions/${sessionId}/players`)).then(snap => {
+      const players = Object.values(snap.val() || {}).sort((a,b) => b.score - a.score).slice(0,3);
+      document.getElementById('h-mini-leaderboard').innerHTML = players.map((p,i) => `
+        <div class="score-item">
+          <div class="score-rank">${['🥇','🥈','🥉'][i]}</div>
+          <div class="score-name">${p.name}<br><span class="nick">${p.nick}</span></div>
+          <div class="score-pts">${p.score}</div>
+        </div>
+      `).join('');
+    });
+  }
+
+  async function showHostScoreboard() {
+    const { sessionId } = window.state;
+    const snap = await get(ref(db, `sessions/${sessionId}/players`));
+    const players = Object.values(snap.val() || {}).sort((a,b) => b.score - a.score);
+
+    const scores = players.map(p => ({ name: p.name, nick: p.nick, score: p.score }));
+    await set(ref(db, `sessions/${sessionId}/gameState`), { phase: 'scoreboard', scores });
+
+    renderScoreboard(players);
+    document.getElementById('host-scoreboard-controls').style.display = 'block';
+    goTo('screen-scoreboard');
+  }
+
+  function nextAfterScoreboard() {
+    // Go to first wine
+    window.currentWineIdx = 0;
+    startWineRating(0);
+  }
+
+  function renderScoreboard(players) {
+    const podium = document.getElementById('podium');
+    const p = players.slice(0,3);
+    // Order: 2nd, 1st, 3rd for visual podium
+    const order = [p[1], p[0], p[2]].filter(Boolean);
+    const cls = ['p2','p1','p3'];
+    podium.innerHTML = order.map((pl, i) => `
+      <div class="podium-item ${cls[i]}">
+        <div class="podium-rank">${i === 1 ? '🥇' : i === 0 ? '🥈' : '🥉'}</div>
+        <div class="podium-name">${pl?.name || ''}</div>
+        <div class="podium-score">${pl?.score || 0}</div>
+      </div>
+    `).join('');
+
+    document.getElementById('full-scorelist').innerHTML = players.map((p,i) => `
+      <li class="score-item">
+        <div class="score-rank">${i+1}</div>
+        <div class="score-name">${p.name}<br><span class="nick">${p.nick}</span></div>
+        <div class="score-pts">${p.score} pts</div>
+      </li>
+    `).join('');
+  }
+
+  function showScoreboard(isHost, scores) {
+    if (!scores) return;
+    const players = Array.isArray(scores) ? scores : Object.values(scores);
+    players.sort((a,b) => b.score - a.score);
+    renderScoreboard(players);
+    document.getElementById('host-scoreboard-controls').style.display = isHost ? 'block' : 'none';
+    goTo('screen-scoreboard');
+  }
+
+  // ── WINE RATING (HOST) ──
+  async function startWineRating(wineIdx) {
+    const { sessionId } = window.state;
+    const wine = WINES[wineIdx];
+    window.currentWineIdx = wineIdx;
+
+    document.getElementById('h-wine-nr').textContent = wine.label;
+    document.getElementById('h-wine-name').textContent = wine.name;
+    document.getElementById('h-wine-sub').textContent = wine.sub + ' · ' + wine.grapes;
+    document.getElementById('h-wine-story').textContent = wine.story;
+
+    await set(ref(db, `sessions/${sessionId}/gameState`), { phase: 'lobby' }); // Hold players
+    goTo('screen-host-wine-intro');
+  }
+
+  async function openWineRating() {
+    const { sessionId } = window.state;
+    await set(ref(db, `sessions/${sessionId}/gameState`), { phase: 'wine', wineIdx: window.currentWineIdx });
+  }
+
+  async function showWineResults() {
+    const { sessionId } = window.state;
+    const wineIdx = window.currentWineIdx;
+    const wine = WINES[wineIdx];
+
+    const snap = await get(ref(db, `sessions/${sessionId}/wineRatings/wine${wineIdx}`));
+    const ratings = Object.values(snap.val() || {});
+
+    const avgScore = ratings.length ? (ratings.reduce((s,r) => s + r.score, 0) / ratings.length).toFixed(1) : '—';
+
+    // Count keywords
+    const kwCount = {};
+    ratings.forEach(r => (r.keywords || []).forEach(k => { kwCount[k] = (kwCount[k]||0)+1; }));
+    const topKw = Object.entries(kwCount).sort((a,b)=>b[1]-a[1]).slice(0,5);
+
+    document.getElementById('wine-results-title').textContent = `${wine.label}: ${wine.name}`;
+    document.getElementById('wine-results-content').innerHTML = `
+      <div style="text-align:center;margin-bottom:16px;">
+        <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:56px;color:var(--red);line-height:1;">${avgScore}</div>
+        <div style="font-size:12px;color:var(--gray);">gemiddelde score (${ratings.length} beoordelingen)</div>
+      </div>
+      <div class="section-title">Meest gekozen trefwoorden</div>
+      <div class="keywords">
+        ${topKw.map(([k,c]) => `<span class="kw-btn active">${k} <span style="opacity:0.6">(${c}x)</span></span>`).join('')}
+      </div>
+    `;
+
+    document.getElementById('btn-next-wine').textContent = wineIdx < WINES.length - 1 ? `Volgende wijn →` : '🏁 Einde avond';
+    goTo('screen-wine-results');
+  }
+
+  async function nextWineOrEnd() {
+    const next = window.currentWineIdx + 1;
+    if (next < WINES.length) {
+      startWineRating(next);
+    } else {
+      // End of evening
+      const { sessionId } = window.state;
+      await set(ref(db, `sessions/${sessionId}/gameState`), { phase: 'summary' });
+      goTo('screen-host-lobby'); // Host sees the lobby with summary message
+      document.getElementById('lobby-player-grid').innerHTML = '<p style="color:white;font-size:14px;">Avond afgerond. Deelnemers zien hun persoonlijke samenvatting. 🎉</p>';
+    }
+  }
+
+  // Globale variabelen zodat HTML onclick-handlers ze kunnen bereiken
+  window.WINES = WINES;
+  window.QUESTIONS = QUESTIONS;
+  window.OPENING_Q = OPENING_Q;
+  window.currentWineIdx = currentWineIdx;
+</script>
+
+</body>
+</html>

@@ -949,15 +949,17 @@
   }
   function revealSideHtml(it, ans) {
     const g = H.g, res = g.results[it.id] || {}, total = Object.keys(ans).length;
-    if (!total) return `<p class="verdict">Niemand gaf een antwoord.</p>`;
+    const none = Object.keys(g.players).length ? `<p class="verdict">Niemand gaf een antwoord.</p>` : '';
     if (it.type === 'mc') {
+      if (!total) return none;
       const good = Object.entries(res).filter(([, r]) => r.ok).sort((a, b) => a[1].ms - b[1].ms);
       const fast = good[0] ? ` · snelste: <b>${esc(pname(good[0][0]))}</b> (${(good[0][1].ms / 1000).toFixed(1).replace('.', ',')} s)` : '';
       return `<p class="verdict"><b class="num">${good.length}</b> van ${total} juist${fast}</p>`;
     }
     const tgt = g.targets[it.id], unit = it.unit;
     const list = Object.entries(res).sort((a, b) => a[1].d - b[1].d || a[1].ms - b[1].ms).slice(0, 5);
-    return `<div class="target num">${fmt(tgt)}${unit ? `<small>${esc(unit)}</small>` : ''}</div>`
+    // Het juiste getal staat er altijd, ook als niemand antwoordde
+    return `<div class="target num">${fmt(tgt)}${unit ? `<small>${esc(unit)}</small>` : ''}</div>` + (total ? '' : none)
       + `<ol class="closest">${list.map(([pid, r]) => `<li><b>${esc(pname(pid))}</b><span class="num">${fmt(r.v)}</span><small class="num">${r.d === 0 ? 'exact!' : (r.v > tgt ? '+' : '−') + fmt(r.d)}</small><em class="num">+${fmt(r.pts)}</em></li>`).join('')}</ol>`;
   }
   function wheelSegments() {

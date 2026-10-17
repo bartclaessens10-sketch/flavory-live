@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#141210">
-<title>Fotofinish</title>
+<title>Weekendquiz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  /* Fotofinish: avond in de wijnbar. Bijna zwart, crème, wijnrood, wijngaardgroen, messing */
+  /* Weekendquiz: avond in de wijnbar. Bijna zwart, crème, wijnrood, wijngaardgroen, messing */
   :root {
     --bg: #141210;
     --panel: #1e1b18;
@@ -52,8 +52,9 @@
     background: radial-gradient(circle at 42% 40%, #e2584c 0 18%, var(--red) 34%, #7d1d22 70%);
     box-shadow: 0 0 0 .09em var(--bg), 0 0 0 .17em var(--cream);
   }
+  .brand .bt { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .brand {
-    display: flex; align-items: center; gap: .5em;
+    display: flex; align-items: center; gap: .5em; min-width: 0;
     font-family: var(--display); font-weight: 900; text-transform: uppercase; letter-spacing: .04em;
   }
   .display {
@@ -217,6 +218,8 @@
   .titlecard { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: .5em; }
   .titlecard .meta { font-size: 1.6em; }
   .titlecard h1 { font-size: 9em; max-width: 12ch; }
+  .titlecard h1.long { font-size: 6.6em; max-width: 15ch; }
+  .nw { white-space: nowrap; }
   .titlecard p { font-size: 2em; color: var(--wire); max-width: 32ch; margin: .2em 0 0; }
 
   /* loting: het rad */
@@ -344,7 +347,8 @@
     padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   .pbar { display: flex; align-items: center; gap: .7em; padding: .8em 0; border-bottom: 1px solid var(--line); }
-  .pbar .brand { font-size: 1.2em; }
+  .pbar .brand { font-size: 1.05em; flex: 1; }
+  .pbar .me { flex: none; max-width: 45%; }
   .pbar .me { margin-left: auto; text-align: right; font-weight: 800; line-height: 1.15; min-width: 0; }
   .pbar .me small { display: block; color: var(--wire); font-weight: 500; }
   .pmain { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 1em; padding: 1.2em 0 1.6em; }
@@ -542,7 +546,7 @@
       title: 'Testquiz',
       items: uniqueIds([
         { type: 'title', title: 'Testronde', text: 'Even checken of alle gsm\'s meedoen.' },
-        { type: 'mc', text: 'Hoe heet deze quiz?', options: ['Fotomodel', 'Fotofinish', 'Fotokopie', 'Fotosynthese'], correct: 1, time: 20 },
+        { type: 'mc', text: 'Testvraag: tik op Groen.', options: ['Rood', 'Groen', 'Wit', 'Geel'], correct: 1, time: 20 },
         { type: 'num', text: 'Hoeveel liter wijn zit er in een magnum?', correct: 1.5, unit: 'liter', time: 25 },
         { type: 'task', text: 'Wie als eerste een vol glas omhoog houdt, krijgt 500 punten.', pts: 500 },
       ].map(normItem)),
@@ -665,7 +669,7 @@
   }
 
   async function hostBoot() {
-    try { const q = await idb.get('quiz'); if (q && Array.isArray(q.items)) H.quiz = { title: q.title || 'Fotofinish', items: uniqueIds(q.items.map(normItem).filter(Boolean)) }; } catch { /* geen opslag: testquiz */ }
+    try { const q = await idb.get('quiz'); if (q && Array.isArray(q.items)) H.quiz = { title: q.title || 'Weekendquiz', items: uniqueIds(q.items.map(normItem).filter(Boolean)) }; } catch { /* geen opslag: testquiz */ }
     if (!H.quiz || !H.quiz.items.length) H.quiz = testQuiz();
     const saved = store.get('ff_game', null);
     H.g = saved && saved.room ? Object.assign(newGame(saved.room), saved) : newGame();
@@ -719,7 +723,7 @@
   // Wat de gsm's te zien krijgen. Het juiste antwoord gaat pas mee na de onthulling.
   function publicState() {
     const g = H.g, it = cur();
-    const s = { v: ++g.seq, ph: g.phase, i: g.idx, n: items().length };
+    const s = { v: ++g.seq, ph: g.phase, i: g.idx, n: items().length, tt: H.quiz.title };
     if (it && g.phase !== 'lobby' && g.phase !== 'end') {
       s.q = { id: it.id, t: it.type, tx: it.text, ti: it.title, dbl: it.dbl };
       if (it.type === 'mc') s.q.o = playOpts(it);
@@ -852,6 +856,7 @@
 
   // ── TEKENEN ──
   function render(force) {
+    document.title = H.quiz.title;
     if (H.mode === 'editor') { H.key = 'editor'; app.innerHTML = editorHtml(); return; }
     const g = H.g, key = g.phase + ':' + g.idx;
     if (!force && key === H.key && g.phase !== 'draw') return patchLive();
@@ -877,7 +882,7 @@
     let mid = '';
     if (it && g.phase !== 'lobby' && g.phase !== 'end') mid = it.type === 'task' ? 'Opdracht' : isQuestion(it) ? `Vraag ${qNumber(g.idx)} / ${qCount()}` : '';
     const join = g.phase === 'lobby' ? '' : `<span class="miniqr">${qrSvg(joinUrl())}</span><span>code <b>${g.room}</b></span>`;
-    return `<header class="hbar"><div class="brand"><span class="mark"></span>Fotofinish</div><div class="count">${mid}</div><div class="joinline">${join}<span class="dot ${H.link}" id="link" title="Verbinding met de gsm's"></span></div></header>`;
+    return `<header class="hbar"><div class="brand"><span class="mark"></span><span class="bt">${esc(H.quiz.title)}</span></div><div class="count">${mid}</div><div class="joinline">${join}<span class="dot ${H.link}" id="link" title="Verbinding met de gsm's"></span></div></header>`;
   }
   function footHtml() {
     const g = H.g, ph = g.phase;
@@ -924,8 +929,11 @@
   function titleHtml() {
     const it = cur(), head = it.title || it.text;
     // "Ronde 2 · Wie let op?" wordt bovenschrift "Ronde 2" met grote titel "Wie let op?"
-    const cut = head.indexOf(' · '), eyebrow = cut > 0 ? head.slice(0, cut) : H.quiz.title, big = cut > 0 ? head.slice(cut + 3) : head;
-    return `<div class="titlecard"><p class="meta">${esc(eyebrow)}</p><h1 class="display">${esc(big)}</h1>${it.title && it.text ? `<p>${esc(it.text)}</p>` : ''}</div>`;
+    const cut = head.indexOf(' · '), big = cut > 0 ? head.slice(cut + 3) : head;
+    const eyebrow = cut > 0 ? head.slice(0, cut) : big === H.quiz.title ? '' : H.quiz.title;
+    // "5-sterrenquiz" blijft op één regel
+    const bigHtml = esc(big).replace(/(\d+-[^\s<]+)/g, '<span class="nw">$1</span>');
+    return `<div class="titlecard">${eyebrow ? `<p class="meta">${esc(eyebrow)}</p>` : ''}<h1 class="display ${big.length > 18 ? 'long' : ''}">${bigHtml}</h1>${it.title && it.text ? `<p>${esc(it.text)}</p>` : ''}</div>`;
   }
   function questionHtml(revealed) {
     const g = H.g, it = cur(), ans = g.answers[it.id] || {};
@@ -1228,7 +1236,7 @@
   }
   function editorHtml() {
     const its = items(), sel = its[H.ei];
-    return `<div class="editor"><header class="ebar"><div class="brand"><span class="mark"></span>Fotofinish</div>`
+    return `<div class="editor"><header class="ebar"><div class="brand"><span class="mark"></span>Quiz bewerken</div>`
       + `<input type="text" id="qtitle" value="${esc(H.quiz.title)}" aria-label="Naam van de quiz">`
       + `<button class="btn" data-act="addq">+ Vraag</button>`
       + `<button class="btn" data-act="addwine">+ Wijnronde</button>`
@@ -1309,7 +1317,7 @@
       const data = JSON.parse(await file.text());
       if (!data || !Array.isArray(data.items)) throw new Error('geen quiz');
       if (H.g.idx >= 0 && !confirm('Er loopt een quiz. Scores wissen en dit pakket laden?')) return;
-      H.quiz = { title: str(data.title, 80) || 'Fotofinish', items: uniqueIds(data.items.map(normItem).filter(Boolean)) };
+      H.quiz = { title: str(data.title, 80) || 'Weekendquiz', items: uniqueIds(data.items.map(normItem).filter(Boolean)) };
       H.ei = 0;
       H.g = Object.assign(newGame(H.g.room), { b: H.g.b, players: H.g.players, gone: H.g.gone, seq: H.g.seq, nTeams: H.g.nTeams, teams: H.g.teams });
       store.set('ff_game', H.g);
@@ -1317,7 +1325,7 @@
       await idb.set('quiz', H.quiz).catch(() => {});
       render();
       toast(`${H.quiz.items.length} vragen geladen.`);
-    } catch { toast('Dit bestand is geen Fotofinish-quiz.'); }
+    } catch { toast('Dit bestand is geen quizpakket van deze app.'); }
   }
   function savePack() {
     const blob = new Blob([JSON.stringify({ app: 'fotofinish', v: 1, title: H.quiz.title, items: items() })], { type: 'application/json' });
@@ -1515,7 +1523,7 @@
   function pBar() {
     const m = me();
     const t = m && teamById(m.t);
-    return `<header class="pbar"><span class="brand"><span class="mark"></span>Fotofinish</span><span class="me">${m ? esc(m.n) : ''}${t ? `<span class="ttag" style="${teamVars(t)}">${t.n}</span>` : ''}<small class="num">${m ? `${fmt(m.s)} pt · ${m.r}e` : 'code ' + esc(P.room)}</small></span><span class="dot ${P.link}" id="plink"></span></header>`;
+    return `<header class="pbar"><span class="brand"><span class="mark"></span><span class="bt">${esc((P.st && P.st.tt) || 'Quiz')}</span></span><span class="me">${m ? esc(m.n) : ''}${t ? `<span class="ttag" style="${teamVars(t)}">${t.n}</span>` : ''}<small class="num">${m ? `${fmt(m.s)} pt · ${m.r}e` : 'code ' + esc(P.room)}</small></span><span class="dot ${P.link}" id="plink"></span></header>`;
   }
   function pPatch() {
     const h = $('.pbar');
@@ -1622,7 +1630,7 @@
   // ════════════════════════════════════════════════════════════
   function landing() {
     const extra = customBroker ? '&broker=' + encodeURIComponent(customBroker) : '';
-    app.innerHTML = `<div class="landing"><div class="brand"><span class="mark"></span>Fotofinish</div>`
+    app.innerHTML = `<div class="landing"><div class="brand"><span class="mark"></span>Weekendquiz</div>`
       + `<p class="lede">De quiz van vandaag, met de foto's van vandaag. De quizmaster speelt op de beamer, iedereen anders op zijn gsm.</p>`
       + `<form id="codeform"><label for="code">Meespelen? Typ de code van het scherm.</label><input type="text" id="code" maxlength="8" autocomplete="off" autocapitalize="characters" placeholder="K7QX9" required><button class="btn primary big">Doe mee</button></form>`
       + `<a class="btn" href="?host${extra}">Ik ben de quizmaster (laptop aan de beamer)</a></div>`;

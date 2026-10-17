@@ -145,18 +145,25 @@
   .qrcard svg { width: 100%; height: auto; display: block; }
   .qrcard .code { font-family: var(--display); font-weight: 900; font-size: 3.2em; letter-spacing: .14em; line-height: 1; }
   .qrcard .url { font-size: .78em; color: #4a4540; text-align: center; word-break: break-all; margin: 0; }
-  .who { min-width: 0; display: grid; gap: .9em; align-content: center; }
+  .who { min-width: 0; min-height: 0; max-height: 100%; overflow-y: auto; display: grid; gap: .9em; align-content: center; }
+  .who.wt h1 { font-size: 4em; }
   .who .meta { font-size: 1.35em; }
   .who h1 { font-size: 6em; }
   .who .sub { color: var(--wire); font-size: 1.35em; margin: 0; }
   .who .sub b { color: var(--cream); }
-  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .55em; }
-  .chips button {
-    background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px;
-    padding: .4em 1em; font-weight: 800; font-size: 1.2em;
-  }
-  .chips button:hover { border-color: var(--red); text-decoration: line-through; }
-  .chips .new { animation: pop .5s cubic-bezier(.3, 1.6, .5, 1); }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5em; }
+  .chip { display: inline-flex; align-items: center; background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; }
+  .chip .cn { background: none; border: 0; padding: .4em .15em .4em 1em; font-weight: 800; font-size: 1.2em; display: inline-flex; align-items: center; gap: .45em; }
+  .chip .cn i { width: .6em; height: .6em; border-radius: 50%; background: var(--tc, var(--wire)); }
+  .chip .cx { background: none; border: 0; color: var(--wire); padding: .4em .85em .4em .45em; font-size: 1em; }
+  .chip .cx:hover { color: #ffb3ad; }
+  .chip.new { animation: pop .5s cubic-bezier(.3, 1.6, .5, 1); }
+  .tcols { display: grid; grid-template-columns: repeat(auto-fit, minmax(11em, 1fr)); gap: .8em 1.4em; }
+  .tcol h3 { margin: 0 0 .45em; font-family: var(--display); font-weight: 900; text-transform: uppercase; letter-spacing: .05em; font-size: 1.5em; display: flex; align-items: center; gap: .4em; color: var(--tx); }
+  .tcol h3 small { color: var(--wire); font-size: .7em; }
+  .tcol.loose { grid-column: 1 / -1; }
+  .tcol .chip .cn { font-size: 1.05em; }
+  .drawside #chips { min-height: 0; overflow: hidden; }
   @keyframes pop { from { transform: scale(.4); opacity: 0; } }
   .offline-note { background: var(--panel); border: 1px solid var(--red); border-radius: 12px; padding: .8em 1em; color: #ffcfc9; }
 
@@ -212,6 +219,18 @@
   .titlecard h1 { font-size: 9em; max-width: 12ch; }
   .titlecard p { font-size: 2em; color: var(--wire); max-width: 32ch; margin: .2em 0 0; }
 
+  /* loting: het rad */
+  .draw { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 2.6em; align-items: center; }
+  .wheelbox { height: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; }
+  .wheel { position: relative; width: min(100%, 62vh); aspect-ratio: 1; }
+  .wheel svg { width: 100%; height: 100%; display: block; }
+  .wheel .pointer { position: absolute; top: -.4em; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 1em solid transparent; border-right: 1em solid transparent; border-top: 1.9em solid var(--cream); filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .6)); z-index: 2; }
+  .drawside { display: grid; gap: 1em; align-content: center; min-width: 0; }
+  .drawside .meta { font-size: 1.35em; }
+  .drawname { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: 6.4em; line-height: .9; margin: 0; overflow-wrap: anywhere; }
+  .drawto { font-size: 2em; margin: 0; color: var(--wire); min-height: 1.3em; }
+  .drawto b { color: var(--tx); font-family: var(--display); text-transform: uppercase; font-size: 1.4em; letter-spacing: .03em; }
+
   /* stand */
   .board { height: 100%; display: flex; flex-direction: column; gap: 1em; }
   .board h1 { font-size: 3.8em; }
@@ -225,6 +244,12 @@
   .rank li.first .bar i { background: var(--brass); }
   .rank .dl { color: var(--green); font-weight: 800; text-align: right; }
   .rank .sc { font-family: var(--display); font-weight: 900; font-size: 1.35em; text-align: right; }
+  .rank .nm i { display: inline-block; width: .55em; height: .55em; border-radius: 50%; background: var(--tc); margin-right: .45em; vertical-align: middle; }
+  .tstrip { display: grid; gap: .8em; }
+  .tcard { background: var(--tc); color: var(--tf); border-radius: 12px; padding: .45em 1em; display: flex; align-items: baseline; gap: .7em; font-size: 1.25em; min-width: 0; }
+  .tcard .tp { font-family: var(--display); font-weight: 900; font-size: 1.6em; }
+  .tcard b { font-family: var(--display); font-weight: 900; font-size: 1.5em; text-transform: uppercase; letter-spacing: .03em; }
+  .tcard span { margin-left: auto; font-weight: 700; white-space: nowrap; }
 
   /* opdracht: de quizmaster tikt aan wie de punten verdient */
   .q.task { grid-template-rows: minmax(0, 1fr); }
@@ -235,13 +260,20 @@
   .pk:hover { border-color: var(--wire); }
   .pk.on { background: var(--green); border-color: var(--green); color: #fff; }
   .pk.on::before { content: '✓ '; }
+  .pk.tm { background: var(--tc); color: var(--tf); border-color: var(--tc); }
+  .pk.tm.on { box-shadow: 0 0 0 .16em var(--bg), 0 0 0 .32em var(--green); }
   .tclock { display: flex; align-items: center; gap: .8em; width: 100%; max-width: 32em; }
   .field { display: grid; gap: .35em; min-width: 0; }
   .field > label, .lbl { font-size: .78em; text-transform: uppercase; letter-spacing: .08em; color: var(--wire); font-weight: 700; }
   .row { display: flex; flex-wrap: wrap; gap: .8em; align-items: center; }
 
   /* eindstand */
-  .end { height: 100%; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 1em; }
+  .end { height: 100%; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; gap: 1em; }
+  .teamwin { display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap; gap: .3em 1.2em; font-size: 1.35em; color: var(--wire); }
+  .teamwin b { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: 2.2em; color: var(--tx); letter-spacing: .03em; }
+  .end.wt .pod.p1 .blk { height: 34vh; }
+  .end.wt .pod.p2 .blk { height: 23vh; }
+  .end.wt .pod.p3 .blk { height: 15vh; }
   .end h1 { font-size: 3.8em; }
   .podium { display: grid; grid-template-columns: 1fr 1.15fr 1fr; align-items: end; gap: 1.2em; min-height: 0; }
   .pod { display: flex; flex-direction: column; align-items: center; gap: .3em; min-width: 0; }
@@ -346,6 +378,9 @@
   .pres .ptitle { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: 2.2em; line-height: 1; }
   .pres .pts { font-family: var(--display); font-weight: 900; font-size: 4.4em; line-height: 1; }
   .pjoin { display: grid; gap: .8em; }
+  .pteam { border-radius: 18px; padding: 1.4em; background: var(--tc); color: var(--tf); display: grid; gap: .25em; }
+  .pteam b { font-family: var(--display); font-size: 3.6em; font-weight: 900; text-transform: uppercase; line-height: 1; }
+  .ttag { display: inline-block; padding: .05em .55em; border-radius: 99px; background: var(--tc); color: var(--tf); font-size: .75em; font-weight: 800; margin-left: .35em; vertical-align: middle; }
   .pjoin input { font-size: 1.5em; text-align: center; font-weight: 700; padding: .5em; }
   .linkbtn { background: none; border: 0; color: var(--wire); text-decoration: underline; padding: .4em 0; justify-self: start; }
 
@@ -355,7 +390,9 @@
     .hbar, .hmain, .hfoot { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
     .hbar { flex-wrap: wrap; }
     .hfoot .hint { display: none; }
-    .lobby { grid-template-columns: minmax(0, 1fr); gap: 1.4em; }
+    .lobby, .draw { grid-template-columns: minmax(0, 1fr); gap: 1.4em; }
+    .wheel { width: min(80vw, 22em); }
+    .drawname { font-size: 3.4em; }
     .qrcard { width: min(70vw, 18em); justify-self: center; }
     .who h1 { font-size: 3.6em; }
     .q, .q.no-img, .q.portrait { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
@@ -447,6 +484,15 @@
   const TYPES = { mc: 'Meerkeuze', num: 'Schatting', task: 'Opdracht', title: 'Rondetitel' };
   const DEF_TIME = { mc: 20, num: 30, task: 0, title: 0 };
   const CLOSEST = [1000, 750, 550, 400, 300, 200, 150, 100];
+  // c = teamkleur, fg = tekst op die kleur, tx = teamkleur als tekst op de donkere achtergrond
+  const TEAMS = [
+    { id: 'rood', n: 'Rood', c: '#a3263a', fg: '#ffffff', tx: '#ec6b7e' },
+    { id: 'wit', n: 'Wit', c: '#ece2b8', fg: '#141210', tx: '#ece2b8' },
+    { id: 'bubbels', n: 'Bubbels', c: '#d4ab45', fg: '#141210', tx: '#e2bd5c' },
+    { id: 'rose', n: 'Rosé', c: '#e8939a', fg: '#141210', tx: '#f0a3aa' },
+  ];
+  const teamById = id => TEAMS.find(t => t.id === id) || null;
+  const teamVars = t => t ? `--tc:${t.c};--tf:${t.fg};--tx:${t.tx}` : '';
 
   function normItem(r) {
     if (!r || typeof r !== 'object') return null;
@@ -576,7 +622,7 @@
   const qCount = () => items().filter(isQuestion).length;
 
   function newGame(room) {
-    return { room: room || rnd(5), b: 0, phase: 'lobby', idx: -1, players: {}, gone: {}, answers: {}, results: {}, targets: {}, tEnd: null, qStart: 0, qEnd: 0, seq: 0 };
+    return { room: room || rnd(5), b: 0, phase: 'lobby', idx: -1, players: {}, gone: {}, answers: {}, results: {}, targets: {}, tEnd: null, qStart: 0, qEnd: 0, seq: 0, nTeams: 0, teams: {}, draw: null };
   }
   function joinUrl() {
     const g = H.g;
@@ -590,10 +636,32 @@
     const g = H.g, tot = {};
     for (const pid of Object.keys(g.players)) tot[pid] = 0;
     for (const res of Object.values(g.results)) for (const [pid, r] of Object.entries(res)) if (pid in tot) tot[pid] += r.pts || 0;
-    const list = Object.keys(tot).map(pid => ({ pid, n: g.players[pid].n, s: tot[pid] }))
+    const list = Object.keys(tot).map(pid => ({ pid, n: g.players[pid].n, s: tot[pid], t: g.nTeams ? g.teams[pid] || null : null }))
       .sort((a, b) => b.s - a.s || a.n.localeCompare(b.n));
     list.forEach((p, i) => { p.rank = i && p.s === list[i - 1].s ? list[i - 1].rank : i + 1; });
     return list;
+  }
+  const activeTeams = () => TEAMS.slice(0, H.g.nTeams);
+  // Teamscore = gemiddelde per speler, zodat een team van 3 niet verliest van een team van 4
+  function teamRanking() {
+    const list = ranking();
+    const tr = activeTeams().map(t => {
+      const m = list.filter(p => p.t === t.id), sum = m.reduce((a, p) => a + p.s, 0);
+      return { ...t, size: m.length, avg: m.length ? Math.round(sum / m.length) : 0 };
+    }).sort((a, b) => b.avg - a.avg);
+    tr.forEach((t, i) => { t.rank = i && t.avg === tr[i - 1].avg ? tr[i - 1].rank : i + 1; });
+    return tr;
+  }
+  function smallestTeams() {
+    const counts = activeTeams().map(t => ({ id: t.id, k: Object.keys(H.g.players).filter(pid => H.g.teams[pid] === t.id).length }));
+    const min = Math.min(...counts.map(c => c.k));
+    return counts.filter(c => c.k === min).map(c => c.id);
+  }
+  const pickOne = arr => arr[Math.floor(Math.random() * arr.length)];
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
   }
 
   async function hostBoot() {
@@ -603,7 +671,9 @@
     H.g = saved && saved.room ? Object.assign(newGame(saved.room), saved) : newGame();
     for (const pid of Object.keys(H.g.players)) H.seen.add(pid);
     if (H.g.idx >= items().length) { H.g.idx = -1; H.g.phase = 'lobby'; }
-    if (!cur() && H.g.phase !== 'lobby' && H.g.phase !== 'end') H.g.phase = 'lobby';
+    if (H.g.draw && H.g.draw.spinning) finishSpin(true);
+    if (H.g.phase === 'draw' && !H.g.draw) H.g.phase = 'lobby';
+    if (!cur() && !['lobby', 'end', 'draw'].includes(H.g.phase)) H.g.phase = 'lobby';
     connectHost();
     app.addEventListener('click', onHostClick);
     app.addEventListener('input', onHostInput);
@@ -663,8 +733,9 @@
     s.pl = {};
     for (const p of ranking()) {
       const r = res && res[p.pid];
-      s.pl[p.pid] = { n: p.n, s: p.s, r: p.rank, a: ans[p.pid] ? 1 : 0, d: r ? r.pts : null, k: r && r.ok != null ? (r.ok ? 1 : 0) : null };
+      s.pl[p.pid] = { n: p.n, s: p.s, r: p.rank, a: ans[p.pid] ? 1 : 0, d: r ? r.pts : null, k: r && r.ok != null ? (r.ok ? 1 : 0) : null, t: p.t };
     }
+    if (g.nTeams) s.tm = teamRanking().map(t => ({ id: t.id, avg: t.avg, r: t.rank, k: t.size }));
     return s;
   }
 
@@ -677,6 +748,10 @@
       const p = g.players[pid];
       if (p && p.n === n) return publish();
       g.players[pid] = { n, j: p ? p.j : Date.now() };
+      if (g.nTeams && !g.teams[pid]) {
+        if (g.phase === 'draw' && g.draw) g.draw.order.push(pid);
+        else g.teams[pid] = pickOne(smallestTeams());
+      }
       commit(false);
       patchLive();
     } else if (m.t === 'ans') {
@@ -748,6 +823,7 @@
         if (it && it.type === 'task') { g.phase = 'task'; return commit(); }
         if (it && it.type !== 'title' && g.results[it.id]) { g.phase = 'board'; return commit(); }
         return startItem(g.idx);
+      case 'draw': return spinNext();
       case 'title': return advance();
       case 'question': return lockQuestion();
       case 'reveal':
@@ -778,7 +854,7 @@
   function render(force) {
     if (H.mode === 'editor') { H.key = 'editor'; app.innerHTML = editorHtml(); return; }
     const g = H.g, key = g.phase + ':' + g.idx;
-    if (!force && key === H.key) return patchLive();
+    if (!force && key === H.key && g.phase !== 'draw') return patchLive();
     H.key = key;
     app.innerHTML = `<div class="host">${headerHtml()}<main class="hmain">${mainHtml()}</main>${footHtml()}</div>`;
     afterRender();
@@ -790,6 +866,7 @@
       case 'question': return questionHtml(false);
       case 'reveal': return questionHtml(true);
       case 'task': return taskHtml();
+      case 'draw': return drawHtml();
       case 'board': return boardHtml();
       case 'end': return endHtml();
       default: return '';
@@ -808,6 +885,8 @@
     if (ph === 'lobby') {
       left = `<button class="btn" data-act="edit">Quiz bewerken</button>`
         + `<button class="btn" data-act="broker" title="Verbinden de gsm's niet? Probeer een andere server.">Server: ${esc(customBroker ? 'eigen' : BROKERS[g.b].name)}</button>`
+        + `<button class="btn" data-act="teams" title="Klik om het aantal teams te kiezen">Teams: ${g.nTeams || 'geen'}</button>`
+        + (g.nTeams ? `<button class="btn" data-act="draw">Draai het rad</button>` : '')
         + `<button class="btn" data-act="reset">Scores wissen</button>`
         + `<button class="btn" data-act="newroom">Nieuwe code</button>`;
     } else {
@@ -815,20 +894,31 @@
     }
     const label = {
       lobby: g.idx < 0 ? 'Start de quiz' : 'Verder spelen', title: 'Verder', question: 'Stop de tijd',
+      draw: g.draw && g.draw.i < g.draw.order.length ? 'Draai' : 'Klaar: naar de lobby',
       reveal: 'Tussenstand', task: 'Tussenstand', board: items().slice(g.idx + 1).some(playable) ? 'Volgende' : 'Eindstand',
     }[ph];
     return `<footer class="hfoot">${left}<span class="sp"></span><span class="warn" id="warn"></span><span class="hint">spatie = verder · F = volledig scherm</span>${label ? `<button class="btn primary" data-act="next">${label} ▸</button>` : ''}</footer>`;
   }
+  function chipHtml(p) {
+    const t = teamById(p.t);
+    return `<li class="chip ${H.seen.has(p.pid) ? '' : 'new'}" style="${teamVars(t)}"><button class="cn" ${H.g.nTeams ? `data-move="${p.pid}" title="Klik om van team te wisselen"` : 'tabindex="-1"'}>${H.g.nTeams ? '<i></i>' : ''}${esc(p.n)}</button>`
+      + `<button class="cx" data-kick="${p.pid}" aria-label="${esc(p.n)} verwijderen" title="Verwijderen">×</button></li>`;
+  }
   function chipsHtml() {
-    return ranking().map(p => `<li><button data-kick="${p.pid}" class="${H.seen.has(p.pid) ? '' : 'new'}" title="Klik om te verwijderen">${esc(p.n)}</button></li>`).join('');
+    const list = ranking().sort((a, b) => a.n.localeCompare(b.n));
+    if (!H.g.nTeams) return `<ul class="chips">${list.map(chipHtml).join('')}</ul>`;
+    const cols = activeTeams().map(t => ({ t, m: list.filter(p => p.t === t.id) }));
+    const loose = list.filter(p => !p.t);
+    return `<div class="tcols">${cols.map(c => `<div class="tcol" style="${teamVars(c.t)}"><h3>${c.t.n} <small class="num">${c.m.length}</small></h3><ul class="chips">${c.m.map(chipHtml).join('')}</ul></div>`).join('')}`
+      + (loose.length ? `<div class="tcol loose"><h3 style="--tx:var(--wire)">Nog geen team <small class="num">${loose.length}</small></h3><ul class="chips">${loose.map(chipHtml).join('')}</ul></div>` : '') + `</div>`;
   }
   function lobbyHtml() {
     const g = H.g, url = joinUrl(), n = Object.keys(g.players).length, bad = items().filter(it => !playable(it)).length;
     return `<div class="lobby"><figure class="qrcard">${qrSvg(url)}<figcaption><div class="code">${g.room}</div><p class="url">${esc(url.replace(/^https?:\/\//, ''))}</p></figcaption></figure>`
-      + `<section class="who"><p class="meta">${esc(H.quiz.title)} · ${qCount()} vragen${bad ? ` · ${bad} onvolledig` : ''}</p>`
+      + `<section class="who ${g.nTeams ? 'wt' : ''}"><p class="meta">${esc(H.quiz.title)} · ${qCount()} vragen${bad ? ` · ${bad} onvolledig` : ''}</p>`
       + `<h1 class="display">Scan de code<br>en doe mee</h1>`
       + `<p class="sub"><b id="nplayers" class="num">${n}</b> ${n === 1 ? 'speler' : 'spelers'} binnen${g.idx >= 0 ? ' · de quiz is al bezig' : ''}</p>`
-      + `<ul class="chips" id="chips">${chipsHtml()}</ul>`
+      + `<div id="chips">${chipsHtml()}</div>`
       + `<p class="offline-note" id="offnote" hidden></p></section></div>`;
   }
   function titleHtml() {
@@ -870,6 +960,62 @@
     return `<div class="target num">${fmt(tgt)}${unit ? `<small>${esc(unit)}</small>` : ''}</div>`
       + `<ol class="closest">${list.map(([pid, r]) => `<li><b>${esc(pname(pid))}</b><span class="num">${fmt(r.v)}</span><small class="num">${r.d === 0 ? 'exact!' : (r.v > tgt ? '+' : '−') + fmt(r.d)}</small><em class="num">+${fmt(r.pts)}</em></li>`).join('')}</ol>`;
   }
+  function wheelSegments() {
+    const ts = activeTeams(), n = ts.length * (ts.length === 2 ? 4 : 3);
+    return Array.from({ length: n }, (_, k) => ts[k % ts.length]);
+  }
+  function wheelSvg() {
+    const segs = wheelSegments(), a = 360 / segs.length;
+    const pt = (r, deg) => { const t = (deg - 90) * Math.PI / 180; return [(r * Math.cos(t)).toFixed(2), (r * Math.sin(t)).toFixed(2)]; };
+    let s = '<circle r="100" fill="#0b0a09"/>';
+    segs.forEach((t, k) => {
+      const [x1, y1] = pt(96, k * a), [x2, y2] = pt(96, (k + 1) * a), [tx, ty] = pt(62, (k + .5) * a);
+      s += `<path d="M0 0L${x1} ${y1}A96 96 0 0 1 ${x2} ${y2}Z" fill="${t.c}" stroke="#141210" stroke-width=".8"/>`
+        + `<text x="${tx}" y="${ty}" transform="rotate(${((k + .5) * a).toFixed(2)} ${tx} ${ty})" text-anchor="middle" dominant-baseline="central" fill="${t.fg}" font-size="${segs.length > 9 ? 9 : 11}" font-weight="900" style="font-family:'Big Shoulders Display',Impact,sans-serif;text-transform:uppercase;letter-spacing:.04em">${t.n.toUpperCase()}</text>`;
+    });
+    s += '<circle r="13" fill="#141210" stroke="#f0e4c8" stroke-width="2"/>';
+    return `<svg viewBox="-101 -101 202 202" id="wheelsvg" role="img" aria-label="Rad met de teams">${s}</svg>`;
+  }
+  function drawHtml() {
+    const g = H.g, d = g.draw, curT = d && d.cur && !d.spinning ? teamById(g.teams[d.cur]) : null;
+    const left = d ? d.order.length - d.i : 0;
+    let name = 'Wie is eerst?', to = `Druk op spatie om te draaien.`;
+    if (d && d.cur) {
+      name = esc(pname(d.cur));
+      to = d.spinning ? 'Het rad draait…' : `gaat naar <b style="${teamVars(curT)}">Team ${curT ? curT.n : '?'}</b>`;
+    } else if (!left) { name = 'Iedereen zit'; to = 'De teams staan.'; }
+    return `<div class="draw"><div class="wheelbox"><div class="wheel"><i class="pointer"></i>${wheelSvg()}</div></div>`
+      + `<div class="drawside"><p class="meta">Loting van de teams · nog ${left} te gaan</p><h1 class="drawname">${name}</h1><p class="drawto">${to}</p>`
+      + `<div id="chips">${chipsHtml()}</div></div></div>`;
+  }
+  // Het rad landt altijd op een van de kleinste teams, zodat de teams even groot blijven
+  function spinNext() {
+    const g = H.g, d = g.draw;
+    if (!d || d.spinning) return;
+    while (d.i < d.order.length && !g.players[d.order[d.i]]) d.i++;
+    if (d.i >= d.order.length) { g.phase = 'lobby'; g.draw = null; return commit(true); }
+    const pid = d.order[d.i], target = pickOne(smallestTeams()), segs = wheelSegments(), a = 360 / segs.length;
+    const options = segs.map((t, k) => (t.id === target ? k : -1)).filter(k => k >= 0), k = pickOne(options);
+    const land = 360 - (k + .5) * a + (Math.random() - .5) * a * .6;
+    const base = d.rot - (((d.rot % 360) + 360) % 360);
+    d.prev = d.rot;
+    d.rot = base + 360 * 6 + ((land % 360) + 360) % 360;
+    d.cur = pid;
+    d.target = target;
+    d.spinning = true;
+    commit();
+    clearTimeout(H.spinT);
+    H.spinT = setTimeout(() => finishSpin(false), 4300);
+  }
+  function finishSpin(silent) {
+    const g = H.g, d = g.draw;
+    if (!d || !d.spinning) return;
+    g.teams[d.cur] = d.target;
+    d.spinning = false;
+    d.prev = d.rot;
+    d.i++;
+    if (!silent) commit();
+  }
   function taskHtml() {
     const it = cur();
     return `<div class="q task ${it.img ? 'with-img' : 'no-img'}">${it.img ? `<div class="stage" id="stage"><div class="frame" id="frame"><img id="qimg" alt="" src="${esc(it.img)}"></div></div>` : ''}<div class="qside" id="taskside">${taskSideHtml()}</div></div>`;
@@ -882,24 +1028,32 @@
         ? `<div class="timer"><b id="tsecs" class="num">${g.tEnd > Date.now() ? Math.ceil((g.tEnd - Date.now()) / 1000) : 'Tijd!'}</b><div class="bar"><i id="tbar"></i></div></div>`
         : `<div class="row"><button class="btn" data-act="clock">Start de klok (${it.time} s)</button></div>`;
     }
+    const list = ranking();
+    const teamBtns = g.nTeams ? `<div class="pick">${activeTeams().map(t => {
+      const m = list.filter(p => p.t === t.id), all = m.length && m.every(p => res[p.pid]);
+      return `<button class="pk tm ${all ? 'on' : ''}" style="${teamVars(t)}" data-awardteam="${t.id}">Team ${t.n}</button>`;
+    }).join('')}</div>` : '';
     return `<p class="meta">Opdracht · ${fmt(it.pts)} punten per winnaar</p><h1 class="qtext">${esc(it.text)}</h1>${clock}`
-      + `<p class="help">Wie verdient de punten? Tik de namen aan.</p>`
-      + `<div class="pick">${ranking().map(p => `<button class="pk ${res[p.pid] ? 'on' : ''}" data-award="${p.pid}">${esc(p.n)}</button>`).join('')}</div>`;
+      + `<p class="help">Wie verdient de punten? Tik ${g.nTeams ? 'een heel team of ' : ''}de namen aan.</p>${teamBtns}`
+      + `<div class="pick">${list.map(p => `<button class="pk ${res[p.pid] ? 'on' : ''}" data-award="${p.pid}">${esc(p.n)}</button>`).join('')}</div>`;
   }
   function boardHtml() {
     const g = H.g, it = cur(), list = ranking(), max = Math.max(1, ...list.map(p => p.s)), res = (it && g.results[it.id]) || {};
     const cols = list.length > 10 ? 2 : 1, rows = Math.max(1, Math.ceil(list.length / cols));
     const title = it && it.type === 'task' ? 'Stand na de opdracht' : `Stand na vraag ${qNumber(g.idx)}`;
-    return `<div class="board"><h1 class="display">${title}</h1><ol class="rank" style="grid-template-columns:repeat(${cols},minmax(0,1fr));grid-template-rows:repeat(${rows},minmax(0,4.2em))">`
+    const strip = g.nTeams ? `<div class="tstrip" style="grid-template-columns:repeat(${g.nTeams},minmax(0,1fr))">${teamRanking().map(t => `<div class="tcard" style="${teamVars(t)}"><span class="tp num">${t.rank}</span><b>${t.n}</b><span class="num">gem. ${fmt(t.avg)}</span></div>`).join('')}</div>` : '';
+    return `<div class="board"><h1 class="display">${title}</h1>${strip}<ol class="rank" style="grid-template-columns:repeat(${cols},minmax(0,1fr));grid-template-rows:repeat(${rows},minmax(0,4.2em))">`
       + list.map((p, i) => {
         const d = (res[p.pid] || {}).pts || 0;
-        return `<li class="${p.rank === 1 ? 'first' : ''}"><span class="pos num">${p.rank}</span><span class="nm">${esc(p.n)}</span><span class="bar"><i style="--w:${((p.s - d) / max).toFixed(3)}" data-w="${(p.s / max).toFixed(3)}"></i></span><span class="dl num">${d ? '+' + fmt(d) : ''}</span><span class="sc num">${fmt(p.s)}</span></li>`;
+        return `<li class="${p.rank === 1 ? 'first' : ''}"><span class="pos num">${p.rank}</span><span class="nm" style="${teamVars(teamById(p.t))}">${p.t ? '<i></i>' : ''}${esc(p.n)}</span><span class="bar"><i style="--w:${((p.s - d) / max).toFixed(3)}" data-w="${(p.s / max).toFixed(3)}"></i></span><span class="dl num">${d ? '+' + fmt(d) : ''}</span><span class="sc num">${fmt(p.s)}</span></li>`;
       }).join('') + `</ol></div>`;
   }
   function endHtml() {
     const list = ranking(), [a, b, c] = list;
     const pod = (p, cls, place) => p ? `<div class="pod ${cls}"><div class="nm">${esc(p.n)}</div><div class="sc num">${fmt(p.s)} punten</div><div class="blk">${place}</div></div>` : `<div class="pod ${cls}"></div>`;
-    return `<div class="end"><h1 class="display">Eindstand</h1><div class="podium">${pod(b, 'p2', 2)}${pod(a, 'p1', 1)}${pod(c, 'p3', 3)}</div>`
+    const tr = H.g.nTeams ? teamRanking() : [];
+    const win = tr.length ? `<p class="teamwin" style="${teamVars(tr[0])}">Winnend team <b>${tr[0].n}</b> gemiddeld ${fmt(tr[0].avg)} punten${tr.slice(1).map(t => ` · ${t.rank}. ${t.n} (${fmt(t.avg)})`).join('')}</p>` : '<p class="teamwin"></p>';
+    return `<div class="end ${tr.length ? 'wt' : ''}"><h1 class="display">Eindstand</h1>${win}<div class="podium">${pod(b, 'p2', 2)}${pod(a, 'p1', 1)}${pod(c, 'p3', 3)}</div>`
       + (list.length > 3 ? `<p class="rest">${list.slice(3).map(p => `${p.rank}. ${esc(p.n)} <span class="num">${fmt(p.s)}</span>`).join(' · ')}</p>` : '<p class="rest"></p>') + `</div>`;
   }
 
@@ -914,6 +1068,15 @@
         if (g.phase === 'question' && it.zoom && !it.hide) startZoom(it);
       };
       if (img.complete && img.naturalWidth) go(); else img.addEventListener('load', go, { once: true });
+    }
+    const wheel = $('#wheelsvg');
+    if (wheel && g.draw) {
+      const d = g.draw;
+      wheel.style.transform = `rotate(${d.spinning ? d.prev : d.rot}deg)`;
+      if (d.spinning) requestAnimationFrame(() => requestAnimationFrame(() => {
+        wheel.style.transition = 'transform 4.1s cubic-bezier(.12, .7, .1, 1)';
+        wheel.style.transform = `rotate(${d.rot}deg)`;
+      }));
     }
     if (g.phase === 'question') startBar('#bar', g.qEnd, it.time);
     if (g.phase === 'task') startBar('#tbar', g.tEnd, it.time);
@@ -985,9 +1148,21 @@
   }
   function onHostClick(e) {
     if (H.mode === 'editor') return onEditorClick(e);
-    const b = e.target.closest('[data-act],[data-award],[data-kick]');
+    const b = e.target.closest('[data-act],[data-award],[data-awardteam],[data-kick],[data-move]');
     if (!b) return;
     const g = H.g, it = cur();
+    if (b.dataset.awardteam && it && g.phase === 'task') {
+      const res = g.results[it.id] || (g.results[it.id] = {});
+      const m = Object.keys(g.players).filter(pid => g.teams[pid] === b.dataset.awardteam);
+      const all = m.length && m.every(pid => res[pid]);
+      for (const pid of m) { if (all) delete res[pid]; else res[pid] = { pts: it.pts, ok: true }; }
+      return commit();
+    }
+    if (b.dataset.move && g.nTeams) {
+      const ids = activeTeams().map(t => t.id), now = ids.indexOf(g.teams[b.dataset.move]);
+      g.teams[b.dataset.move] = ids[(now + 1) % ids.length];
+      return commit();
+    }
     if (b.dataset.award && it && g.phase === 'task') {
       const res = g.results[it.id] || (g.results[it.id] = {}), pid = b.dataset.award;
       if (res[pid]) delete res[pid]; else res[pid] = { pts: it.pts, ok: true };
@@ -1002,13 +1177,24 @@
     }
     switch (b.dataset.act) {
       case 'next': return next();
-      case 'lobby': g.phase = 'lobby'; return commit();
+      case 'lobby': if (g.draw && g.draw.spinning) finishSpin(true); g.phase = 'lobby'; g.draw = null; return commit();
+      case 'teams':
+        g.nTeams = g.nTeams === 0 ? 2 : g.nTeams >= 4 ? 0 : g.nTeams + 1;
+        g.teams = {};
+        commit(false);
+        return render(true);
+      case 'draw':
+        if (!Object.keys(g.players).length) return toast('Er is nog niemand binnen om te loten.');
+        g.teams = {};
+        g.draw = { order: shuffle(Object.keys(g.players)), i: 0, cur: null, target: null, spinning: false, rot: 0, prev: 0 };
+        g.phase = 'draw';
+        return commit();
       case 'fs': return toggleFs();
       case 'edit': H.mode = 'editor'; H.ei = Math.min(H.ei, Math.max(0, items().length - 1)); return render();
       case 'broker': g.b = (g.b + 1) % BROKERS.length; reconnect(); return commit(true);
       case 'reset':
         if (!confirm('Alle scores en antwoorden wissen? De spelers blijven ingelogd.')) return;
-        H.g = Object.assign(newGame(g.room), { b: g.b, players: g.players, gone: g.gone, seq: g.seq });
+        H.g = Object.assign(newGame(g.room), { b: g.b, players: g.players, gone: g.gone, seq: g.seq, nTeams: g.nTeams, teams: g.teams });
         return commit(true);
       case 'newroom':
         if (!confirm('Nieuwe code maken? Iedereen moet dan opnieuw scannen.')) return;
@@ -1123,7 +1309,7 @@
       if (H.g.idx >= 0 && !confirm('Er loopt een quiz. Scores wissen en dit pakket laden?')) return;
       H.quiz = { title: str(data.title, 80) || 'Fotofinish', items: uniqueIds(data.items.map(normItem).filter(Boolean)) };
       H.ei = 0;
-      H.g = Object.assign(newGame(H.g.room), { b: H.g.b, players: H.g.players, gone: H.g.gone, seq: H.g.seq });
+      H.g = Object.assign(newGame(H.g.room), { b: H.g.b, players: H.g.players, gone: H.g.gone, seq: H.g.seq, nTeams: H.g.nTeams, teams: H.g.teams });
       store.set('ff_game', H.g);
       publish();
       await idb.set('quiz', H.quiz).catch(() => {});
@@ -1316,7 +1502,7 @@
     else if (!m) key = 'joining';
     else {
       key = [st.ph, q ? q.id : '', st.ph === 'question' && q ? (P.mine[q.id] != null ? 'done' : 'open') : '',
-        ['reveal', 'board', 'task', 'end'].includes(st.ph) ? `${m.d}:${m.r}:${m.s}` : ''].join('|');
+        ['reveal', 'board', 'task', 'end'].includes(st.ph) ? `${m.d}:${m.r}:${m.s}` : '', m.t || ''].join('|');
     }
     if (key === P.key) return pPatch();
     P.key = key;
@@ -1326,7 +1512,8 @@
   }
   function pBar() {
     const m = me();
-    return `<header class="pbar"><span class="brand"><span class="mark"></span>Fotofinish</span><span class="me">${m ? esc(m.n) : ''}<small class="num">${m ? `${fmt(m.s)} pt · ${m.r}e` : 'code ' + esc(P.room)}</small></span><span class="dot ${P.link}" id="plink"></span></header>`;
+    const t = m && teamById(m.t);
+    return `<header class="pbar"><span class="brand"><span class="mark"></span>Fotofinish</span><span class="me">${m ? esc(m.n) : ''}${t ? `<span class="ttag" style="${teamVars(t)}">${t.n}</span>` : ''}<small class="num">${m ? `${fmt(m.s)} pt · ${m.r}e` : 'code ' + esc(P.room)}</small></span><span class="dot ${P.link}" id="plink"></span></header>`;
   }
   function pPatch() {
     const h = $('.pbar');
@@ -1347,6 +1534,11 @@
     if (!m) return center('Aanmelden…', `Even geduld, ${esc(P.name)}.`) + `<button class="linkbtn" data-act="rename">Andere naam</button>`;
     const q = st.q;
     switch (st.ph) {
+      case 'draw': {
+        const t = teamById(m.t);
+        return t ? `<div class="pteam" style="${teamVars(t)}"><span>Jij zit in</span><b>Team ${t.n}</b></div><p class="psub">Kijk naar het rad op het grote scherm.</p>`
+          : center('Het rad draait', 'Wacht op je beurt. Kijk naar het grote scherm.');
+      }
       case 'lobby': return center('Je zit erin', `Kijk naar het grote scherm. <b id="pn" class="num">${Object.keys(st.pl).length}</b> spelers binnen.`) + `<button class="linkbtn" data-act="rename">Naam aanpassen</button>`;
       case 'title': return center(esc(q.ti || q.tx), q.ti ? esc(q.tx) : '');
       case 'question': return pQuestion(q);
@@ -1354,7 +1546,7 @@
       case 'board': return pBoard(st, m);
       case 'task': return `<p class="pmeta">Opdracht</p><p class="pq">${esc(q.tx)}</p>`
         + (m.d ? `<div class="pres ok"><span class="ptitle">Gewonnen!</span><span class="pts num">+${fmt(m.d)}</span></div>` : `<p class="psub">Kijk naar het scherm. De quizmaster deelt de punten uit.</p>`);
-      case 'end': return center(`${m.r}e plaats`, `Van de ${Object.keys(st.pl).length} spelers, met <b class="num">${fmt(m.s)}</b> punten. ${m.r === 1 ? 'Proficiat, kampioen!' : 'Bedankt om mee te spelen.'}`, 'plain');
+      case 'end': return center(`${m.r}e plaats`, `Van de ${Object.keys(st.pl).length} spelers, met <b class="num">${fmt(m.s)}</b> punten. ${m.r === 1 ? 'Proficiat, kampioen!' : 'Bedankt om mee te spelen.'}`, 'plain') + pTeamLine(st, m);
       default: return center('Even wachten', '');
     }
   }
@@ -1380,7 +1572,12 @@
   function pBoard(st, m) {
     const ahead = Object.values(st.pl).filter(p => p.s > m.s).sort((a, b) => a.s - b.s)[0];
     const sub = m.r === 1 ? `Je staat aan de leiding met <b class="num">${fmt(m.s)}</b> punten.` : `<b class="num">${fmt(m.s)}</b> punten. Nog <b class="num">${fmt(ahead.s - m.s)}</b> tot ${esc(ahead.n)}.`;
-    return center(`${m.r}e`, sub, 'plain');
+    return center(`${m.r}e`, sub, 'plain') + pTeamLine(st, m);
+  }
+  function pTeamLine(st, m) {
+    const mine = st.tm && st.tm.find(t => t.id === m.t), t = teamById(m.t);
+    if (!mine || !t) return '';
+    return `<p class="psub">Team <b style="color:${t.tx}">${t.n}</b> staat <b>${mine.r}e</b> met gemiddeld <b class="num">${fmt(mine.avg)}</b> punten.</p>`;
   }
   function answer(v) {
     const st = P.st, q = st && st.q;

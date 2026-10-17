@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  /* Fotofinish: de dartbord-kroeg. Sisal zwart, crème singles, rood/groene ringen, messing pijlen, stalen draad */
+  /* Fotofinish: avond in de wijnbar. Bijna zwart, crème, wijnrood, wijngaardgroen, messing */
   :root {
     --bg: #141210;
     --panel: #1e1b18;
@@ -48,10 +48,9 @@
   /* ── GEDEELD ── */
   .mark {
     width: 1.05em; height: 1.05em; border-radius: 50%; flex: none; display: inline-block;
-    background:
-      radial-gradient(circle, var(--red) 0 13%, var(--green) 14% 26%, transparent 27%),
-      repeating-conic-gradient(from -9deg, var(--ink) 0 18deg, var(--cream) 18deg 36deg);
-    box-shadow: 0 0 0 .1em var(--red), 0 0 0 .18em var(--ink);
+    /* een glas rode wijn van bovenaf */
+    background: radial-gradient(circle at 42% 40%, #e2584c 0 18%, var(--red) 34%, #7d1d22 70%);
+    box-shadow: 0 0 0 .09em var(--bg), 0 0 0 .17em var(--cream);
   }
   .brand {
     display: flex; align-items: center; gap: .5em;
@@ -200,7 +199,6 @@
   .verdict b { color: var(--cream); }
   .target { font-family: var(--display); font-weight: 900; font-size: 8em; line-height: .9; }
   .target small { font-size: .35em; color: var(--wire); margin-left: .2em; }
-  .throwline { font-family: var(--display); font-weight: 800; font-size: 1.8em; letter-spacing: .05em; color: var(--brass); margin: 0; }
   .closest { list-style: none; margin: 0; padding: 0; display: grid; gap: .35em; font-size: 1.3em; width: 100%; max-width: 30em; }
   .closest li { text-align: left; display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto; gap: .9em; align-items: baseline; padding: .3em 0; border-bottom: 1px solid var(--line); }
   .closest li:first-child b { color: var(--brass); }
@@ -228,25 +226,16 @@
   .rank .dl { color: var(--green); font-weight: 800; text-align: right; }
   .rank .sc { font-family: var(--display); font-weight: 900; font-size: 1.35em; text-align: right; }
 
-  /* dartbord */
-  .dartwrap { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(18em, 30em); gap: 2.4em; align-items: center; }
-  .bw { height: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; }
-  .dartboard { width: 100%; height: 100%; display: block; cursor: crosshair; }
-  .dside { display: grid; gap: 1em; align-content: center; min-width: 0; }
-  .dside .meta { font-size: 1.35em; }
-  .dside .qtext { font-size: 2.2em; }
-  .dside .help { color: var(--wire); font-size: 1.2em; margin: 0; }
-  .throws { list-style: none; margin: 0; padding: 0; display: grid; gap: .4em; font-size: 1.4em; }
-  .throws li { display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); padding: .25em 0; }
-  .throws li span { color: var(--wire); }
-  .throws li b { font-family: var(--display); font-size: 1.25em; letter-spacing: .04em; }
-  .dtotal { font-size: 1.6em; display: flex; justify-content: space-between; align-items: baseline; }
-  .dtotal b { font-family: var(--display); font-size: 2.2em; }
-  .pick { display: flex; flex-wrap: wrap; gap: .45em; }
-  .pk { display: grid; text-align: left; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: .4em .8em; font-weight: 800; font-size: 1.1em; }
-  .pk small { color: var(--wire); font-weight: 600; font-size: .8em; }
-  .pk.on { background: var(--cream); color: var(--ink); border-color: var(--cream); }
-  .pk.on small { color: #5a5248; }
+  /* opdracht: de quizmaster tikt aan wie de punten verdient */
+  .q.task { grid-template-rows: minmax(0, 1fr); }
+  .qside .help { color: var(--wire); font-size: 1.2em; margin: 0; }
+  .pick { display: flex; flex-wrap: wrap; gap: .5em; }
+  .q.no-img .pick { justify-content: center; }
+  .pk { background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: .45em 1.05em; font-weight: 800; font-size: 1.2em; }
+  .pk:hover { border-color: var(--wire); }
+  .pk.on { background: var(--green); border-color: var(--green); color: #fff; }
+  .pk.on::before { content: '✓ '; }
+  .tclock { display: flex; align-items: center; gap: .8em; width: 100%; max-width: 32em; }
   .field { display: grid; gap: .35em; min-width: 0; }
   .field > label, .lbl { font-size: .78em; text-transform: uppercase; letter-spacing: .08em; color: var(--wire); font-weight: 700; }
   .row { display: flex; flex-wrap: wrap; gap: .8em; align-items: center; }
@@ -366,7 +355,7 @@
     .hbar, .hmain, .hfoot { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
     .hbar { flex-wrap: wrap; }
     .hfoot .hint { display: none; }
-    .lobby, .dartwrap { grid-template-columns: minmax(0, 1fr); gap: 1.4em; }
+    .lobby { grid-template-columns: minmax(0, 1fr); gap: 1.4em; }
     .qrcard { width: min(70vw, 18em); justify-self: center; }
     .who h1 { font-size: 3.6em; }
     .q, .q.no-img, .q.portrait { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
@@ -375,7 +364,6 @@
     .stage { height: 45vh; }
     .tiles { grid-template-columns: 1fr; }
     .tile { font-size: 1.4em; }
-    .bw { height: 80vw; }
     .titlecard h1 { font-size: 5em; }
     .rank { grid-auto-flow: row; grid-template-columns: minmax(0, 1fr) !important; grid-template-rows: none !important; }
     .rank li { grid-template-columns: 1.6em minmax(0, 1fr) 3.4em 4em; }
@@ -456,8 +444,8 @@
 
   // ── QUIZ-INHOUD ──
   const SHAPES = ['●', '▲', '■', '◆'];
-  const TYPES = { mc: 'Meerkeuze', num: 'Schatting', dart: 'Gok de worp', darts: 'Pijlronde', title: 'Rondetitel' };
-  const DEF_TIME = { mc: 20, num: 30, dart: 30, darts: 0, title: 0 };
+  const TYPES = { mc: 'Meerkeuze', num: 'Schatting', task: 'Opdracht', title: 'Rondetitel' };
+  const DEF_TIME = { mc: 20, num: 30, task: 0, title: 0 };
   const CLOSEST = [1000, 750, 550, 400, 300, 200, 150, 100];
 
   function normItem(r) {
@@ -471,12 +459,12 @@
       img: typeof r.img === 'string' && /^data:image\/(jpeg|png|webp|gif);base64,/.test(r.img) ? r.img : '',
       hide: !!r.hide,
       dbl: !!r.dbl,
-      time: clamp(Number(r.time) || DEF_TIME[type] || 20, 5, 180),
+      time: type === 'task' ? clamp(Number(r.time) || 0, 0, 600) : clamp(Number(r.time) || DEF_TIME[type] || 20, 5, 180),
       zoom: null,
       options: Array.isArray(r.options) ? r.options.slice(0, 4).map(o => str(o, 90)) : [],
       correct: null,
       unit: str(r.unit, 16),
-      mult: clamp(Number(r.mult) || 10, 1, 100),
+      pts: clamp(Number(r.pts) || 500, 10, 5000),
     };
     while (it.options.length < 4) it.options.push('');
     if (r.zoom && typeof r.zoom === 'object') it.zoom = { x: clamp(Number(r.zoom.x), 0, 100), y: clamp(Number(r.zoom.y), 0, 100), s: clamp(Number(r.zoom.s) || 6, 1.5, 14) };
@@ -499,6 +487,7 @@
     if (it.type === 'title') return !!(it.title || it.text);
     if (it.type === 'mc') { const o = playOpts(it); return o.length >= 2 && it.correct < o.length && !!o[it.correct].trim(); }
     if (it.type === 'num') return Number.isFinite(it.correct);
+    if (it.type === 'task') return !!it.text.trim();
     return true;
   }
 
@@ -508,29 +497,42 @@
       items: uniqueIds([
         { type: 'title', title: 'Testronde', text: 'Even checken of alle gsm\'s meedoen.' },
         { type: 'mc', text: 'Hoe heet deze quiz?', options: ['Fotomodel', 'Fotofinish', 'Fotokopie', 'Fotosynthese'], correct: 1, time: 20 },
-        { type: 'num', text: 'Hoeveel punten is de bull (het rode midden) waard?', correct: 50, unit: 'punten', time: 25 },
-        { type: 'dart', text: 'De quizmaster gooit 3 pijlen. Hoeveel punten samen?', time: 30 },
-        { type: 'darts', text: 'Comebackpijl: de laatste drie gooien elk één pijl.', mult: 10 },
+        { type: 'num', text: 'Hoeveel liter wijn zit er in een magnum?', correct: 1.5, unit: 'liter', time: 25 },
+        { type: 'task', text: 'Wie als eerste een vol glas omhoog houdt, krijgt 500 punten.', pts: 500 },
       ].map(normItem)),
     };
   }
 
-  // Wijnweetjes, deels uit de Flavory Live-proeverij. "+ Wijnronde" in de editor zet ze in de quiz.
-  const WINE_ROUND = [
-    { type: 'title', title: 'Wijnweetjes', text: 'Een glas kennis tussendoor.' },
-    { type: 'mc', text: "Wat betekent 'Saperavi', de Georgische druif met bloedrood vruchtvlees, letterlijk?", options: ['Rood vuur', 'Verf', 'Steenrots', 'Oude wijnstok'], correct: 1 },
-    { type: 'num', text: 'Hoeveel jaar maken ze in Georgië al wijn?', correct: 8000, unit: 'jaar' },
-    { type: 'mc', text: 'Moldavië was ooit de wijnfabriek van een groot rijk. Van welk?', options: ['Het Ottomaanse Rijk', 'De Sovjet-Unie', 'Oostenrijk-Hongarije', 'Het Romeinse Rijk'], correct: 1 },
+  // Wijnweetjes, deels uit de Flavory Live-proeverij. "+ Wijnronde" in de editor zet er telkens 6 nieuwe in.
+  const WINE_BANK = [
+    { type: 'mc', text: "Wat betekent 'Saperavi', de naam van de Georgische druif, letterlijk?", options: ['Rood vuur', 'Verf', 'Steenrots', 'Oude wijnstok'], correct: 1 },
+    { type: 'mc', text: 'Garnacha is Spaans. Hoe heet dezelfde druif in Frankrijk?', options: ['Grenache', 'Gamay', 'Carignan', 'Cinsault'], correct: 0 },
+    { type: 'num', text: "Hoeveel bar druk staat er op een fles champagne? (Een autoband: zo'n 2,5.)", correct: 6, unit: 'bar' },
+    { type: 'mc', text: 'Wat is zoeter: brut of extra dry?', options: ['Brut', 'Extra dry', 'Ze zijn even zoet', 'Hangt af van het jaar'], correct: 1 },
+    { type: 'mc', text: 'Ook de Westhoek maakt wijn. Welke streek heeft een eigen beschermde benaming?', options: ['De Moeren', 'Heuvelland', 'Houtland', 'De IJzervallei'], correct: 1 },
     { type: 'mc', text: 'In 1985 kwam Oostenrijk in een wijnschandaal terecht. Wat zat er in sommige zoete wijnen?', options: ['Antivries', 'Suikerbietensiroop', 'Wodka', 'Afwasmiddel'], correct: 0 },
+    { type: 'mc', text: "Wat verraden de 'tranen' die langs de binnenkant van je glas lopen?", options: ['De kwaliteit', 'Het alcoholgehalte', 'De leeftijd', 'De zuurtegraad'], correct: 1 },
+    { type: 'mc', text: 'Hoeveel liter zit er in een Nebukadnezar?', options: ['6 liter', '9 liter', '15 liter', '30 liter'], correct: 2 },
+    { type: 'num', text: 'Hoeveel jaar maken ze in Georgië al wijn?', correct: 8000, unit: 'jaar' },
+    { type: 'mc', text: "Waar komt het woord 'proost' vandaan?", options: ["Latijn: 'moge het baten'", "Frans: 'pour toast'", "Duits: 'vrolijk'", "Oudnederlands: 'proeven'"], correct: 0 },
+    { type: 'mc', text: 'Brunello di Montalcino is een Toscaanse topwijn. Van welke druif?', options: ['Nebbiolo', 'Sangiovese', 'Merlot', 'Montepulciano'], correct: 1 },
+    { type: 'mc', text: 'Welke kleur heeft het sap van de meeste blauwe druiven?', options: ['Donkerrood', 'Paars', 'Kleurloos', 'Roze'], correct: 2 },
+    { type: 'mc', text: 'Dom Pérignon, de naam achter de beroemde champagne, was…', options: ['Een monnik', 'Een koning', 'Een generaal', 'Een kok'], correct: 0 },
+    { type: 'num', text: 'De oudste ongeopende fles wijn ter wereld ligt in Speyer (Duitsland). Hoeveel jaar oud is die ongeveer?', correct: 1700, unit: 'jaar' },
+    { type: 'mc', text: 'Hoe heet de angst voor wijn?', options: ['Druivofobie', 'Oenofobie', 'Bacchofobie', 'Sommeliersfobie'], correct: 1 },
+    { type: 'mc', text: 'Welk land drinkt per inwoner de meeste wijn?', options: ['Frankrijk', 'Portugal', 'Vaticaanstad', 'Italië'], correct: 2 },
+    { type: 'mc', text: 'Moldavië was ooit de wijnfabriek van een groot rijk. Van welk?', options: ['Het Ottomaanse Rijk', 'De Sovjet-Unie', 'Oostenrijk-Hongarije', 'Het Romeinse Rijk'], correct: 1 },
     { type: 'mc', text: 'Welke molecule geeft Grüner Veltliner zijn witte-pepertoets?', options: ['Rotundone', 'Capsaïcine', 'Piperine', 'Eugenol'], correct: 0 },
     { type: 'mc', text: 'Cava maakt men volgens de Método Tradicional. Wat betekent dat?', options: ['Koolzuur achteraf toevoegen', 'Tweede gisting in de fles', 'Druiven met de voeten persen', 'Rijpen in een grot'], correct: 1 },
+    { type: 'mc', text: 'Wat is bijzonder aan de Saperavi-druif?', options: ['Ze groeit alleen boven 2000 meter', 'Ook het vruchtvlees is rood', 'Ze heeft geen pitten', 'Ze rijpt pas na de eerste vorst'], correct: 1 },
+    { type: 'mc', text: 'Topchef Jan Hendrik van der Westhuizen, de eerste Zuid-Afrikaan met een Michelinster, heeft zijn restaurant JAN in…', options: ['Kaapstad', 'Stellenbosch', 'Nice', 'Londen'], correct: 2 },
     { type: 'mc', text: 'Welke druif hoort NIET in champagne?', options: ['Chardonnay', 'Pinot Noir', 'Pinot Meunier', 'Sauvignon Blanc'], correct: 3 },
-    { type: 'num', text: "Hoeveel bar druk staat er op een fles champagne? (Een autoband: zo'n 2,5.)", correct: 6, unit: 'bar' },
-    { type: 'mc', text: 'Hoeveel liter zit er in een Nebukadnezar?', options: ['6 liter', '9 liter', '15 liter', '30 liter'], correct: 2 },
-    { type: 'mc', text: "Waar komt het woord 'proost' vandaan?", options: ["Latijn: 'moge het baten'", "Frans: 'pour toast'", "Duits: 'vrolijk'", "Oudnederlands: 'proeven'"], correct: 0 },
-    { type: 'mc', text: 'Hoe heet de angst voor wijn?', options: ['Druivofobie', 'Oenofobie', 'Bacchofobie', 'Sommeliersfobie'], correct: 1 },
     { type: 'mc', text: 'Hoe wordt rosé meestal gemaakt?', options: ['Rode en witte wijn mengen', 'Blauwe druiven kort op de schil laten weken', 'Witte wijn met bessensap', 'Rode wijn aanlengen met water'], correct: 1 },
     { type: 'mc', text: 'Welk land heeft de meeste hectare wijngaard ter wereld?', options: ['Frankrijk', 'Italië', 'Spanje', 'Verenigde Staten'], correct: 2 },
+    { type: 'mc', text: "Wat veroorzaakt een 'kurksmaak'?", options: ['Te veel zuurstof', 'De stof TCA', 'Te warm bewaard', 'Een stukje kurk in de wijn'], correct: 1 },
+    { type: 'mc', text: 'Waarom bewaar je een fles met kurk liggend?', options: ['Zo past er meer in het rek', 'Zodat de kurk niet uitdroogt', 'Zodat het depot niet bezinkt', 'Om de wijn te laten ademen'], correct: 1 },
+    { type: 'num', text: 'Hoeveel jaar duurt het ongeveer voor een nieuw geplante wijnstok druiven geeft die goed genoeg zijn voor wijn?', correct: 3, unit: 'jaar' },
+    { type: 'mc', text: "Wat is een 'Blanc de Noirs'?", options: ['Witte wijn van blauwe druiven', 'Rode wijn van witte druiven', 'Wijn met een zwarte kurk', "Wijn van druiven die 's nachts geplukt zijn"], correct: 0 },
   ];
 
   // ── OPSLAG OP DE LAPTOP (foto's zijn te groot voor localStorage) ──
@@ -554,57 +556,6 @@
     },
   };
 
-  // ── DARTBORD ──
-  const ORDER = [20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5];
-  const RING = { bull: 6.35, outer: 15.9, tIn: 99, tOut: 107, dIn: 162, dOut: 170 }; // officiële maten in mm
-  const BC = { ink: '#141210', cream: '#f0e4c8', red: '#d2382d', green: '#22975b', brass: '#d4ab45', wire: '#8f897d' };
-  const polar = (r, deg) => { const t = (deg - 90) * Math.PI / 180; return [+(r * Math.cos(t)).toFixed(2), +(r * Math.sin(t)).toFixed(2)]; };
-  function seg(r1, r2, a1, a2) {
-    const [x1, y1] = polar(r2, a1), [x2, y2] = polar(r2, a2), [x3, y3] = polar(r1, a2), [x4, y4] = polar(r1, a1);
-    return `M${x1} ${y1}A${r2} ${r2} 0 0 1 ${x2} ${y2}L${x3} ${y3}A${r1} ${r1} 0 0 0 ${x4} ${y4}Z`;
-  }
-  let boardBase = '';
-  function boardSvg(marks = []) {
-    if (!boardBase) {
-      let s = `<circle r="229" fill="#0b0a09"/>`;
-      ORDER.forEach((n, i) => {
-        const a1 = i * 18 - 9, a2 = i * 18 + 9, even = i % 2 === 0;
-        const single = even ? BC.ink : BC.cream, ring = even ? BC.red : BC.green;
-        s += `<path d="${seg(RING.outer, RING.tIn, a1, a2)}" fill="${single}"/>`
-          + `<path d="${seg(RING.tIn, RING.tOut, a1, a2)}" fill="${ring}"/>`
-          + `<path d="${seg(RING.tOut, RING.dIn, a1, a2)}" fill="${single}"/>`
-          + `<path d="${seg(RING.dIn, RING.dOut, a1, a2)}" fill="${ring}"/>`;
-        const [tx, ty] = polar(197, i * 18);
-        s += `<text x="${tx}" y="${ty}" text-anchor="middle" dominant-baseline="central" fill="${BC.cream}" font-size="27" font-weight="800" style="font-family:'Big Shoulders Display',Impact,sans-serif">${n}</text>`;
-      });
-      s += `<circle r="${RING.outer}" fill="${BC.green}"/><circle r="${RING.bull}" fill="${BC.red}"/>`;
-      s += `<g fill="none" stroke="${BC.wire}" stroke-width=".9" opacity=".75">`;
-      for (const r of [RING.outer, RING.tIn, RING.tOut, RING.dIn, RING.dOut]) s += `<circle r="${r}"/>`;
-      for (let i = 0; i < 20; i++) { const [x1, y1] = polar(RING.outer, i * 18 - 9), [x2, y2] = polar(RING.dOut, i * 18 - 9); s += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`; }
-      s += '</g>';
-      boardBase = s;
-    }
-    const mk = marks.map((m, k) => `<g><circle cx="${m.x}" cy="${m.y}" r="9" fill="${BC.brass}" stroke="${BC.ink}" stroke-width="3"/><text x="${m.x}" y="${m.y}" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="800" fill="${BC.ink}" style="font-family:Figtree,sans-serif">${k + 1}</text></g>`).join('');
-    return `<svg class="dartboard" viewBox="-232 -232 464 464" role="img" aria-label="Dartbord: klik waar de pijl zit">${boardBase}${mk}</svg>`;
-  }
-  function hitAt(x, y) {
-    const r = Math.hypot(x, y);
-    if (r <= RING.bull) return { l: 'BULL', v: 50 };
-    if (r <= RING.outer) return { l: '25', v: 25 };
-    if (r > RING.dOut) return { l: 'MIS', v: 0 };
-    const ang = ((Math.atan2(y, x) * 180 / Math.PI) + 90 + 9 + 720) % 360;
-    const n = ORDER[Math.floor(ang / 18) % 20];
-    if (r >= RING.dIn) return { l: 'D' + n, v: n * 2 };
-    if (r >= RING.tIn && r <= RING.tOut) return { l: 'T' + n, v: n * 3 };
-    return { l: String(n), v: n };
-  }
-  function svgPoint(svg, ev) {
-    const pt = svg.createSVGPoint();
-    pt.x = ev.clientX; pt.y = ev.clientY;
-    const p = pt.matrixTransform(svg.getScreenCTM().inverse());
-    return { x: p.x, y: p.y };
-  }
-
   function qrSvg(text) {
     if (!window.qrcode) return `<p>${esc(text)}</p>`;
     const q = qrcode(0, 'M');
@@ -620,12 +571,12 @@
   const items = () => H.quiz.items;
   const cur = () => items()[H.g.idx];
   const pname = pid => (H.g.players[pid] || {}).n || '?';
-  const isQuestion = it => it && ['mc', 'num', 'dart'].includes(it.type);
+  const isQuestion = it => it && ['mc', 'num'].includes(it.type);
   const qNumber = idx => items().slice(0, idx + 1).filter(isQuestion).length;
   const qCount = () => items().filter(isQuestion).length;
 
   function newGame(room) {
-    return { room: room || rnd(5), b: 0, phase: 'lobby', idx: -1, players: {}, gone: {}, answers: {}, results: {}, targets: {}, throws: [], manual: null, sel: null, qStart: 0, qEnd: 0, seq: 0 };
+    return { room: room || rnd(5), b: 0, phase: 'lobby', idx: -1, players: {}, gone: {}, answers: {}, results: {}, targets: {}, tEnd: null, qStart: 0, qEnd: 0, seq: 0 };
   }
   function joinUrl() {
     const g = H.g;
@@ -749,26 +700,20 @@
     const it = items()[i];
     g.idx = i;
     if (it.type === 'title') g.phase = 'title';
-    else if (it.type === 'darts') { g.phase = 'darts'; g.results[it.id] = g.results[it.id] || {}; g.sel = null; }
+    else if (it.type === 'task') { g.phase = 'task'; g.results[it.id] = g.results[it.id] || {}; g.tEnd = null; }
     else {
       g.phase = 'question';
       g.answers[it.id] = {};
       delete g.results[it.id];
       g.qStart = Date.now();
       g.qEnd = g.qStart + it.time * 1000;
-      g.throws = [];
-      g.manual = null;
     }
     commit();
   }
   function advance() { startItem(H.g.idx + 1); }
   function lockQuestion() {
-    const g = H.g, it = cur();
-    if (g.phase !== 'question') return;
-    if (it.type === 'dart') { g.phase = 'throw'; g.throws = []; g.manual = null; commit(); }
-    else reveal();
+    if (H.g.phase === 'question') reveal();
   }
-  const dartTotal = () => H.g.manual != null ? H.g.manual : H.g.throws.reduce((s, t) => s + t.v, 0);
 
   function reveal() {
     const g = H.g, it = cur(), ans = g.answers[it.id] || {}, res = {}, mult = it.dbl ? 2 : 1;
@@ -779,7 +724,7 @@
         res[pid] = { ok, v: a.v, ms: a.ms, pts: ok ? Math.round(500 + 500 * Math.max(0, 1 - a.ms / dur)) * mult : 0 };
       }
     } else {
-      const target = it.type === 'dart' ? dartTotal() : Number(it.correct);
+      const target = Number(it.correct);
       g.targets[it.id] = target;
       const list = Object.entries(ans).map(([pid, a]) => ({ pid, v: a.v, ms: a.ms, d: Math.abs(a.v - target) }))
         .sort((x, y) => x.d - y.d || x.ms - y.ms);
@@ -800,13 +745,13 @@
       case 'lobby':
         if (!items().some(playable)) return toast('Er staat nog geen speelbare vraag in de quiz.');
         if (g.idx < 0) return startItem(0);
+        if (it && it.type === 'task') { g.phase = 'task'; return commit(); }
         if (it && it.type !== 'title' && g.results[it.id]) { g.phase = 'board'; return commit(); }
         return startItem(g.idx);
       case 'title': return advance();
       case 'question': return lockQuestion();
-      case 'throw': return reveal();
       case 'reveal':
-      case 'darts': g.phase = 'board'; return commit();
+      case 'task': g.phase = 'board'; return commit();
       case 'board': return advance();
       default: return undefined;
     }
@@ -814,7 +759,13 @@
 
   function hostTick() {
     const g = H.g;
-    if (H.mode !== 'game' || g.phase !== 'question') return;
+    if (H.mode !== 'game') return;
+    if (g.phase === 'task' && g.tEnd) {
+      const s = $('#tsecs'), left = g.tEnd - Date.now();
+      if (s) s.textContent = left > 0 ? Math.ceil(left / 1000) : 'Tijd!';
+      return;
+    }
+    if (g.phase !== 'question') return;
     const it = cur(), left = g.qEnd - Date.now();
     const secs = $('#secs');
     if (secs) secs.textContent = Math.max(0, Math.ceil(left / 1000));
@@ -827,7 +778,7 @@
   function render(force) {
     if (H.mode === 'editor') { H.key = 'editor'; app.innerHTML = editorHtml(); return; }
     const g = H.g, key = g.phase + ':' + g.idx;
-    if (!force && key === H.key && g.phase !== 'darts' && g.phase !== 'throw') return patchLive();
+    if (!force && key === H.key) return patchLive();
     H.key = key;
     app.innerHTML = `<div class="host">${headerHtml()}<main class="hmain">${mainHtml()}</main>${footHtml()}</div>`;
     afterRender();
@@ -838,8 +789,7 @@
       case 'title': return titleHtml();
       case 'question': return questionHtml(false);
       case 'reveal': return questionHtml(true);
-      case 'throw': return throwHtml();
-      case 'darts': return dartsHtml();
+      case 'task': return taskHtml();
       case 'board': return boardHtml();
       case 'end': return endHtml();
       default: return '';
@@ -848,7 +798,7 @@
   function headerHtml() {
     const g = H.g, it = cur();
     let mid = '';
-    if (it && g.phase !== 'lobby' && g.phase !== 'end') mid = it.type === 'darts' ? 'Pijlronde' : isQuestion(it) ? `Vraag ${qNumber(g.idx)} / ${qCount()}` : '';
+    if (it && g.phase !== 'lobby' && g.phase !== 'end') mid = it.type === 'task' ? 'Opdracht' : isQuestion(it) ? `Vraag ${qNumber(g.idx)} / ${qCount()}` : '';
     const join = g.phase === 'lobby' ? '' : `<span class="miniqr">${qrSvg(joinUrl())}</span><span>code <b>${g.room}</b></span>`;
     return `<header class="hbar"><div class="brand"><span class="mark"></span>Fotofinish</div><div class="count">${mid}</div><div class="joinline">${join}<span class="dot ${H.link}" id="link" title="Verbinding met de gsm's"></span></div></header>`;
   }
@@ -864,8 +814,8 @@
       left = `<button class="btn" data-act="lobby">Naar lobby</button><button class="btn" data-act="fs">Volledig scherm</button>`;
     }
     const label = {
-      lobby: g.idx < 0 ? 'Start de quiz' : 'Verder spelen', title: 'Verder', question: 'Stop de tijd', throw: 'Toon uitslag',
-      reveal: 'Tussenstand', darts: 'Tussenstand', board: items().slice(g.idx + 1).some(playable) ? 'Volgende' : 'Eindstand',
+      lobby: g.idx < 0 ? 'Start de quiz' : 'Verder spelen', title: 'Verder', question: 'Stop de tijd',
+      reveal: 'Tussenstand', task: 'Tussenstand', board: items().slice(g.idx + 1).some(playable) ? 'Volgende' : 'Eindstand',
     }[ph];
     return `<footer class="hfoot">${left}<span class="sp"></span><span class="warn" id="warn"></span><span class="hint">spatie = verder · F = volledig scherm</span>${label ? `<button class="btn primary" data-act="next">${label} ▸</button>` : ''}</footer>`;
   }
@@ -900,7 +850,7 @@
     side += '</div>';
     let bottom = '';
     if (it.type === 'mc') bottom = tilesHtml(it, revealed, ans);
-    else if (!revealed) bottom = `<p class="numhint">${it.type === 'dart' ? 'Voorspel op je gsm hoeveel punten de 3 pijlen samen opleveren.' : 'Typ je schatting op je gsm. Wie het dichtst zit, wint.'}</p>`;
+    else if (!revealed) bottom = `<p class="numhint">Typ je schatting op je gsm. Wie het dichtst zit, wint.</p>`;
     return `<div class="q ${showImg ? 'with-img' : 'no-img'}">${showImg ? `<div class="stage" id="stage"><div class="frame" id="frame"><img id="qimg" alt="" src="${esc(it.img)}"></div></div>` : ''}${side}${bottom}</div>`;
   }
   function tilesHtml(it, revealed, ans) {
@@ -915,34 +865,31 @@
       const fast = good[0] ? ` · snelste: <b>${esc(pname(good[0][0]))}</b> (${(good[0][1].ms / 1000).toFixed(1).replace('.', ',')} s)` : '';
       return `<p class="verdict"><b class="num">${good.length}</b> van ${total} juist${fast}</p>`;
     }
-    const tgt = g.targets[it.id], unit = it.unit || (it.type === 'dart' ? 'punten' : '');
+    const tgt = g.targets[it.id], unit = it.unit;
     const list = Object.entries(res).sort((a, b) => a[1].d - b[1].d || a[1].ms - b[1].ms).slice(0, 5);
     return `<div class="target num">${fmt(tgt)}${unit ? `<small>${esc(unit)}</small>` : ''}</div>`
-      + (it.type === 'dart' && g.manual == null && g.throws.length ? `<p class="throwline">${g.throws.map(t => esc(t.l)).join(' · ')}</p>` : '')
       + `<ol class="closest">${list.map(([pid, r]) => `<li><b>${esc(pname(pid))}</b><span class="num">${fmt(r.v)}</span><small class="num">${r.d === 0 ? 'exact!' : (r.v > tgt ? '+' : '−') + fmt(r.d)}</small><em class="num">+${fmt(r.pts)}</em></li>`).join('')}</ol>`;
   }
-  function throwHtml() {
-    const g = H.g, it = cur();
-    return `<div class="dartwrap"><div class="bw">${boardSvg(g.throws)}</div><div class="dside"><p class="meta">Gok de worp</p><h1 class="qtext">${esc(it.text)}</h1><p class="help">Gooi op het echte bord en klik hier waar elke pijl zit. Naast het bord? Klik buiten de ring.</p>`
-      + `<ol class="throws">${[0, 1, 2].map(k => { const t = g.throws[k]; return `<li><span>Pijl ${k + 1}</span><b class="num">${t ? esc(t.l) + (String(t.v) !== t.l && t.v ? ' = ' + t.v : '') : '–'}</b></li>`; }).join('')}</ol>`
-      + `<div class="dtotal"><span>Totaal</span><b class="num" id="dtot">${fmt(dartTotal())}</b></div>`
-      + `<div class="row"><button class="btn" data-act="undo">Laatste pijl wissen</button></div>`
-      + `<div class="field"><label for="manual">Of typ het totaal</label><input id="manual" type="number" inputmode="numeric" value="${g.manual ?? ''}"></div></div></div>`;
+  function taskHtml() {
+    const it = cur();
+    return `<div class="q task ${it.img ? 'with-img' : 'no-img'}">${it.img ? `<div class="stage" id="stage"><div class="frame" id="frame"><img id="qimg" alt="" src="${esc(it.img)}"></div></div>` : ''}<div class="qside" id="taskside">${taskSideHtml()}</div></div>`;
   }
-  function dartsHtml() {
-    const g = H.g, it = cur(), res = g.results[it.id] || {}, mult = it.mult || 10;
-    const sel = g.sel && g.players[g.sel] ? g.sel : null;
-    const list = ranking().map(p => ({ ...p, before: p.s - ((res[p.pid] || {}).pts || 0) })).sort((a, b) => a.before - b.before);
-    const marks = sel && res[sel] ? res[sel].throws : [];
-    return `<div class="dartwrap"><div class="bw">${boardSvg(marks)}</div><div class="dside"><p class="meta">Pijlronde · punten × ${mult}</p><h1 class="qtext">${esc(it.text)}</h1>`
-      + `<p class="help">${sel ? `Klik waar de pijl van <b>${esc(pname(sel))}</b> op het echte bord zit.` : 'Kies wie gooit (de laatste in de stand staat vooraan) en klik daarna waar de pijl op het echte bord zit.'}</p>`
-      + `<div class="pick">${list.map(p => { const r = res[p.pid]; return `<button class="pk ${p.pid === sel ? 'on' : ''}" data-sel="${p.pid}"><span>${esc(p.n)}</span><small class="num">${r && r.throws.length ? r.throws.map(t => esc(t.l)).join(' · ') + ' → +' + fmt(r.pts) : fmt(p.before) + ' pt'}</small></button>`; }).join('')}</div>`
-      + (sel ? `<div class="row"><button class="btn" data-act="undo">Laatste pijl wissen</button></div>` : '') + `</div></div>`;
+  function taskSideHtml() {
+    const g = H.g, it = cur(), res = g.results[it.id] || {};
+    let clock = '';
+    if (it.time) {
+      clock = g.tEnd
+        ? `<div class="timer"><b id="tsecs" class="num">${g.tEnd > Date.now() ? Math.ceil((g.tEnd - Date.now()) / 1000) : 'Tijd!'}</b><div class="bar"><i id="tbar"></i></div></div>`
+        : `<div class="row"><button class="btn" data-act="clock">Start de klok (${it.time} s)</button></div>`;
+    }
+    return `<p class="meta">Opdracht · ${fmt(it.pts)} punten per winnaar</p><h1 class="qtext">${esc(it.text)}</h1>${clock}`
+      + `<p class="help">Wie verdient de punten? Tik de namen aan.</p>`
+      + `<div class="pick">${ranking().map(p => `<button class="pk ${res[p.pid] ? 'on' : ''}" data-award="${p.pid}">${esc(p.n)}</button>`).join('')}</div>`;
   }
   function boardHtml() {
     const g = H.g, it = cur(), list = ranking(), max = Math.max(1, ...list.map(p => p.s)), res = (it && g.results[it.id]) || {};
     const cols = list.length > 10 ? 2 : 1, rows = Math.max(1, Math.ceil(list.length / cols));
-    const title = it && it.type === 'darts' ? 'Stand na de pijlronde' : `Stand na vraag ${qNumber(g.idx)}`;
+    const title = it && it.type === 'task' ? 'Stand na de opdracht' : `Stand na vraag ${qNumber(g.idx)}`;
     return `<div class="board"><h1 class="display">${title}</h1><ol class="rank" style="grid-template-columns:repeat(${cols},minmax(0,1fr));grid-template-rows:repeat(${rows},minmax(0,4.2em))">`
       + list.map((p, i) => {
         const d = (res[p.pid] || {}).pts || 0;
@@ -968,16 +915,19 @@
       };
       if (img.complete && img.naturalWidth) go(); else img.addEventListener('load', go, { once: true });
     }
-    const bar = $('#bar');
-    if (bar && g.phase === 'question') {
-      const total = it.time * 1000, left = Math.max(0, g.qEnd - Date.now());
-      bar.style.transform = `scaleX(${left / total})`;
-      requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.transition = `transform ${left}ms linear`; bar.style.transform = 'scaleX(0)'; }));
-    }
+    if (g.phase === 'question') startBar('#bar', g.qEnd, it.time);
+    if (g.phase === 'task') startBar('#tbar', g.tEnd, it.time);
     $$('.rank .bar i').forEach(i => requestAnimationFrame(() => requestAnimationFrame(() => i.style.setProperty('--w', i.dataset.w))));
-    const svg = $('.dartboard');
-    if (svg) svg.addEventListener('click', onBoardClick);
     patchWarn();
+  }
+  // Tijdsbalk die vanaf de resterende tijd naar nul loopt
+  function startBar(sel, end, secs) {
+    const bar = $(sel);
+    if (!bar || !end) return;
+    const left = Math.max(0, end - Date.now());
+    bar.style.transition = 'none';
+    bar.style.transform = `scaleX(${left / (secs * 1000)})`;
+    requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.transition = `transform ${left}ms linear`; bar.style.transform = 'scaleX(0)'; }));
   }
   function fitPhoto() {
     const st = $('#stage'), fr = $('#frame'), img = $('#qimg');
@@ -1007,6 +957,8 @@
     if (tot) tot.textContent = n;
     if (np) { np.textContent = n; np.nextSibling.textContent = ` ${n === 1 ? 'speler' : 'spelers'} binnen${g.idx >= 0 ? ' · de quiz is al bezig' : ''}`; }
     if (chips) { chips.innerHTML = chipsHtml(); for (const pid of Object.keys(g.players)) H.seen.add(pid); }
+    const side = $('#taskside');
+    if (side && g.phase === 'task') { side.innerHTML = taskSideHtml(); startBar('#tbar', g.tEnd, it.time); }
     patchWarn();
   }
   function patchWarn() {
@@ -1031,28 +983,16 @@
     if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
     else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => toast('Volledig scherm lukt hier niet. Probeer F11.'));
   }
-  function onBoardClick(ev) {
-    const g = H.g, it = cur(), p = svgPoint(ev.currentTarget, ev), hit = hitAt(p.x, p.y);
-    const mark = { x: +p.x.toFixed(1), y: +p.y.toFixed(1), l: hit.l, v: hit.v };
-    if (g.phase === 'throw') {
-      if (g.throws.length >= 3) return toast('Drie pijlen staan er al. Wis er eerst één.');
-      g.throws.push(mark);
-      g.manual = null;
-    } else if (g.phase === 'darts') {
-      if (!g.sel) return toast('Kies eerst wie gooit.');
-      const res = g.results[it.id] || (g.results[it.id] = {});
-      const r = res[g.sel] || (res[g.sel] = { pts: 0, throws: [], ok: null });
-      r.throws.push(mark);
-      r.pts = r.throws.reduce((s, t) => s + t.v, 0) * (it.mult || 10);
-    }
-    commit();
-  }
   function onHostClick(e) {
     if (H.mode === 'editor') return onEditorClick(e);
-    const b = e.target.closest('[data-act],[data-sel],[data-kick]');
+    const b = e.target.closest('[data-act],[data-award],[data-kick]');
     if (!b) return;
     const g = H.g, it = cur();
-    if (b.dataset.sel) { g.sel = b.dataset.sel; return commit(); }
+    if (b.dataset.award && it && g.phase === 'task') {
+      const res = g.results[it.id] || (g.results[it.id] = {}), pid = b.dataset.award;
+      if (res[pid]) delete res[pid]; else res[pid] = { pts: it.pts, ok: true };
+      return commit();
+    }
     if (b.dataset.kick) {
       const pid = b.dataset.kick;
       if (!confirm(`${pname(pid)} uit de quiz halen?`)) return;
@@ -1077,25 +1017,15 @@
         H.seen.clear();
         setTimeout(reconnect, 300);
         return commit(true);
-      case 'undo':
-        if (g.phase === 'throw') { g.throws.pop(); g.manual = null; }
-        else if (g.phase === 'darts' && g.sel && it) {
-          const r = (g.results[it.id] || {})[g.sel];
-          if (r) { r.throws.pop(); r.pts = r.throws.reduce((s, t) => s + t.v, 0) * (it.mult || 10); if (!r.throws.length) delete g.results[it.id][g.sel]; }
-        }
+      case 'clock':
+        if (g.phase !== 'task' || !it || !it.time) return undefined;
+        g.tEnd = Date.now() + it.time * 1000;
         return commit();
       default: return undefined;
     }
   }
   function onHostInput(e) {
     if (H.mode === 'editor') return onEditorInput(e);
-    if (e.target.id === 'manual') {
-      const v = e.target.value.trim();
-      H.g.manual = v === '' || !Number.isFinite(Number(v)) ? null : Number(v);
-      store.set('ff_game', H.g);
-      const t = $('#dtot');
-      if (t) t.textContent = fmt(dartTotal());
-    }
   }
   function onHostChange(e) {
     if (H.mode === 'editor') return onEditorChange(e);
@@ -1130,27 +1060,31 @@
   function formHtml(it) {
     const t = it.type, z = it.zoom;
     let h = `<div class="two"><div class="field"><label for="f-type">Soort</label><select id="f-type">${Object.entries(TYPES).map(([k, v]) => `<option value="${k}" ${k === t ? 'selected' : ''}>${v}</option>`).join('')}</select></div>`;
-    if (t !== 'title' && t !== 'darts') h += `<div class="field"><label for="f-time">Seconden</label><input type="number" id="f-time" min="5" max="180" value="${it.time}"></div>`;
-    if (t === 'darts') h += `<div class="field"><label for="f-mult">Punten per pijl ×</label><input type="number" id="f-mult" min="1" max="100" value="${it.mult}"></div>`;
+    if (t === 'mc' || t === 'num') h += `<div class="field"><label for="f-time">Seconden</label><input type="number" id="f-time" min="5" max="180" value="${it.time}"></div>`;
+    if (t === 'task') {
+      h += `<div class="field"><label for="f-time">Klok in seconden (0 = geen klok)</label><input type="number" id="f-time" min="0" max="600" value="${it.time}"></div>`
+        + `<div class="field"><label for="f-pts">Punten per winnaar</label><input type="number" id="f-pts" min="10" max="5000" step="50" value="${it.pts}"></div>`;
+    }
     h += `</div>`;
     if (t === 'title') h += `<div class="field"><label for="f-title">Titel</label><input type="text" id="f-title" value="${esc(it.title)}" maxlength="80"></div>`;
-    h += `<div class="field"><label for="f-text">${t === 'title' ? 'Ondertitel' : t === 'darts' ? 'Uitleg' : 'Vraag'}</label><textarea id="f-text" maxlength="260">${esc(it.text)}</textarea></div>`;
+    h += `<div class="field"><label for="f-text">${t === 'title' ? 'Ondertitel' : t === 'task' ? 'Opdracht' : 'Vraag'}</label><textarea id="f-text" maxlength="260">${esc(it.text)}</textarea></div>`;
     if (t === 'mc') {
       h += `<div class="field"><span class="lbl">Antwoorden (vink het juiste aan)</span><div class="opts">${[0, 1, 2, 3].map(i => `<div class="opt"><input type="radio" name="f-ok" id="f-ok${i}" value="${i}" ${it.correct === i ? 'checked' : ''} aria-label="Antwoord ${i + 1} is juist"><span class="sw t${i}">${SHAPES[i]}</span><input type="text" id="f-o${i}" value="${esc(it.options[i])}" maxlength="90" placeholder="${i < 2 ? 'Antwoord' : 'Antwoord (mag leeg)'}"></div>`).join('')}</div></div>`;
     }
     if (t === 'num') h += `<div class="two"><div class="field"><label for="f-num">Juiste getal</label><input type="number" id="f-num" step="any" value="${it.correct ?? ''}"></div><div class="field"><label for="f-unit">Eenheid (mag leeg)</label><input type="text" id="f-unit" value="${esc(it.unit)}" maxlength="16" placeholder="bv. euro"></div></div>`;
-    if (t === 'dart') h += `<p class="hintline">Iedereen voorspelt op zijn gsm. Daarna gooit iemand 3 pijlen op het echte bord en klik jij ze aan op het scherm. Wie het dichtst zit, wint.</p>`;
-    if (t === 'darts') h += `<p class="hintline">Geen gsm nodig. Wie gooit, gooit op het echte bord. Jij kiest op het scherm wie het was en klikt waar de pijl zit. Zo kan de staart van het klassement terugkomen.</p>`;
-    if (t !== 'title' && t !== 'darts') {
+    if (t === 'task') h += `<p class="hintline">Een opdracht bij een foto van vandaag: nadoen, uitbeelden, blind proeven… Tijdens de quiz tik jij op het scherm de namen aan van wie de punten verdient.</p>`;
+    if (t !== 'title') {
       h += `<div class="field"><span class="lbl">Foto</span><div class="row"><label class="btn" for="f-img">${it.img ? 'Andere foto' : 'Foto kiezen'}</label><input type="file" id="f-img" accept="image/*" hidden>${it.img ? `<button class="btn" data-act="rmimg">Foto weghalen</button>` : '<span class="hintline">of sleep een foto op dit vak</span>'}</div>`;
-      if (it.img) {
+      if (it.img && t === 'task') h += `<div class="pe"><div class="pe-img"><img src="${esc(it.img)}" alt=""></div></div>`;
+      if (it.img && t !== 'task') {
         h += `<div class="row"><label class="check"><input type="checkbox" id="f-hide" ${it.hide ? 'checked' : ''}> Foto pas tonen bij het antwoord</label>`
           + `<label class="check"><input type="checkbox" id="f-zoom" ${z ? 'checked' : ''} ${it.hide ? 'disabled' : ''}> Uitzoomer</label>`
           + (z && !it.hide ? `<label class="check" for="f-zs">Zoom <input type="range" id="f-zs" min="2" max="12" step="0.5" value="${z.s}"> <b id="zsv" class="num">${z.s}×</b></label>` : '') + `</div>`;
         h += `<div class="pe"><div class="pe-img ${z && !it.hide ? 'zoomable' : ''}" id="pe"><img src="${esc(it.img)}" alt="">${z && !it.hide ? `<i class="cross" id="cross" style="left:${z.x}%;top:${z.y}%"></i>` : ''}</div>`
           + (z && !it.hide ? `<div class="pe-start"><div class="box" id="pebox"><img src="${esc(it.img)}" alt="" style="transform-origin:${z.x}% ${z.y}%;transform:scale(${z.s})"></div><small>Zo start de vraag. Klik op de foto links om het detail te kiezen.</small></div>` : '') + `</div>`;
       }
-      h += `</div><label class="check"><input type="checkbox" id="f-dbl" ${it.dbl ? 'checked' : ''}> Dubbele punten</label>`;
+      h += `</div>`;
+      if (t !== 'task') h += `<label class="check"><input type="checkbox" id="f-dbl" ${it.dbl ? 'checked' : ''}> Dubbele punten</label>`;
     }
     return h;
   }
@@ -1242,13 +1176,16 @@
     switch (b.dataset.act) {
       case 'addq': its.push(blankItem('mc')); H.ei = its.length - 1; saveQuiz(); return render();
       case 'addwine': {
+        const have = new Set(its.map(x => x.text));
+        const left = WINE_BANK.filter(w => !have.has(w.text)), fresh = left.slice(0, 6);
+        if (!fresh.length) return toast('Alle wijnweetjes staan al in de quiz.');
         const at = its.length;
-        its.push(...WINE_ROUND.map(r => normItem(r)));
+        its.push(normItem({ type: 'title', title: 'Wijnweetjes', text: 'Een glas kennis tussendoor.' }), ...fresh.map(w => normItem(w)));
         uniqueIds(its);
         H.ei = at;
         saveQuiz();
         render();
-        return toast(`${WINE_ROUND.length - 1} wijnvragen toegevoegd. Schrap gerust wat je niet wil.`);
+        return toast(`${fresh.length} wijnvragen toegevoegd, nog ${left.length - fresh.length} in reserve.`);
       }
       case 'savepack': return savePack();
       case 'testquiz':
@@ -1265,8 +1202,8 @@
     if (!it || !t.id) return;
     if (t.id === 'f-title') it.title = t.value;
     else if (t.id === 'f-text') it.text = t.value;
-    else if (t.id === 'f-time') it.time = clamp(Number(t.value) || 20, 5, 180);
-    else if (t.id === 'f-mult') it.mult = clamp(Number(t.value) || 10, 1, 100);
+    else if (t.id === 'f-time') it.time = it.type === 'task' ? clamp(Number(t.value) || 0, 0, 600) : clamp(Number(t.value) || 20, 5, 180);
+    else if (t.id === 'f-pts') it.pts = clamp(Number(t.value) || 500, 10, 5000);
     else if (t.id === 'f-num') it.correct = t.value === '' || !Number.isFinite(Number(t.value)) ? null : Number(t.value);
     else if (t.id === 'f-unit') it.unit = t.value.slice(0, 16);
     else if (t.id === 'f-zs' && it.zoom) {
@@ -1288,7 +1225,7 @@
     if (t.id === 'f-img' && t.files[0]) {
       return fileToDataUrl(t.files[0]).then(d => { it.img = d; saveQuiz(); render(); }).catch(() => toast('Deze foto kon ik niet openen.'));
     }
-    if (t.id === 'f-type') { const keep = it.options; Object.assign(it, normItem({ ...it, type: t.value, time: DEF_TIME[t.value] || it.time, correct: t.value === 'mc' ? 0 : null }), { id: it.id, options: keep }); }
+    if (t.id === 'f-type') { const keep = it.options; Object.assign(it, normItem({ ...it, type: t.value, time: DEF_TIME[t.value] ?? it.time, correct: t.value === 'mc' ? 0 : null }), { id: it.id, options: keep }); }
     else if (t.id === 'f-dbl') it.dbl = t.checked;
     else if (t.id === 'f-hide') { it.hide = t.checked; }
     else if (t.id === 'f-zoom') it.zoom = t.checked ? (it.zoom || { x: 50, y: 50, s: 6 }) : null;
@@ -1310,7 +1247,7 @@
     const files = e.dataTransfer && e.dataTransfer.files;
     if (!files || !files.length) return;
     const it = items()[H.ei];
-    if (e.target.closest('#eform') && it && it.type !== 'title' && it.type !== 'darts' && files[0].type.startsWith('image/')) {
+    if (e.target.closest('#eform') && it && it.type !== 'title' && files[0].type.startsWith('image/')) {
       fileToDataUrl(files[0]).then(d => { it.img = d; saveQuiz(); render(); });
     } else addPhotos(files);
   }
@@ -1379,7 +1316,7 @@
     else if (!m) key = 'joining';
     else {
       key = [st.ph, q ? q.id : '', st.ph === 'question' && q ? (P.mine[q.id] != null ? 'done' : 'open') : '',
-        ['reveal', 'board', 'darts', 'end'].includes(st.ph) ? `${m.d}:${m.r}:${m.s}` : ''].join('|');
+        ['reveal', 'board', 'task', 'end'].includes(st.ph) ? `${m.d}:${m.r}:${m.s}` : ''].join('|');
     }
     if (key === P.key) return pPatch();
     P.key = key;
@@ -1413,10 +1350,10 @@
       case 'lobby': return center('Je zit erin', `Kijk naar het grote scherm. <b id="pn" class="num">${Object.keys(st.pl).length}</b> spelers binnen.`) + `<button class="linkbtn" data-act="rename">Naam aanpassen</button>`;
       case 'title': return center(esc(q.ti || q.tx), q.ti ? esc(q.tx) : '');
       case 'question': return pQuestion(q);
-      case 'throw': return center('De pijlen vliegen', `Kijk naar het dartbord. Jouw gok: <b class="num">${P.mine[q.id] != null ? fmt(P.mine[q.id]) : 'geen'}</b>`);
       case 'reveal': return pReveal(st, q, m);
       case 'board': return pBoard(st, m);
-      case 'darts': return center('Pijlronde', m.d ? `Jij scoorde <b class="num">+${fmt(m.d)}</b>.` : 'Kijk naar het bord.');
+      case 'task': return `<p class="pmeta">Opdracht</p><p class="pq">${esc(q.tx)}</p>`
+        + (m.d ? `<div class="pres ok"><span class="ptitle">Gewonnen!</span><span class="pts num">+${fmt(m.d)}</span></div>` : `<p class="psub">Kijk naar het scherm. De quizmaster deelt de punten uit.</p>`);
       case 'end': return center(`${m.r}e plaats`, `Van de ${Object.keys(st.pl).length} spelers, met <b class="num">${fmt(m.s)}</b> punten. ${m.r === 1 ? 'Proficiat, kampioen!' : 'Bedankt om mee te spelen.'}`, 'plain');
       default: return center('Even wachten', '');
     }
@@ -1428,7 +1365,7 @@
       return head + `<div class="psent ${q.t === 'mc' ? 't' + mine : ''}">${q.t === 'mc' ? `<span class="shape">${SHAPES[mine]}</span><b>${esc(q.o[mine])}</b>` : `<b class="num">${fmt(mine)}${q.u ? ' ' + esc(q.u) : ''}</b>`}<small>Verstuurd. Wacht op de rest.</small></div>`;
     }
     if (q.t === 'mc') return head + `<div class="pbtns">${q.o.map((o, i) => `<button class="t${i}" data-ans="${i}"><span class="shape">${SHAPES[i]}</span><span>${esc(o)}</span></button>`).join('')}</div>`;
-    return head + `<form class="pform" id="numform"><input type="number" id="pnum" inputmode="decimal" step="any" required autocomplete="off" placeholder="${q.t === 'dart' ? 'bv. 60' : 'jouw gok'}" aria-label="Jouw antwoord"><button class="btn primary big">Verstuur</button></form>`;
+    return head + `<form class="pform" id="numform"><input type="number" id="pnum" inputmode="decimal" step="any" required autocomplete="off" placeholder="jouw gok" aria-label="Jouw antwoord"><button class="btn primary big">Verstuur</button></form>`;
   }
   function pReveal(st, q, m) {
     const mine = P.mine[q.id], answered = mine != null, pts = m.d || 0;

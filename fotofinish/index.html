@@ -3,35 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#141210">
+<meta name="theme-color" content="#fff6ea">
 <title>Weekendquiz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  /* Weekendquiz: avond in de wijnbar. Bijna zwart, crème, wijnrood, wijngaardgroen, messing */
+  /* Weekendquiz: licht en vrolijk. Warm crème, aubergine tekst, wijnrood accent, felle antwoordkleuren */
   :root {
-    --bg: #141210;
-    --panel: #1e1b18;
-    --panel-2: #29251f;
-    --line: #3b352d;
-    --cream: #f0e4c8;
-    --wire: #a8a193;
-    --red: #d2382d;
-    --green: #22975b;
-    --brass: #d4ab45;
-    --bronze: #c98f5a;
-    --ink: #141210;
-    --display: 'Big Shoulders Display', 'Arial Narrow', Impact, sans-serif;
+    --bg: #fff6ea;
+    --panel: #ffffff;
+    --panel-2: #f8ecdc;
+    --line: #ecdac2;
+    --fg: #2b1b30;
+    --wire: #76636e;
+    --wine: #a51d4a;
+    --wine-2: #861339;
+    --red: #e23d3d;
+    --blue: #2f7de1;
+    --yellow: #f4b400;
+    --green: #1f9d55;
+    --gold: #f4b400;
+    --silver: #cfd6de;
+    --bronze: #e3a06b;
+    --bad: #c0262d;
+    --ink: #2b1b30;
+    --display: 'Fredoka', 'Arial Rounded MT Bold', system-ui, sans-serif;
     --body: 'Figtree', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-    color-scheme: dark;
+    color-scheme: light;
   }
 
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; }
   body {
-    background: var(--bg);
-    color: var(--cream);
+    /* een paar bubbels op de achtergrond */
+    background:
+      radial-gradient(circle at 6% 10%, #ffd6df 0 7vmax, transparent 7.1vmax),
+      radial-gradient(circle at 96% 92%, #d8eaff 0 11vmax, transparent 11.1vmax),
+      radial-gradient(circle at 90% 6%, #fff0b3 0 4vmax, transparent 4.1vmax),
+      radial-gradient(circle at 3% 88%, #d7f3e1 0 5vmax, transparent 5.1vmax),
+      var(--bg);
+    background-attachment: fixed;
+    color: var(--fg);
     font-family: var(--body);
     font-size: 16px;
     line-height: 1.4;
@@ -40,7 +53,7 @@
   }
   button, input, select, textarea { font: inherit; color: inherit; }
   button { cursor: pointer; touch-action: manipulation; }
-  :focus-visible { outline: 3px solid var(--brass); outline-offset: 2px; }
+  :focus-visible { outline: 3px solid var(--wine); outline-offset: 2px; }
   [hidden] { display: none !important; }
   .num { font-variant-numeric: tabular-nums; }
   b, strong { font-weight: 800; }
@@ -50,56 +63,56 @@
     width: 1.05em; height: 1.05em; border-radius: 50%; flex: none; display: inline-block;
     /* een glas rode wijn van bovenaf */
     background: radial-gradient(circle at 42% 40%, #e2584c 0 18%, var(--red) 34%, #7d1d22 70%);
-    box-shadow: 0 0 0 .09em var(--bg), 0 0 0 .17em var(--cream);
+    box-shadow: 0 0 0 .09em var(--bg), 0 0 0 .17em var(--wine);
   }
   .brand .bt { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .brand {
     display: flex; align-items: center; gap: .5em; min-width: 0;
-    font-family: var(--display); font-weight: 900; text-transform: uppercase; letter-spacing: .04em;
+    font-family: var(--display); font-weight: 700; letter-spacing: .01em;
   }
   .display {
-    font-family: var(--display); font-weight: 900; text-transform: uppercase;
-    line-height: .92; letter-spacing: .01em; margin: 0; text-wrap: balance;
+    font-family: var(--display); font-weight: 700;
+    line-height: 1; letter-spacing: -.005em; margin: 0; text-wrap: balance;
   }
   .meta {
-    font-family: var(--display); font-weight: 800; text-transform: uppercase;
-    letter-spacing: .08em; color: var(--brass); margin: 0;
+    font-family: var(--display); font-weight: 600; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--wine); margin: 0;
   }
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: .4em;
-    border: 1px solid var(--line); background: var(--panel-2); color: var(--cream);
+    border: 1px solid var(--line); background: var(--panel); color: var(--fg);
     border-radius: 10px; padding: .55em 1em; font-weight: 700; text-decoration: none;
     white-space: nowrap;
   }
   .btn:hover { border-color: var(--wire); }
-  .btn.primary { background: var(--cream); color: var(--ink); border-color: var(--cream); font-weight: 800; }
-  .btn.primary:hover { background: #fff; }
+  .btn.primary { background: var(--wine); color: #fff; border-color: var(--wine); font-weight: 800; }
+  .btn.primary:hover { background: var(--wine-2); border-color: var(--wine-2); }
   .btn.big { font-size: 1.15em; padding: .8em 1.2em; border-radius: 14px; width: 100%; }
   .dot { width: .7em; height: .7em; border-radius: 50%; background: var(--wire); display: inline-block; flex: none; }
   .dot.on { background: var(--green); box-shadow: 0 0 0 .22em rgba(34, 151, 91, .25); }
-  .dot.wait { background: var(--brass); animation: blink 1s infinite; }
+  .dot.wait { background: var(--yellow); animation: blink 1s infinite; }
   .dot.off, .dot.nolib { background: var(--red); }
   @keyframes blink { 50% { opacity: .3; } }
   input[type=text], input[type=number], textarea, select {
-    background: var(--bg); border: 1px solid var(--line); border-radius: 10px;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
     padding: .6em .8em; width: 100%; min-width: 0;
   }
-  input:focus, textarea:focus, select:focus { border-color: var(--cream); outline: none; }
+  input:focus, textarea:focus, select:focus { border-color: var(--wine); outline: none; }
   textarea { min-height: 4.6em; resize: vertical; }
   .toast {
     position: fixed; left: 50%; bottom: calc(1.2em + env(safe-area-inset-bottom, 0px)); z-index: 50;
     transform: translate(-50%, 1em); opacity: 0; pointer-events: none;
-    background: var(--cream); color: var(--ink); font-weight: 700;
+    background: var(--fg); color: #fff; font-weight: 700;
     padding: .7em 1.1em; border-radius: 12px; transition: opacity .2s, transform .2s;
     max-width: calc(100vw - 32px);
   }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
-  /* antwoordkleuren: rood ●, groen ▲, crème ■, messing ◆ */
+  /* antwoordkleuren: rood ●, blauw ▲, geel ■, groen ◆ */
   .t0 { background: var(--red); color: #fff; }
-  .t1 { background: var(--green); color: #fff; }
-  .t2 { background: var(--cream); color: var(--ink); }
-  .t3 { background: var(--brass); color: var(--ink); }
+  .t1 { background: var(--blue); color: #fff; }
+  .t2 { background: var(--yellow); color: var(--ink); }
+  .t3 { background: var(--green); color: #fff; }
 
   /* ── LANDING ── */
   .landing {
@@ -111,9 +124,9 @@
   }
   .landing .brand { font-size: 3.4em; }
   .landing .lede { color: var(--wire); font-size: 1.15em; margin: 0; }
-  .landing form { display: grid; gap: .7em; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 1.1em; }
+  .landing form { display: grid; gap: .7em; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 1.1em; box-shadow: 0 6px 20px rgba(43, 27, 48, .08); }
   .landing label { font-weight: 700; }
-  .landing #code { font-family: var(--display); font-size: 2em; font-weight: 900; text-align: center; letter-spacing: .14em; text-transform: uppercase; }
+  .landing #code { font-family: var(--display); font-size: 2em; font-weight: 700; text-align: center; letter-spacing: .14em; text-transform: uppercase; }
 
   /* ── QUIZMASTER / BEAMER ── */
   .host {
@@ -123,13 +136,13 @@
   }
   .hbar {
     display: flex; align-items: center; gap: 1.2em;
-    padding: .7em 1.6em; border-bottom: 1px solid var(--line);
+    padding: .7em 1.6em; border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, .7);
   }
   .hbar .brand { font-size: 1.7em; }
-  .hbar .count { font-family: var(--display); font-weight: 800; font-size: 1.45em; color: var(--wire); text-transform: uppercase; letter-spacing: .04em; }
+  .hbar .count { font-family: var(--display); font-weight: 600; font-size: 1.45em; color: var(--wire); text-transform: uppercase; letter-spacing: .04em; }
   .joinline { margin-left: auto; display: flex; align-items: center; gap: .7em; color: var(--wire); }
-  .joinline b { color: var(--cream); font-family: var(--display); font-size: 1.5em; letter-spacing: .1em; }
-  .miniqr { width: 3.4em; height: 3.4em; background: #fff; border-radius: 6px; padding: 2px; }
+  .joinline b { color: var(--fg); font-family: var(--display); font-size: 1.5em; letter-spacing: .1em; }
+  .miniqr { width: 3.4em; height: 3.4em; background: #fff; border-radius: 6px; padding: 2px; box-shadow: 0 0 0 1px var(--line); }
   .miniqr svg { width: 100%; height: 100%; display: block; }
   .hmain { min-height: 0; padding: 1.4em 1.6em; position: relative; }
   .hfoot {
@@ -138,41 +151,41 @@
   }
   .hfoot .sp { flex: 1; }
   .hfoot .hint { color: var(--wire); font-size: .85em; }
-  .hfoot .warn { color: #ffb3ad; font-weight: 700; }
+  .hfoot .warn { color: var(--bad); font-weight: 700; }
 
   /* lobby */
   .lobby { height: 100%; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 3.2em; align-items: center; }
-  .qrcard { margin: 0; background: #fff; color: var(--ink); border-radius: 18px; padding: 1.1em; display: grid; gap: .5em; justify-items: center; width: min(46vh, 30vw); }
+  .qrcard { margin: 0; background: #fff; color: var(--ink); border-radius: 18px; padding: 1.1em; display: grid; gap: .5em; justify-items: center; width: min(46vh, 30vw); box-shadow: 0 10px 30px rgba(43, 27, 48, .12); transform: rotate(-2deg); }
   .qrcard svg { width: 100%; height: auto; display: block; }
-  .qrcard .code { font-family: var(--display); font-weight: 900; font-size: 3.2em; letter-spacing: .14em; line-height: 1; }
-  .qrcard .url { font-size: .78em; color: #4a4540; text-align: center; word-break: break-all; margin: 0; }
+  .qrcard .code { font-family: var(--display); font-weight: 700; font-size: 3.2em; letter-spacing: .14em; line-height: 1; }
+  .qrcard .url { font-size: .78em; color: var(--wire); text-align: center; word-break: break-all; margin: 0; }
   .who { min-width: 0; min-height: 0; max-height: 100%; overflow-y: auto; display: grid; gap: .9em; align-content: center; }
   .who.wt h1 { font-size: 4em; }
   .who .meta { font-size: 1.35em; }
   .who h1 { font-size: 6em; }
   .who .sub { color: var(--wire); font-size: 1.35em; margin: 0; }
-  .who .sub b { color: var(--cream); }
+  .who .sub b { color: var(--fg); }
   .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5em; }
-  .chip { display: inline-flex; align-items: center; background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; }
+  .chip { display: inline-flex; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 999px; }
   .chip .cn { background: none; border: 0; padding: .4em .15em .4em 1em; font-weight: 800; font-size: 1.2em; display: inline-flex; align-items: center; gap: .45em; }
   .chip .cn i { width: .6em; height: .6em; border-radius: 50%; background: var(--tc, var(--wire)); }
   .chip .cx { background: none; border: 0; color: var(--wire); padding: .4em .85em .4em .45em; font-size: 1em; }
-  .chip .cx:hover { color: #ffb3ad; }
+  .chip .cx:hover { color: var(--bad); }
   .chip.new { animation: pop .5s cubic-bezier(.3, 1.6, .5, 1); }
   .tcols { display: grid; grid-template-columns: repeat(auto-fit, minmax(11em, 1fr)); gap: .8em 1.4em; }
-  .tcol h3 { margin: 0 0 .45em; font-family: var(--display); font-weight: 900; text-transform: uppercase; letter-spacing: .05em; font-size: 1.5em; display: flex; align-items: center; gap: .4em; color: var(--tx); }
+  .tcol h3 { margin: 0 0 .45em; font-family: var(--display); font-weight: 700; letter-spacing: .01em; font-size: 1.5em; display: flex; align-items: center; gap: .4em; color: var(--tx); }
   .tcol h3 small { color: var(--wire); font-size: .7em; }
   .tcol.loose { grid-column: 1 / -1; }
   .tcol .chip .cn { font-size: 1.05em; }
   .drawside #chips { min-height: 0; overflow: hidden; }
   @keyframes pop { from { transform: scale(.4); opacity: 0; } }
-  .offline-note { background: var(--panel); border: 1px solid var(--red); border-radius: 12px; padding: .8em 1em; color: #ffcfc9; }
+  .offline-note { background: #fff0ee; border: 1px solid var(--red); border-radius: 12px; padding: .8em 1em; color: #8f1d22; }
 
   /* vraag + antwoord */
   .q { height: 100%; display: grid; gap: 1.2em 1.8em; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; }
   .q.no-img { grid-template-columns: minmax(0, 1fr); }
   .stage { min-height: 0; min-width: 0; display: flex; align-items: center; justify-content: center; }
-  .frame { overflow: hidden; border-radius: 14px; background: var(--panel); box-shadow: 0 0 0 1px var(--line); max-width: 100%; max-height: 100%; }
+  .frame { overflow: hidden; border-radius: 18px; background: var(--panel); box-shadow: 0 0 0 6px #fff, 0 12px 30px rgba(43, 27, 48, .18); max-width: 100%; max-height: 100%; }
   .frame img { width: 100%; height: 100%; display: block; will-change: transform; }
   .qside { min-width: 0; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 1em; }
   .q.no-img .qside { align-items: center; text-align: center; }
@@ -180,23 +193,23 @@
   .qtext { font-weight: 800; font-size: 2.5em; line-height: 1.12; margin: 0; text-wrap: balance; }
   .q.no-img .qtext { font-size: 3.4em; max-width: 24ch; }
   .timer { display: flex; align-items: center; gap: .8em; width: 100%; max-width: 32em; }
-  .timer b { font-family: var(--display); font-size: 4em; font-weight: 900; line-height: 1; min-width: 1.3em; }
+  .timer b { font-family: var(--display); font-size: 4em; font-weight: 700; line-height: 1; min-width: 1.3em; }
   .timer .bar { flex: 1; height: .55em; border-radius: 99px; background: var(--panel-2); overflow: hidden; }
-  .timer .bar i { display: block; height: 100%; width: 100%; background: var(--cream); transform-origin: left center; }
+  .timer .bar i { display: block; height: 100%; width: 100%; background: var(--wine); transform-origin: left center; }
   .answered { color: var(--wire); font-size: 1.25em; }
-  .answered b { color: var(--cream); font-size: 1.3em; }
+  .answered b { color: var(--fg); font-size: 1.3em; }
   .numhint { grid-column: 1 / -1; color: var(--wire); font-size: 1.4em; text-align: center; }
   .tiles { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: .75em; }
   .tile {
     display: flex; align-items: center; gap: .7em; min-width: 0;
-    padding: .6em 1em; border-radius: 12px; font-weight: 800; font-size: 1.8em; min-height: 2.5em;
+    padding: .6em 1em; border-radius: 16px; font-weight: 800; font-size: 1.8em; min-height: 2.5em; box-shadow: 0 .16em 0 rgba(43, 27, 48, .18);
     transition: opacity .35s, transform .35s, box-shadow .35s;
   }
   .tile .shape { width: 1.3em; text-align: center; flex: none; font-size: .9em; }
   .tile .otext { min-width: 0; overflow-wrap: anywhere; }
-  .tile .count { margin-left: auto; font-family: var(--display); font-size: 1.15em; padding-left: .5em; }
-  .tiles.revealed .tile:not(.right) { opacity: .25; }
-  .tiles.revealed .tile.right { transform: scale(1.015); box-shadow: 0 0 0 .14em var(--bg), 0 0 0 .32em var(--cream); }
+  .tile .count { margin-left: auto; font-family: var(--display); font-weight: 700; font-size: 1.15em; padding-left: .5em; }
+  .tiles.revealed .tile:not(.right) { opacity: .28; }
+  .tiles.revealed .tile.right { transform: scale(1.015); box-shadow: 0 0 0 .14em var(--bg), 0 0 0 .32em var(--fg); }
   /* staande foto: volle hoogte links, vraag en antwoorden rechts */
   .q.portrait { grid-template-columns: minmax(0, .85fr) minmax(0, 1fr); }
   .q.portrait .stage { grid-row: 1 / 3; }
@@ -204,62 +217,83 @@
   .q.portrait .tile { font-size: 1.45em; }
   .q.portrait .qtext { font-size: 2.3em; }
   .verdict { font-size: 1.35em; color: var(--wire); margin: 0; }
-  .verdict b { color: var(--cream); }
-  .target { font-family: var(--display); font-weight: 900; font-size: 8em; line-height: .9; }
+  .verdict b { color: var(--fg); }
+  .target { font-family: var(--display); font-weight: 700; font-size: 8em; line-height: .9; color: var(--wine); }
   .target small { font-size: .35em; color: var(--wire); margin-left: .2em; }
   .closest { list-style: none; margin: 0; padding: 0; display: grid; gap: .35em; font-size: 1.3em; width: 100%; max-width: 30em; }
   .closest li { text-align: left; display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto; gap: .9em; align-items: baseline; padding: .3em 0; border-bottom: 1px solid var(--line); }
-  .closest li:first-child b { color: var(--brass); }
+  .closest li:first-child b { color: var(--wine); }
   .closest b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .closest small { color: var(--wire); }
   .closest em { font-style: normal; color: var(--green); font-weight: 800; }
 
   /* rondetitel */
-  .titlecard { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: .5em; }
-  .titlecard .meta { font-size: 1.6em; }
+  .titlecard { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: .5em; position: relative; }
+  .titlecard > * { position: relative; z-index: 1; }
+  .titlecard .tdeco { position: absolute; z-index: 0; right: 3%; bottom: 6%; height: 72%; aspect-ratio: 2 / 3; transform: rotate(12deg); }
+  .titlecard .tdeco svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .titlecard .meta { font-size: 1.6em; justify-self: start; align-self: flex-start; background: var(--wine); color: #fff; padding: .25em .8em; border-radius: 999px; transform: rotate(-2deg); }
   .titlecard h1 { font-size: 9em; max-width: 12ch; }
   .titlecard h1.long { font-size: 6.6em; max-width: 15ch; }
   .nw { white-space: nowrap; }
-  .titlecard p { font-size: 2em; color: var(--wire); max-width: 32ch; margin: .2em 0 0; }
+  .titlecard p { font-size: 2em; color: var(--wire); max-width: 34ch; margin: .2em 0 0; }
+  .rules { list-style: none; margin: .3em 0 0; padding: 0; display: grid; gap: .45em; font-size: 1.85em; font-weight: 600; max-width: 34em; }
+  .rules li { display: flex; gap: .6em; align-items: baseline; }
+  .rules li::before { content: ''; flex: none; width: .55em; height: .55em; border-radius: 50%; background: var(--wine); transform: translateY(-.05em); }
 
-  /* loting: het rad */
+  /* loting: draai de fles, de hals wijst het team aan */
   .draw { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 2.6em; align-items: center; }
-  .wheelbox { height: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; }
-  .wheel { position: relative; width: min(100%, 62vh); aspect-ratio: 1; }
-  .wheel svg { width: 100%; height: 100%; display: block; }
-  .wheel .pointer { position: absolute; top: -.4em; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 1em solid transparent; border-right: 1em solid transparent; border-top: 1.9em solid var(--cream); filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .6)); z-index: 2; }
+  .tablebox { height: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; }
+  .table { position: relative; width: min(100%, 64vh); aspect-ratio: 1; }
+  .table > svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; }
+  #bottlesvg { filter: drop-shadow(0 .5em .4em rgba(43, 27, 48, .3)); }
+  .tg.hit { transform-box: fill-box; transform-origin: 50% 60%; animation: hit .55s ease-in-out 3; }
+  @keyframes hit { 50% { transform: scale(1.3); } }
   .drawside { display: grid; gap: 1em; align-content: center; min-width: 0; }
   .drawside .meta { font-size: 1.35em; }
-  .drawname { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: 6.4em; line-height: .9; margin: 0; overflow-wrap: anywhere; }
+  .drawname { font-family: var(--display); font-weight: 700; font-size: 6.4em; line-height: 1; margin: 0; overflow-wrap: anywhere; }
   .drawto { font-size: 2em; margin: 0; color: var(--wire); min-height: 1.3em; }
-  .drawto b { color: var(--tx); font-family: var(--display); text-transform: uppercase; font-size: 1.4em; letter-spacing: .03em; }
+  .drawto b { color: var(--tx); font-family: var(--display); font-weight: 700; font-size: 1.4em; }
 
   /* stand */
   .board { height: 100%; display: flex; flex-direction: column; gap: 1em; }
-  .board h1 { font-size: 3.8em; }
+  .board h1 { font-size: 3.6em; }
   .rank { list-style: none; margin: 0; padding: 0; flex: 1; min-height: 0; display: grid; gap: .3em 2.4em; grid-auto-flow: column; }
   .rank li { display: grid; grid-template-columns: 2em minmax(0, 9em) minmax(0, 1fr) 4.2em 4.6em; gap: .9em; align-items: center; font-size: 1.4em; min-height: 0; }
-  .rank .pos { font-family: var(--display); font-weight: 900; font-size: 1.4em; color: var(--wire); text-align: right; }
-  .rank li.first .pos { color: var(--brass); }
+  .rank .pos { font-family: var(--display); font-weight: 700; font-size: 1.4em; color: var(--wire); text-align: right; }
+  .rank li.first .pos { color: var(--wine); }
   .rank .nm { font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .rank .bar { height: .7em; background: var(--panel-2); border-radius: 99px; overflow: hidden; }
-  .rank .bar i { display: block; height: 100%; width: calc(var(--w, 0) * 100%); background: var(--cream); border-radius: 99px; transition: width 1.2s cubic-bezier(.2, .7, .2, 1); }
-  .rank li.first .bar i { background: var(--brass); }
+  .rank .bar i { display: block; height: 100%; width: calc(var(--w, 0) * 100%); background: var(--wine); opacity: .55; border-radius: 99px; transition: width 1.2s cubic-bezier(.2, .7, .2, 1); }
+  .rank li.first .bar i { background: var(--gold); opacity: 1; }
   .rank .dl { color: var(--green); font-weight: 800; text-align: right; }
-  .rank .sc { font-family: var(--display); font-weight: 900; font-size: 1.35em; text-align: right; }
+  .rank .sc { font-family: var(--display); font-weight: 700; font-size: 1.35em; text-align: right; }
   .rank .nm i { display: inline-block; width: .55em; height: .55em; border-radius: 50%; background: var(--tc); margin-right: .45em; vertical-align: middle; }
-  .tstrip { display: grid; gap: .8em; }
-  .tcard { background: var(--tc); color: var(--tf); border-radius: 12px; padding: .45em 1em; display: flex; align-items: baseline; gap: .7em; font-size: 1.25em; min-width: 0; }
-  .tcard .tp { font-family: var(--display); font-weight: 900; font-size: 1.6em; }
-  .tcard b { font-family: var(--display); font-weight: 900; font-size: 1.5em; text-transform: uppercase; letter-spacing: .03em; }
-  .tcard span { margin-left: auto; font-weight: 700; white-space: nowrap; }
+  /* teamstand: elk team een glas, juiste antwoorden schenken bij */
+  .bhead { display: flex; align-items: baseline; gap: .4em 1.2em; flex-wrap: wrap; }
+  .bhead .meta { font-size: 1.35em; }
+  .bsplit { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 2.4em; }
+  .glasses { min-height: 0; display: flex; justify-content: space-around; align-items: stretch; gap: 1em; }
+  .gcard { flex: 1 1 0; min-width: 0; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: .15em; text-align: center; }
+  .gcard svg { flex: 1 1 0; min-height: 0; width: 100%; max-width: 14em; display: block; overflow: visible; }
+  .gcard .gr { display: inline-block; vertical-align: .15em; font-family: var(--display); font-weight: 700; font-size: .62em; color: var(--fg); background: var(--panel); border: 2px solid var(--line); border-radius: 999px; padding: 0 .55em; margin-right: .3em; }
+  .gcard.lead .gr { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+  .gcard .gn { font-family: var(--display); font-weight: 700; font-size: 2.1em; color: var(--tx); line-height: 1.1; margin-top: .2em; white-space: nowrap; }
+  .gcard .gs { color: var(--wire); font-size: 1.15em; }
+  .gcard .gs b { color: var(--fg); font-size: 1.3em; }
+  .gcard .gd { color: var(--green); font-weight: 800; font-size: 1.25em; min-height: 1.4em; }
+  .gcard.win svg { filter: drop-shadow(0 0 .9em rgba(244, 180, 0, .9)); }
+  .gcard.win .gn::after { content: ' 🏆'; }
+  .wine { transform-box: fill-box; transform-origin: 50% 100%; transform: scaleY(var(--lv, 0)); transition: transform 1.8s cubic-bezier(.3, .7, .2, 1); }
+  .board.wt .rank li, .end.wt .rank li { font-size: 1.15em; grid-template-columns: 1.6em minmax(0, 1fr) 3.8em 4.4em; }
+  .board.wt .rank .bar, .end.wt .rank .bar { display: none; }
 
   /* opdracht: de quizmaster tikt aan wie de punten verdient */
   .q.task { grid-template-rows: minmax(0, 1fr); }
   .qside .help { color: var(--wire); font-size: 1.2em; margin: 0; }
   .pick { display: flex; flex-wrap: wrap; gap: .5em; }
   .q.no-img .pick { justify-content: center; }
-  .pk { background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: .45em 1.05em; font-weight: 800; font-size: 1.2em; }
+  .pk { background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: .45em 1.05em; font-weight: 800; font-size: 1.2em; }
   .pk:hover { border-color: var(--wire); }
   .pk.on { background: var(--green); border-color: var(--green); color: #fff; }
   .pk.on::before { content: '✓ '; }
@@ -271,20 +305,16 @@
   .row { display: flex; flex-wrap: wrap; gap: .8em; align-items: center; }
 
   /* eindstand */
-  .end { height: 100%; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; gap: 1em; }
-  .teamwin { display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap; gap: .3em 1.2em; font-size: 1.35em; color: var(--wire); }
-  .teamwin b { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: 2.2em; color: var(--tx); letter-spacing: .03em; }
-  .end.wt .pod.p1 .blk { height: 34vh; }
-  .end.wt .pod.p2 .blk { height: 23vh; }
-  .end.wt .pod.p3 .blk { height: 15vh; }
+  .end { height: 100%; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 1em; }
+  .end.wt { display: flex; flex-direction: column; }
   .end h1 { font-size: 3.8em; }
   .podium { display: grid; grid-template-columns: 1fr 1.15fr 1fr; align-items: end; gap: 1.2em; min-height: 0; }
   .pod { display: flex; flex-direction: column; align-items: center; gap: .3em; min-width: 0; }
   .pod .nm { font-size: 2.4em; font-weight: 800; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .pod .sc { color: var(--wire); font-size: 1.2em; }
-  .pod .blk { width: 100%; border-radius: 14px 14px 0 0; display: flex; justify-content: center; padding-top: .3em; font-family: var(--display); font-weight: 900; font-size: 4.4em; color: var(--ink); }
-  .pod.p1 .blk { height: 44vh; background: var(--brass); }
-  .pod.p2 .blk { height: 30vh; background: var(--cream); }
+  .pod .blk { width: 100%; border-radius: 18px 18px 0 0; display: flex; justify-content: center; padding-top: .3em; font-family: var(--display); font-weight: 700; font-size: 4.4em; color: var(--ink); }
+  .pod.p1 .blk { height: 44vh; background: var(--gold); }
+  .pod.p2 .blk { height: 30vh; background: var(--silver); }
   .pod.p3 .blk { height: 20vh; background: var(--bronze); }
   .rest { color: var(--wire); font-size: 1.2em; margin: 0; text-align: center; }
 
@@ -305,35 +335,35 @@
   }
   .elist-wrap { display: grid; gap: .6em; position: sticky; top: 5em; }
   .drop { border: 2px dashed var(--line); border-radius: 12px; padding: .9em; text-align: center; color: var(--wire); font-size: .92em; }
-  .drop.over, .eform.over { border-color: var(--brass); color: var(--cream); }
+  .drop.over, .eform.over { border-color: var(--wine); color: var(--fg); }
   .elist { list-style: none; margin: 0; padding: 0; display: grid; gap: .35em; max-height: calc(100vh - 12em); overflow: auto; }
   .elist li {
     display: grid; grid-template-columns: 1.6em 3.2em minmax(0, 1fr) auto; gap: .55em; align-items: center;
     padding: .4em .5em; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); cursor: pointer;
   }
-  .elist li.on { border-color: var(--cream); }
+  .elist li.on { border-color: var(--wine); box-shadow: 0 0 0 1px var(--wine); }
   .elist .n { color: var(--wire); font-variant-numeric: tabular-nums; text-align: right; }
   .elist .th { width: 3.2em; height: 2.4em; border-radius: 6px; background: var(--panel-2) center / cover no-repeat; }
   .elist .t { min-width: 0; }
-  .elist .t small { display: block; color: var(--brass); font-size: .72em; text-transform: uppercase; letter-spacing: .06em; font-weight: 800; }
-  .elist .t small.bad { color: #ff8f86; }
+  .elist .t small { display: block; color: var(--wine); font-size: .72em; text-transform: uppercase; letter-spacing: .06em; font-weight: 800; }
+  .elist .t small.bad { color: var(--bad); }
   .elist .t span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .elist .ops { display: flex; }
   .elist .ops button { background: none; border: 0; color: var(--wire); padding: .2em .35em; font-size: 1em; }
-  .elist .ops button:hover { color: var(--cream); }
+  .elist .ops button:hover { color: var(--fg); }
   .eform { background: var(--panel); border: 2px solid var(--line); border-radius: 14px; padding: 1.2em; display: grid; gap: 1em; min-width: 0; }
   .eform .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(11em, 1fr)); gap: 1em; }
   .check { display: flex; gap: .5em; align-items: center; font-weight: 600; }
-  .check input { width: 1.15em; height: 1.15em; accent-color: var(--brass); }
+  .check input { width: 1.15em; height: 1.15em; accent-color: var(--wine); }
   .opts { display: grid; gap: .5em; }
   .opt { display: grid; grid-template-columns: auto 2.2em minmax(0, 1fr); gap: .6em; align-items: center; }
   .opt input[type=radio] { width: 1.2em; height: 1.2em; accent-color: var(--green); }
   .opt .sw { height: 2.2em; border-radius: 8px; display: grid; place-items: center; font-size: .9em; }
   .pe { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 1em; align-items: start; }
-  .pe-img { position: relative; border-radius: 10px; overflow: hidden; background: var(--bg); }
+  .pe-img { position: relative; border-radius: 10px; overflow: hidden; background: var(--panel-2); }
   .pe-img.zoomable { cursor: crosshair; }
   .pe-img img { display: block; width: 100%; }
-  .cross { position: absolute; width: 30px; height: 30px; margin: -15px 0 0 -15px; border: 3px solid var(--brass); border-radius: 50%; box-shadow: 0 0 0 2px var(--ink); pointer-events: none; }
+  .cross { position: absolute; width: 30px; height: 30px; margin: -15px 0 0 -15px; border: 3px solid var(--yellow); border-radius: 50%; box-shadow: 0 0 0 2px var(--ink); pointer-events: none; }
   .pe-start { display: grid; gap: .4em; }
   .pe-start .box { overflow: hidden; border-radius: 10px; }
   .pe-start .box img { display: block; width: 100%; }
@@ -347,22 +377,23 @@
     padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   .pbar { display: flex; align-items: center; gap: .7em; padding: .8em 0; border-bottom: 1px solid var(--line); }
+  .pbar .brand .bt { white-space: normal; line-height: 1.1; }
   .pbar .brand { font-size: 1.05em; flex: 1; }
   .pbar .me { flex: none; max-width: 45%; }
   .pbar .me { margin-left: auto; text-align: right; font-weight: 800; line-height: 1.15; min-width: 0; }
   .pbar .me small { display: block; color: var(--wire); font-weight: 500; }
   .pmain { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 1em; padding: 1.2em 0 1.6em; }
   .pbig.plain { text-transform: none; }
-  .pbig { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: 3.4em; line-height: .95; margin: 0; text-wrap: balance; }
+  .pbig { font-family: var(--display); font-weight: 700; font-size: 3.2em; line-height: 1; margin: 0; text-wrap: balance; }
   .psub { color: var(--wire); margin: 0; font-size: 1.08em; }
-  .psub b { color: var(--cream); }
-  .pmeta { font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--brass); margin: 0; }
+  .psub b { color: var(--fg); }
+  .pmeta { font-family: var(--display); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--wine); margin: 0; }
   .pq { font-weight: 800; font-size: 1.25em; margin: 0; line-height: 1.25; }
   .ptimer { height: 6px; background: var(--panel-2); border-radius: 99px; overflow: hidden; }
-  .ptimer i { display: block; height: 100%; width: 100%; background: var(--cream); transition: width .25s linear; }
+  .ptimer i { display: block; height: 100%; width: 100%; background: var(--wine); transition: width .25s linear; }
   .pbtns { display: grid; grid-template-columns: 1fr 1fr; gap: .7em; }
   .pbtns button {
-    border: 0; border-radius: 16px; min-height: 8.5em; padding: .9em;
+    border: 0; border-radius: 18px; min-height: 8.5em; padding: .9em; box-shadow: 0 .25em 0 rgba(43, 27, 48, .2);
     display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: .5em;
     font-weight: 800; font-size: 1.1em; text-align: left; overflow-wrap: anywhere;
   }
@@ -370,20 +401,23 @@
   .pbtns .shape { font-size: 2em; line-height: 1; }
   .pbtns.closed button { opacity: .35; }
   .pform { display: grid; gap: .7em; }
-  .pform input { font-family: var(--display); font-size: 2.6em; font-weight: 900; text-align: center; padding: .25em; }
-  .psent { border-radius: 18px; padding: 1.3em; display: grid; gap: .5em; background: var(--panel-2); }
+  .pform input { font-family: var(--display); font-size: 2.6em; font-weight: 700; text-align: center; padding: .25em; }
+  .psent { border-radius: 18px; padding: 1.3em; display: grid; gap: .5em; background: var(--panel); border: 1px solid var(--line); }
   .psent .shape { font-size: 2.6em; line-height: 1; }
   .psent b { font-size: 1.5em; }
   .psent small { opacity: .8; }
   .pres { border-radius: 18px; padding: 1.4em; display: grid; gap: .3em; }
   .pres.ok { background: var(--green); color: #fff; }
   .pres.no { background: var(--red); color: #fff; }
-  .pres.neutral { background: var(--panel-2); }
-  .pres .ptitle { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: 2.2em; line-height: 1; }
-  .pres .pts { font-family: var(--display); font-weight: 900; font-size: 4.4em; line-height: 1; }
+  .pres.neutral { background: var(--panel); border: 1px solid var(--line); }
+  .pres .ptitle { font-family: var(--display); font-weight: 700; font-size: 2.2em; line-height: 1; }
+  .pres .pts { font-family: var(--display); font-weight: 700; font-size: 4.4em; line-height: 1; }
   .pjoin { display: grid; gap: .8em; }
+  .pglass { display: flex; align-items: center; gap: 1em; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: .7em 1em; }
+  .pglass svg { width: 3.4em; height: 5.1em; flex: none; display: block; }
+  .pglass p { margin: 0; }
   .pteam { border-radius: 18px; padding: 1.4em; background: var(--tc); color: var(--tf); display: grid; gap: .25em; }
-  .pteam b { font-family: var(--display); font-size: 3.6em; font-weight: 900; text-transform: uppercase; line-height: 1; }
+  .pteam b { font-family: var(--display); font-size: 3.6em; font-weight: 700; line-height: 1; }
   .ttag { display: inline-block; padding: .05em .55em; border-radius: 99px; background: var(--tc); color: var(--tf); font-size: .75em; font-weight: 800; margin-left: .35em; vertical-align: middle; }
   .pjoin input { font-size: 1.5em; text-align: center; font-weight: 700; padding: .5em; }
   .linkbtn { background: none; border: 0; color: var(--wire); text-decoration: underline; padding: .4em 0; justify-self: start; }
@@ -395,7 +429,9 @@
     .hbar { flex-wrap: wrap; }
     .hfoot .hint { display: none; }
     .lobby, .draw { grid-template-columns: minmax(0, 1fr); gap: 1.4em; }
-    .wheel { width: min(80vw, 22em); }
+    .table { width: min(80vw, 22em); }
+    .bsplit { grid-template-columns: minmax(0, 1fr); }
+    .glasses { height: 16em; }
     .drawname { font-size: 3.4em; }
     .qrcard { width: min(70vw, 18em); justify-self: center; }
     .who h1 { font-size: 3.6em; }
@@ -488,12 +524,12 @@
   const TYPES = { mc: 'Meerkeuze', num: 'Schatting', task: 'Opdracht', title: 'Rondetitel' };
   const DEF_TIME = { mc: 20, num: 30, task: 0, title: 0 };
   const CLOSEST = [1000, 750, 550, 400, 300, 200, 150, 100];
-  // c = teamkleur, fg = tekst op die kleur, tx = teamkleur als tekst op de donkere achtergrond
+  // c = teamkleur (ook de kleur van de wijn in het teamglas), fg = tekst op die kleur, tx = teamkleur als tekst op de lichte achtergrond
   const TEAMS = [
-    { id: 't1', n: 'Team 1', c: '#b8323a', fg: '#ffffff', tx: '#ef7a80' },
-    { id: 't2', n: 'Team 2', c: '#2f6db5', fg: '#ffffff', tx: '#7fb0ec' },
-    { id: 't3', n: 'Team 3', c: '#2e8b57', fg: '#ffffff', tx: '#6fcf98' },
-    { id: 't4', n: 'Team 4', c: '#d4ab45', fg: '#141210', tx: '#e2bd5c' },
+    { id: 't1', n: 'Team 1', c: '#c2185b', fg: '#ffffff', tx: '#ad1457' },
+    { id: 't2', n: 'Team 2', c: '#2f6fde', fg: '#ffffff', tx: '#1f56b8' },
+    { id: 't3', n: 'Team 3', c: '#14937a', fg: '#ffffff', tx: '#0d7a64' },
+    { id: 't4', n: 'Team 4', c: '#f08a24', fg: '#2b1b30', tx: '#b85f0b' },
   ];
   const teamById = id => TEAMS.find(t => t.id === id) || null;
   const teamVars = t => t ? `--tc:${t.c};--tf:${t.fg};--tx:${t.tx}` : '';
@@ -546,7 +582,7 @@
       title: 'Testquiz',
       items: uniqueIds([
         { type: 'title', title: 'Testronde', text: 'Even checken of alle gsm\'s meedoen.' },
-        { type: 'mc', text: 'Testvraag: tik op Groen.', options: ['Rood', 'Groen', 'Wit', 'Geel'], correct: 1, time: 20 },
+        { type: 'mc', text: 'Testvraag: tik op Blauw.', options: ['Rood', 'Blauw', 'Geel', 'Groen'], correct: 1, time: 20 },
         { type: 'num', text: 'Hoeveel liter wijn zit er in een magnum?', correct: 1.5, unit: 'liter', time: 25 },
         { type: 'task', text: 'Wie als eerste een vol glas omhoog houdt, krijgt 500 punten.', pts: 500 },
       ].map(normItem)),
@@ -558,7 +594,7 @@
     { type: 'mc', text: "Wat betekent 'Saperavi', de naam van de Georgische druif, letterlijk?", options: ['Rood vuur', 'Verf', 'Steenrots', 'Oude wijnstok'], correct: 1 },
     { type: 'mc', text: 'Garnacha is Spaans. Hoe heet dezelfde druif in Frankrijk?', options: ['Grenache', 'Gamay', 'Carignan', 'Cinsault'], correct: 0 },
     { type: 'num', text: "Hoeveel bar druk staat er op een fles champagne? (Een autoband: zo'n 2,5.)", correct: 6, unit: 'bar' },
-    { type: 'mc', text: 'Wat is zoeter: brut of extra dry?', options: ['Brut', 'Extra dry', 'Ze zijn even zoet', 'Hangt af van het jaar'], correct: 1 },
+    { type: 'mc', text: 'Volgens het bijgeloof: wat gebeurt er als je bij het klinken je tafelgenoot níet in de ogen kijkt?', options: ['Je wijn verzuurt', 'Zeven jaar slechte seks', 'Jij betaalt de volgende fles', 'Zeven jaar ongeluk'], correct: 1 },
     { type: 'mc', text: 'Ook de Westhoek maakt wijn. Welke streek heeft een eigen beschermde benaming?', options: ['De Moeren', 'Heuvelland', 'Houtland', 'De IJzervallei'], correct: 1 },
     { type: 'mc', text: 'In 1985 kwam Oostenrijk in een wijnschandaal terecht. Wat zat er in sommige zoete wijnen?', options: ['Antivries', 'Suikerbietensiroop', 'Wodka', 'Afwasmiddel'], correct: 0 },
     { type: 'mc', text: "Wat verraden de 'tranen' die langs de binnenkant van je glas lopen?", options: ['De kwaliteit', 'Het alcoholgehalte', 'De leeftijd', 'De zuurtegraad'], correct: 1 },
@@ -566,7 +602,7 @@
     { type: 'num', text: 'Hoeveel jaar maken ze in Georgië al wijn?', correct: 8000, unit: 'jaar' },
     { type: 'mc', text: "Waar komt het woord 'proost' vandaan?", options: ["Latijn: 'moge het baten'", "Frans: 'pour toast'", "Duits: 'vrolijk'", "Oudnederlands: 'proeven'"], correct: 0 },
     { type: 'mc', text: 'Brunello di Montalcino is een Toscaanse topwijn. Van welke druif?', options: ['Nebbiolo', 'Sangiovese', 'Merlot', 'Montepulciano'], correct: 1 },
-    { type: 'mc', text: 'Welke kleur heeft het sap van de meeste blauwe druiven?', options: ['Donkerrood', 'Paars', 'Kleurloos', 'Roze'], correct: 2 },
+    { type: 'mc', text: 'Een fles wijn heeft ongeveer evenveel calorieën als…', options: ['Een rijstwafel', 'Een appel', 'Een Big Mac', 'Een hele pizza'], correct: 2 },
     { type: 'mc', text: 'Dom Pérignon, de naam achter de beroemde champagne, was…', options: ['Een monnik', 'Een koning', 'Een generaal', 'Een kok'], correct: 0 },
     { type: 'num', text: 'De oudste ongeopende fles wijn ter wereld ligt in Speyer (Duitsland). Hoeveel jaar oud is die ongeveer?', correct: 1700, unit: 'jaar' },
     { type: 'mc', text: 'Hoe heet de angst voor wijn?', options: ['Druivofobie', 'Oenofobie', 'Bacchofobie', 'Sommeliersfobie'], correct: 1 },
@@ -617,7 +653,7 @@
   // ════════════════════════════════════════════════════════════
   //  QUIZMASTER (laptop aan de beamer)
   // ════════════════════════════════════════════════════════════
-  const H = { quiz: null, g: null, c: null, link: 'off', key: '', mode: 'game', ei: 0, pubT: 0, lastPub: 0, saveT: 0, seen: new Set() };
+  const H = { quiz: null, g: null, c: null, link: 'off', key: '', mode: 'game', ei: 0, pubT: 0, lastPub: 0, saveT: 0, zoomF: 0, seen: new Set() };
   const items = () => H.quiz.items;
   const cur = () => items()[H.g.idx];
   const pname = pid => (H.g.players[pid] || {}).n || '?';
@@ -655,6 +691,22 @@
     }).sort((a, b) => b.avg - a.avg);
     tr.forEach((t, i) => { t.rank = i && t.avg === tr[i - 1].avg ? tr[i - 1].rank : i + 1; });
     return tr;
+  }
+  // Hoe vol een teamglas staat: het gemiddelde tegenover 60% van alles wat er in de quiz te rapen valt
+  function maxTotal() {
+    return items().filter(playable).reduce((a, it) => a + (it.type === 'task' ? it.pts : isQuestion(it) ? 1000 * (it.dbl ? 2 : 1) : 0), 0) || 1;
+  }
+  const teamLevel = avg => clamp(avg / (maxTotal() * .6), 0, 1);
+  // Een wijnglas (viewBox 0 0 100 150). De wijn staat op hoogte "from" en schenkt in afterRender bij tot "lv".
+  function glassSvg(t, lv, from, key, attrs = '') {
+    const id = 'gc-' + key + '-' + t.id, bowl = 'M18 6C12 36 12 64 30 80C38 87 45 89 50 89C55 89 62 87 70 80C88 64 88 36 82 6Z';
+    return `<svg viewBox="0 0 100 150" ${attrs} aria-hidden="true"><defs><clipPath id="${id}"><path d="${bowl}"/></clipPath></defs>`
+      + `<path d="${bowl}" fill="rgba(255,255,255,.8)"/>`
+      + `<g clip-path="url(#${id})"><rect class="wine" x="0" y="6" width="100" height="84" fill="${t.c}" style="--lv:${from.toFixed(3)}" data-lv="${lv.toFixed(3)}"/></g>`
+      + `<path d="M27 16C23 36 23 54 32 68" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".75"/>`
+      + `<path d="${bowl}" fill="none" stroke="#2b1b30" stroke-width="3" stroke-linejoin="round"/>`
+      + `<path d="M50 89V136" stroke="#2b1b30" stroke-width="5" stroke-linecap="round"/>`
+      + `<ellipse cx="50" cy="139" rx="27" ry="6" fill="#fff" stroke="#2b1b30" stroke-width="3"/></svg>`;
   }
   function smallestTeams() {
     const counts = activeTeams().map(t => ({ id: t.id, k: Object.keys(H.g.players).filter(pid => H.g.teams[pid] === t.id).length }));
@@ -739,7 +791,7 @@
       const r = res && res[p.pid];
       s.pl[p.pid] = { n: p.n, s: p.s, r: p.rank, a: ans[p.pid] ? 1 : 0, d: r ? r.pts : null, k: r && r.ok != null ? (r.ok ? 1 : 0) : null, t: p.t };
     }
-    if (g.nTeams) s.tm = teamRanking().map(t => ({ id: t.id, avg: t.avg, r: t.rank, k: t.size }));
+    if (g.nTeams) s.tm = teamRanking().map(t => ({ id: t.id, avg: t.avg, r: t.rank, k: t.size, lv: Number(teamLevel(t.avg).toFixed(3)) }));
     return s;
   }
 
@@ -891,7 +943,7 @@
       left = `<button class="btn" data-act="edit">Quiz bewerken</button>`
         + `<button class="btn" data-act="broker" title="Verbinden de gsm's niet? Probeer een andere server.">Server: ${esc(customBroker ? 'eigen' : BROKERS[g.b].name)}</button>`
         + `<button class="btn" data-act="teams" title="Klik om het aantal teams te kiezen">Teams: ${g.nTeams || 'geen'}</button>`
-        + (g.nTeams ? `<button class="btn" data-act="draw">Draai het rad</button>` : '')
+        + (g.nTeams ? `<button class="btn" data-act="draw">Draai de fles</button>` : '')
         + `<button class="btn" data-act="reset">Scores wissen</button>`
         + `<button class="btn" data-act="newroom">Nieuwe code</button>`;
     } else {
@@ -899,7 +951,7 @@
     }
     const label = {
       lobby: g.idx < 0 ? 'Start de quiz' : 'Verder spelen', title: 'Verder', question: 'Stop de tijd',
-      draw: g.draw && g.draw.i < g.draw.order.length ? 'Draai' : 'Klaar: naar de lobby',
+      draw: g.draw && g.draw.i < g.draw.order.length ? 'Draai de fles' : 'Klaar: naar de lobby',
       reveal: 'Tussenstand', task: 'Tussenstand', board: items().slice(g.idx + 1).some(playable) ? 'Volgende' : 'Eindstand',
     }[ph];
     return `<footer class="hfoot">${left}<span class="sp"></span><span class="warn" id="warn"></span><span class="hint">spatie = verder · F = volledig scherm</span>${label ? `<button class="btn primary" data-act="next">${label} ▸</button>` : ''}</footer>`;
@@ -930,10 +982,14 @@
     const it = cur(), head = it.title || it.text;
     // "Ronde 2 · Wie let op?" wordt bovenschrift "Ronde 2" met grote titel "Wie let op?"
     const cut = head.indexOf(' · '), big = cut > 0 ? head.slice(cut + 3) : head;
-    const eyebrow = cut > 0 ? head.slice(0, cut) : big === H.quiz.title ? '' : H.quiz.title;
+    const eyebrow = cut > 0 ? head.slice(0, cut) : '';
     // "5-sterrenquiz" blijft op één regel
     const bigHtml = esc(big).replace(/(\d+-[^\s<]+)/g, '<span class="nw">$1</span>');
-    return `<div class="titlecard">${eyebrow ? `<p class="meta">${esc(eyebrow)}</p>` : ''}<h1 class="display ${big.length > 18 ? 'long' : ''}">${bigHtml}</h1>${it.title && it.text ? `<p>${esc(it.text)}</p>` : ''}</div>`;
+    // Tekst over meerdere regels (zoals de spelregels) wordt een lijstje
+    const lines = it.text.split('\n').map(l => l.trim()).filter(Boolean);
+    const sub = !it.title || !it.text ? '' : lines.length > 1 ? `<ul class="rules">${lines.map(l => `<li>${esc(l)}</li>`).join('')}</ul>` : `<p>${esc(it.text)}</p>`;
+    const deco = `<div class="tdeco">${glassSvg({ id: 'deco', c: '#a51d4a' }, .62, .62, 't')}</div>`;
+    return `<div class="titlecard">${deco}${eyebrow ? `<p class="meta">${esc(eyebrow)}</p>` : ''}<h1 class="display ${big.length > 18 ? 'long' : ''}">${bigHtml}</h1>${sub}</div>`;
   }
   function questionHtml(revealed) {
     const g = H.g, it = cur(), ans = g.answers[it.id] || {};
@@ -970,46 +1026,52 @@
     return `<div class="target num">${fmt(tgt)}${unit ? `<small>${esc(unit)}</small>` : ''}</div>` + (total ? '' : none)
       + `<ol class="closest">${list.map(([pid, r]) => `<li><b>${esc(pname(pid))}</b><span class="num">${fmt(r.v)}</span><small class="num">${r.d === 0 ? 'exact!' : (r.v > tgt ? '+' : '−') + fmt(r.d)}</small><em class="num">+${fmt(r.pts)}</em></li>`).join('')}</ol>`;
   }
-  function wheelSegments() {
-    const ts = activeTeams(), n = ts.length * (ts.length === 2 ? 4 : 3);
-    return Array.from({ length: n }, (_, k) => ts[k % ts.length]);
-  }
-  function wheelSvg() {
-    const segs = wheelSegments(), a = 360 / segs.length;
-    const pt = (r, deg) => { const t = (deg - 90) * Math.PI / 180; return [(r * Math.cos(t)).toFixed(2), (r * Math.sin(t)).toFixed(2)]; };
-    let s = '<circle r="100" fill="#0b0a09"/>';
-    segs.forEach((t, k) => {
-      const [x1, y1] = pt(96, k * a), [x2, y2] = pt(96, (k + 1) * a), [tx, ty] = pt(62, (k + .5) * a);
-      s += `<path d="M0 0L${x1} ${y1}A96 96 0 0 1 ${x2} ${y2}Z" fill="${t.c}" stroke="#141210" stroke-width=".8"/>`
-        + `<text x="${tx}" y="${ty}" transform="rotate(${((k + .5) * a).toFixed(2)} ${tx} ${ty})" text-anchor="middle" dominant-baseline="central" fill="${t.fg}" font-size="${segs.length > 9 ? 9 : 11}" font-weight="900" style="font-family:'Big Shoulders Display',Impact,sans-serif;text-transform:uppercase;letter-spacing:.04em">${t.n.toUpperCase()}</text>`;
+  // Een gedekte tafel met een glas per team in een kring. De fles in het midden draait en wijst met de hals een team aan.
+  function tableSvg() {
+    const g = H.g, d = g.draw, ts = activeTeams(), a = 360 / ts.length, n = Object.keys(g.players).length;
+    const per = Math.max(1, Math.ceil(n / ts.length)), hit = d && d.cur && !d.spinning ? g.teams[d.cur] : null;
+    let s = '<defs><pattern id="ruit" width="16" height="16" patternUnits="userSpaceOnUse"><rect width="16" height="16" fill="#fff"/>'
+      + '<rect width="16" height="8" fill="rgba(226,61,61,.28)"/><rect width="8" height="16" fill="rgba(226,61,61,.28)"/></pattern></defs>'
+      + '<circle r="97" fill="url(#ruit)" stroke="#2b1b30" stroke-width="2.5"/>';
+    ts.forEach((t, k) => {
+      const r = (k * a) * Math.PI / 180, gx = 68 * Math.sin(r), gy = -68 * Math.cos(r);
+      const lv = .85 * Object.keys(g.players).filter(pid => g.teams[pid] === t.id).length / per;
+      s += `<g class="tg ${hit === t.id ? 'hit' : ''}">${glassSvg(t, lv, lv, 'd', `x="${(gx - 15).toFixed(1)}" y="${(gy - 25).toFixed(1)}" width="30" height="45"`)}`
+        + `<text x="${gx.toFixed(1)}" y="${(gy + 28).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="${t.tx}" stroke="#fff" stroke-width="3" paint-order="stroke" style="font-family:Fredoka,system-ui,sans-serif">${t.n}</text></g>`;
     });
-    s += '<circle r="13" fill="#141210" stroke="#f0e4c8" stroke-width="2"/>';
-    return `<svg viewBox="-101 -101 202 202" id="wheelsvg" role="img" aria-label="Rad met de teams">${s}</svg>`;
+    return `<svg viewBox="-100 -100 200 200" role="img" aria-label="Tafel met een glas per team">${s}</svg>`;
+  }
+  function bottleSvg() {
+    return '<svg viewBox="-100 -100 200 200" id="bottlesvg" aria-hidden="true">'
+      + '<path d="M-12 0C-12-14-5-18-5-28V-42H5V-28C5-18 12-14 12 0V36Q12 42 6 42H-6Q-12 42-12 36Z" fill="#1d6b45" stroke="#0f3d27" stroke-width="1.5"/>'
+      + '<rect x="-6" y="-49" width="12" height="11" rx="2" fill="#a51d4a"/>'
+      + '<rect x="-12" y="8" width="24" height="20" fill="#fff4dc"/>'
+      + '<text x="0" y="21" text-anchor="middle" font-size="7.5" font-weight="700" fill="#a51d4a" style="font-family:Fredoka,system-ui,sans-serif">WIJN</text>'
+      + '<path d="M-8 2C-8-8-4-12-3-22" stroke="rgba(255,255,255,.5)" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>';
   }
   function drawHtml() {
     const g = H.g, d = g.draw, curT = d && d.cur && !d.spinning ? teamById(g.teams[d.cur]) : null;
     const left = d ? d.order.length - d.i : 0;
-    let name = 'Wie is eerst?', to = `Druk op spatie om te draaien.`;
+    let name = 'Wie is eerst?', to = `Druk op spatie om de fles te draaien.`;
     if (d && d.cur) {
       name = esc(pname(d.cur));
-      to = d.spinning ? 'Het rad draait…' : `gaat naar <b style="${teamVars(curT)}">${curT ? curT.n : '?'}</b>`;
+      to = d.spinning ? 'De fles draait…' : `gaat naar <b style="${teamVars(curT)}">${curT ? curT.n : '?'}</b>`;
     } else if (!left) { name = 'Iedereen zit'; to = 'De teams staan.'; }
-    return `<div class="draw"><div class="wheelbox"><div class="wheel"><i class="pointer"></i>${wheelSvg()}</div></div>`
+    return `<div class="draw"><div class="tablebox"><div class="table">${tableSvg()}${bottleSvg()}</div></div>`
       + `<div class="drawside"><p class="meta">Loting van de teams · nog ${left} te gaan</p><h1 class="drawname">${name}</h1><p class="drawto">${to}</p>`
       + `<div id="chips">${chipsHtml()}</div></div></div>`;
   }
-  // Het rad landt altijd op een van de kleinste teams, zodat de teams even groot blijven
+  // De fles wijst altijd een van de kleinste teams aan, zodat de teams even groot blijven
   function spinNext() {
     const g = H.g, d = g.draw;
     if (!d || d.spinning) return;
     while (d.i < d.order.length && !g.players[d.order[d.i]]) d.i++;
     if (d.i >= d.order.length) { g.phase = 'lobby'; g.draw = null; return commit(true); }
-    const pid = d.order[d.i], target = pickOne(smallestTeams()), segs = wheelSegments(), a = 360 / segs.length;
-    const options = segs.map((t, k) => (t.id === target ? k : -1)).filter(k => k >= 0), k = pickOne(options);
-    const land = 360 - (k + .5) * a + (Math.random() - .5) * a * .6;
+    const pid = d.order[d.i], target = pickOne(smallestTeams()), ts = activeTeams(), a = 360 / ts.length;
+    const land = ts.findIndex(t => t.id === target) * a + (Math.random() - .5) * a * .3;
     const base = d.rot - (((d.rot % 360) + 360) % 360);
     d.prev = d.rot;
-    d.rot = base + 360 * 6 + ((land % 360) + 360) % 360;
+    d.rot = base + 360 * 5 + ((land % 360) + 360) % 360;
     d.cur = pid;
     d.target = target;
     d.spinning = true;
@@ -1047,23 +1109,42 @@
       + `<p class="help">Wie verdient de punten? Tik ${g.nTeams ? 'een heel team of ' : ''}de namen aan.</p>${teamBtns}`
       + `<div class="pick">${list.map(p => `<button class="pk ${res[p.pid] ? 'on' : ''}" data-award="${p.pid}">${esc(p.n)}</button>`).join('')}</div>`;
   }
-  function boardHtml() {
-    const g = H.g, it = cur(), list = ranking(), max = Math.max(1, ...list.map(p => p.s)), res = (it && g.results[it.id]) || {};
-    const cols = list.length > 10 ? 2 : 1, rows = Math.max(1, Math.ceil(list.length / cols));
-    const title = it && it.type === 'task' ? 'Stand na de opdracht' : `Stand na vraag ${qNumber(g.idx)}`;
-    const strip = g.nTeams ? `<div class="tstrip" style="grid-template-columns:repeat(${g.nTeams},minmax(0,1fr))">${teamRanking().map(t => `<div class="tcard" style="${teamVars(t)}"><span class="tp num">${t.rank}</span><b>${t.n}</b><span class="num">gem. ${fmt(t.avg)}</span></div>`).join('')}</div>` : '';
-    return `<div class="board"><h1 class="display">${title}</h1>${strip}<ol class="rank" style="grid-template-columns:repeat(${cols},minmax(0,1fr));grid-template-rows:repeat(${rows},minmax(0,4.2em))">`
-      + list.map((p, i) => {
+  function rankHtml(list, res, cols) {
+    const max = Math.max(1, ...list.map(p => p.s)), rows = Math.max(1, Math.ceil(list.length / cols));
+    return `<ol class="rank" style="grid-template-columns:repeat(${cols},minmax(0,1fr));grid-template-rows:repeat(${rows},minmax(0,4.2em))">`
+      + list.map(p => {
         const d = (res[p.pid] || {}).pts || 0;
         return `<li class="${p.rank === 1 ? 'first' : ''}"><span class="pos num">${p.rank}</span><span class="nm" style="${teamVars(teamById(p.t))}">${p.t ? '<i></i>' : ''}${esc(p.n)}</span><span class="bar"><i style="--w:${((p.s - d) / max).toFixed(3)}" data-w="${(p.s / max).toFixed(3)}"></i></span><span class="dl num">${d ? '+' + fmt(d) : ''}</span><span class="sc num">${fmt(p.s)}</span></li>`;
-      }).join('') + `</ol></div>`;
+      }).join('') + `</ol>`;
+  }
+  // De teamglazen staan altijd in dezelfde volgorde. Elk glas schenkt bij van de stand voor deze vraag tot nu.
+  function glassesHtml(list, res, fromZero) {
+    const tr = teamRanking();
+    return `<div class="glasses">${activeTeams().map(t0 => {
+      const t = tr.find(x => x.id === t0.id), m = list.filter(p => p.t === t.id);
+      const prev = m.length ? m.reduce((a, p) => a + p.s - ((res[p.pid] || {}).pts || 0), 0) / m.length : 0, gain = t.avg - Math.round(prev);
+      const cls = (t.rank === 1 ? 'lead' : '') + (fromZero && t.rank === 1 ? ' win' : '');
+      return `<div class="gcard ${cls}" style="${teamVars(t)}">${glassSvg(t, teamLevel(t.avg), fromZero ? 0 : teamLevel(prev), 'b', 'preserveAspectRatio="xMidYMax meet"')}`
+        + `<span class="gn"><span class="gr num">${t.rank}e</span>${t.n}</span><span class="gs">gem. <b class="num">${fmt(t.avg)}</b></span><span class="gd num">${!fromZero && gain > 0 ? '+' + fmt(gain) : ''}</span></div>`;
+    }).join('')}</div>`;
+  }
+  function boardHtml() {
+    const g = H.g, it = cur(), list = ranking(), res = (it && g.results[it.id]) || {};
+    const title = it && it.type === 'task' ? 'Stand na de opdracht' : `Stand na vraag ${qNumber(g.idx)}`;
+    if (!g.nTeams) return `<div class="board"><h1 class="display">${title}</h1>${rankHtml(list, res, list.length > 10 ? 2 : 1)}</div>`;
+    return `<div class="board wt"><div class="bhead"><h1 class="display">${title}</h1><p class="meta">Het volste glas wint</p></div>`
+      + `<div class="bsplit">${glassesHtml(list, res, false)}${rankHtml(list, res, 1)}</div></div>`;
   }
   function endHtml() {
     const list = ranking(), [a, b, c] = list;
+    if (H.g.nTeams) {
+      const wins = teamRanking().filter(t => t.rank === 1), nm = t => `<span style="color:${t.tx}">${t.n}</span>`;
+      const head = wins.length > 1 ? `Gelijkspel: ${wins.map(nm).join(' en ')}!` : `${nm(wins[0])} wint!`;
+      return `<div class="end wt"><div class="bhead"><h1 class="display">${head}</h1><p class="meta">Eindstand · het volste glas wint</p></div>`
+        + `<div class="bsplit">${glassesHtml(list, {}, true)}${rankHtml(list, {}, 1)}</div></div>`;
+    }
     const pod = (p, cls, place) => p ? `<div class="pod ${cls}"><div class="nm">${esc(p.n)}</div><div class="sc num">${fmt(p.s)} punten</div><div class="blk">${place}</div></div>` : `<div class="pod ${cls}"></div>`;
-    const tr = H.g.nTeams ? teamRanking() : [];
-    const win = tr.length ? `<p class="teamwin" style="${teamVars(tr[0])}">Winnend team <b>${tr[0].n}</b> gemiddeld ${fmt(tr[0].avg)} punten${tr.slice(1).map(t => ` · ${t.rank}. ${t.n} (${fmt(t.avg)})`).join('')}</p>` : '<p class="teamwin"></p>';
-    return `<div class="end ${tr.length ? 'wt' : ''}"><h1 class="display">Eindstand</h1>${win}<div class="podium">${pod(b, 'p2', 2)}${pod(a, 'p1', 1)}${pod(c, 'p3', 3)}</div>`
+    return `<div class="end"><h1 class="display">Eindstand</h1><div class="podium">${pod(b, 'p2', 2)}${pod(a, 'p1', 1)}${pod(c, 'p3', 3)}</div>`
       + (list.length > 3 ? `<p class="rest">${list.slice(3).map(p => `${p.rank}. ${esc(p.n)} <span class="num">${fmt(p.s)}</span>`).join(' · ')}</p>` : '<p class="rest"></p>') + `</div>`;
   }
 
@@ -1079,18 +1160,20 @@
       };
       if (img.complete && img.naturalWidth) go(); else img.addEventListener('load', go, { once: true });
     }
-    const wheel = $('#wheelsvg');
-    if (wheel && g.draw) {
+    const bottle = $('#bottlesvg');
+    if (bottle && g.draw) {
       const d = g.draw;
-      wheel.style.transform = `rotate(${d.spinning ? d.prev : d.rot}deg)`;
+      bottle.style.transform = `rotate(${d.spinning ? d.prev : d.rot}deg)`;
       if (d.spinning) requestAnimationFrame(() => requestAnimationFrame(() => {
-        wheel.style.transition = 'transform 4.1s cubic-bezier(.12, .7, .1, 1)';
-        wheel.style.transform = `rotate(${d.rot}deg)`;
+        bottle.style.transition = 'transform 4.1s cubic-bezier(.15, .65, .1, 1)';
+        bottle.style.transform = `rotate(${d.rot}deg)`;
       }));
     }
     if (g.phase === 'question') startBar('#bar', g.qEnd, it.time);
     if (g.phase === 'task') startBar('#tbar', g.tEnd, it.time);
     $$('.rank .bar i').forEach(i => requestAnimationFrame(() => requestAnimationFrame(() => i.style.setProperty('--w', i.dataset.w))));
+    // Bijschenken: even wachten zodat iedereen het glas ziet vollopen
+    $$('.gcard .wine').forEach(w => setTimeout(() => w.style.setProperty('--lv', w.dataset.lv), 350));
     patchWarn();
   }
   // Tijdsbalk die vanaf de resterende tijd naar nul loopt
@@ -1111,17 +1194,20 @@
     fr.style.width = Math.floor(w) + 'px';
     fr.style.height = Math.floor(h) + 'px';
   }
-  // De uitzoomer: start ver ingezoomd op een detail en zoomt traag uit tot het einde van de tijd
+  // De uitzoomer: start ver ingezoomd op een detail en zoomt zachtjes uit tot het einde van de tijd.
+  // Het zoomen loopt gelijkmatig voor het oog (logaritmisch) en traag in het begin, zodat het detail lang een raadsel blijft.
   function startZoom(it) {
-    const img = $('#qimg'), z = it.zoom;
-    const total = it.time * 1000, left = Math.max(0, H.g.qEnd - Date.now());
+    const img = $('#qimg'), z = it.zoom, g = H.g, total = it.time * 1000;
     img.style.transformOrigin = `${z.x}% ${z.y}%`;
     img.style.transition = 'none';
-    img.style.transform = `scale(${1 + (z.s - 1) * (left / total)})`;
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      img.style.transition = `transform ${left}ms cubic-bezier(.6, 0, .9, .5)`;
-      img.style.transform = 'scale(1)';
-    }));
+    cancelAnimationFrame(H.zoomF);
+    const step = () => {
+      if (!img.isConnected) return;
+      const t = clamp((Date.now() - g.qStart) / total, 0, 1);
+      img.style.transform = `scale(${Math.pow(z.s, 1 - Math.pow(t, 1.6)).toFixed(4)})`;
+      if (t < 1 && g.phase === 'question') H.zoomF = requestAnimationFrame(step);
+    };
+    step();
   }
   function patchLive() {
     const g = H.g, it = cur(), n = Object.keys(g.players).length;
@@ -1546,11 +1632,11 @@
     switch (st.ph) {
       case 'draw': {
         const t = teamById(m.t);
-        return t ? `<div class="pteam" style="${teamVars(t)}"><span>Jij zit in</span><b>${t.n}</b></div><p class="psub">Kijk naar het rad op het grote scherm.</p>`
-          : center('Het rad draait', 'Wacht op je beurt. Kijk naar het grote scherm.');
+        return t ? `<div class="pteam" style="${teamVars(t)}"><span>Jij zit in</span><b>${t.n}</b></div><p class="psub">Kijk naar de fles op het grote scherm.</p>`
+          : center('De fles draait', 'Wacht op je beurt. Kijk naar het grote scherm.');
       }
       case 'lobby': return center('Je zit erin', `Kijk naar het grote scherm. <b id="pn" class="num">${Object.keys(st.pl).length}</b> spelers binnen.`) + `<button class="linkbtn" data-act="rename">Naam aanpassen</button>`;
-      case 'title': return center(esc(q.ti || q.tx), q.ti ? esc(q.tx) : '');
+      case 'title': return center(esc(q.ti || q.tx), q.ti ? esc(q.tx).replace(/\n/g, '<br>') : '');
       case 'question': return pQuestion(q);
       case 'reveal': return pReveal(st, q, m);
       case 'board': return pBoard(st, m);
@@ -1587,7 +1673,8 @@
   function pTeamLine(st, m) {
     const mine = st.tm && st.tm.find(t => t.id === m.t), t = teamById(m.t);
     if (!mine || !t) return '';
-    return `<p class="psub"><b style="color:${t.tx}">${t.n}</b> staat <b>${mine.r}e</b> met gemiddeld <b class="num">${fmt(mine.avg)}</b> punten.</p>`;
+    const lv = mine.lv || 0, won = st.ph === 'end' && mine.r === 1;
+    return `<div class="pglass">${glassSvg(t, lv, lv, 'p')}<p>${won ? '🏆 Jullie glas is het volste! ' : ''}<b style="color:${t.tx}">${t.n}</b> staat <b>${mine.r}e</b>, met gemiddeld <b class="num">${fmt(mine.avg)}</b> punten per speler.</p></div>`;
   }
   function answer(v) {
     const st = P.st, q = st && st.q;

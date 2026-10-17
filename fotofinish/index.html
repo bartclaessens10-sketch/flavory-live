@@ -486,10 +486,10 @@
   const CLOSEST = [1000, 750, 550, 400, 300, 200, 150, 100];
   // c = teamkleur, fg = tekst op die kleur, tx = teamkleur als tekst op de donkere achtergrond
   const TEAMS = [
-    { id: 'rood', n: 'Rood', c: '#a3263a', fg: '#ffffff', tx: '#ec6b7e' },
-    { id: 'wit', n: 'Wit', c: '#ece2b8', fg: '#141210', tx: '#ece2b8' },
-    { id: 'bubbels', n: 'Bubbels', c: '#d4ab45', fg: '#141210', tx: '#e2bd5c' },
-    { id: 'rose', n: 'Rosé', c: '#e8939a', fg: '#141210', tx: '#f0a3aa' },
+    { id: 't1', n: 'Team 1', c: '#b8323a', fg: '#ffffff', tx: '#ef7a80' },
+    { id: 't2', n: 'Team 2', c: '#2f6db5', fg: '#ffffff', tx: '#7fb0ec' },
+    { id: 't3', n: 'Team 3', c: '#2e8b57', fg: '#ffffff', tx: '#6fcf98' },
+    { id: 't4', n: 'Team 4', c: '#d4ab45', fg: '#141210', tx: '#e2bd5c' },
   ];
   const teamById = id => TEAMS.find(t => t.id === id) || null;
   const teamVars = t => t ? `--tc:${t.c};--tf:${t.fg};--tx:${t.tx}` : '';
@@ -982,7 +982,7 @@
     let name = 'Wie is eerst?', to = `Druk op spatie om te draaien.`;
     if (d && d.cur) {
       name = esc(pname(d.cur));
-      to = d.spinning ? 'Het rad draait…' : `gaat naar <b style="${teamVars(curT)}">Team ${curT ? curT.n : '?'}</b>`;
+      to = d.spinning ? 'Het rad draait…' : `gaat naar <b style="${teamVars(curT)}">${curT ? curT.n : '?'}</b>`;
     } else if (!left) { name = 'Iedereen zit'; to = 'De teams staan.'; }
     return `<div class="draw"><div class="wheelbox"><div class="wheel"><i class="pointer"></i>${wheelSvg()}</div></div>`
       + `<div class="drawside"><p class="meta">Loting van de teams · nog ${left} te gaan</p><h1 class="drawname">${name}</h1><p class="drawto">${to}</p>`
@@ -1031,7 +1031,7 @@
     const list = ranking();
     const teamBtns = g.nTeams ? `<div class="pick">${activeTeams().map(t => {
       const m = list.filter(p => p.t === t.id), all = m.length && m.every(p => res[p.pid]);
-      return `<button class="pk tm ${all ? 'on' : ''}" style="${teamVars(t)}" data-awardteam="${t.id}">Team ${t.n}</button>`;
+      return `<button class="pk tm ${all ? 'on' : ''}" style="${teamVars(t)}" data-awardteam="${t.id}">${t.n}</button>`;
     }).join('')}</div>` : '';
     return `<p class="meta">Opdracht · ${fmt(it.pts)} punten per winnaar</p><h1 class="qtext">${esc(it.text)}</h1>${clock}`
       + `<p class="help">Wie verdient de punten? Tik ${g.nTeams ? 'een heel team of ' : ''}de namen aan.</p>${teamBtns}`
@@ -1536,7 +1536,7 @@
     switch (st.ph) {
       case 'draw': {
         const t = teamById(m.t);
-        return t ? `<div class="pteam" style="${teamVars(t)}"><span>Jij zit in</span><b>Team ${t.n}</b></div><p class="psub">Kijk naar het rad op het grote scherm.</p>`
+        return t ? `<div class="pteam" style="${teamVars(t)}"><span>Jij zit in</span><b>${t.n}</b></div><p class="psub">Kijk naar het rad op het grote scherm.</p>`
           : center('Het rad draait', 'Wacht op je beurt. Kijk naar het grote scherm.');
       }
       case 'lobby': return center('Je zit erin', `Kijk naar het grote scherm. <b id="pn" class="num">${Object.keys(st.pl).length}</b> spelers binnen.`) + `<button class="linkbtn" data-act="rename">Naam aanpassen</button>`;
@@ -1577,7 +1577,7 @@
   function pTeamLine(st, m) {
     const mine = st.tm && st.tm.find(t => t.id === m.t), t = teamById(m.t);
     if (!mine || !t) return '';
-    return `<p class="psub">Team <b style="color:${t.tx}">${t.n}</b> staat <b>${mine.r}e</b> met gemiddeld <b class="num">${fmt(mine.avg)}</b> punten.</p>`;
+    return `<p class="psub"><b style="color:${t.tx}">${t.n}</b> staat <b>${mine.r}e</b> met gemiddeld <b class="num">${fmt(mine.avg)}</b> punten.</p>`;
   }
   function answer(v) {
     const st = P.st, q = st && st.q;
